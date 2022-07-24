@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ePathshala</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="styles/index.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <!--navbar start-->
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" id="navbar-home-anchor">ePathshala</a>
+                <div class = "d-flex">
+                    <div class = "d-flex me-2" role="search">
+                        <input id = "navbar-search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button id = "navbar-search-button" class="btn btn-outline-success" type="button">Search</button>
+                    </div>
+                    <div id = "login-status-ui">
+                        
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!--navbar end-->
+
+        <!--login modal start-->
+        <div class="modal fade" id="login-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Login</h5>
+                        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="login-floating-email" placeholder="name@email.com">
+                            <label for="login-floating-email">Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="login-floating-password" placeholder="Password" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Password length must be minimum 8 and maximum 32">
+                            <label for="login-floating-password">Password</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="student-teacher-login" id="student-teacher-login-student" value="student" checked>
+                            <label class="form-check-label" for="student-teacher-login-student">
+                                Student
+                            </label>
+                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="student-teacher-login" id="student-teacher-login-teacher" value="teacher">
+                            <label class="form-check-label" for="student-teacher-login-teacher">
+                                Teacher
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id = "login-button">Login</button>
+                        <button type="button" class="btn btn-secondary" id="login-modal-create-account-button">Create New Account</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--login modal end-->
+
+        <!--create acc modal start-->
+        <div class="modal fade" id="create-account-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Create New Account</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="create-account-floating-full-name" placeholder="Full Name">
+                            <label for="create-account-floating-full-name">Full Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="create-account-floating-account-name" placeholder="SomeRandomPerson">
+                            <label for="create-account-floating-account-name">Account Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="create-account-floating-password" placeholder="Password">
+                            <label for="create-account-floating-password">Password</label>
+                        </div>
+                        <div class = "mb-3" id = "create-account-gender-radio">
+                            <label for="create-account-gender-radio" class="form-label">Gender</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="RadioGender" id="create-account-gender-radio-1">
+                                <label class="form-check-label" for="create-account-gender-radio-1">
+                                Male
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="RadioGender" id="create-account-gender-radio-2" checked>
+                                <label class="form-check-label" for="create-account-gender-radio-2">
+                                Female
+                                </label>
+                            </div>
+                        </div>
+                        <div class = "mb-3" id = "create-account-type">
+                            <label for="create-account-type-radio" class="form-label">Gender</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-1">
+                                <label class="form-check-label" for="create-account-type-radio-1">
+                                Student
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-2" checked>
+                                <label class="form-check-label" for="create-account-type-radio-2">
+                                Teacher
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--create acc modal end-->
+
+        <!--login fail message toast-->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="empty-email-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Email field cannot be empty
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+
+            <div id="invalid-email-address-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Not a valid email address
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+
+            <div id="invalid-password-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Length of password must be atleast 8 and atmost 32
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+
+            <div id="email-not-found-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Email not found, create a new account
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+
+            <div id="password-not-matched-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Email and password does not match
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+        <!--login fail message toast end-->
+
+        <div id = "root">
+            
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="src/index.js"></script>
+        <script src="src/all_courses.js"></script>
+        <script src="src/home.js"></script>
+        <script src="src/search.js"></script>
+        <script src="src/login_logout.js"></script>
+    </body>
+</html>
