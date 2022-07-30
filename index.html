@@ -79,8 +79,8 @@
                             <label for="create-account-floating-full-name">Full Name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="create-account-floating-account-name" placeholder="SomeRandomPerson">
-                            <label for="create-account-floating-account-name">Account Name</label>
+                            <input type="text" class="form-control" id="create-account-floating-email" placeholder="someone@email.com">
+                            <label for="create-account-floating-account-name">Email</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control" id="create-account-floating-password" placeholder="Password">
@@ -91,13 +91,13 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="RadioGender" id="create-account-gender-radio-1">
                                 <label class="form-check-label" for="create-account-gender-radio-1">
-                                Male
+                                    Male
                                 </label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="RadioGender" id="create-account-gender-radio-2" checked>
                                 <label class="form-check-label" for="create-account-gender-radio-2">
-                                Female
+                                    Female
                                 </label>
                             </div>
                         </div>
@@ -106,19 +106,19 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-1">
                                 <label class="form-check-label" for="create-account-type-radio-1">
-                                Student
+                                    Student
                                 </label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-2" checked>
                                 <label class="form-check-label" for="create-account-type-radio-2">
-                                Teacher
+                                    Teacher
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Create</button>
+                        <button id="create-new-account-create-button" type="button" class="btn btn-primary">Create</button>
                     </div>
                 </div>
             </div>
@@ -184,5 +184,6 @@
         <script src="src/home.js"></script>
         <script src="src/search.js"></script>
         <script src="src/login_logout.js"></script>
+        <script src="src/create_new_account.js"></script>
     </body>
 </html>
