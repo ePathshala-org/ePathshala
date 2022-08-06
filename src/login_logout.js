@@ -106,7 +106,7 @@ loginButton.onclick = function()
     }
     else
     {
-        setTimeout(() =>
+        loginModalTimeout = setTimeout(() =>
         {
             emailInput.className = "form-control";
             passwordInput.className = "form-control";

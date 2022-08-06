@@ -87,6 +87,23 @@
                             <input type="password" class="form-control" id="create-account-floating-password" placeholder="Password">
                             <label for="create-account-floating-password">Password</label>
                         </div>
+                        <div class="mb-3" id="create-account-date-of-birth">
+                            <label for="create-account-date-of-birth" class="form-label">Date of Birth</label>
+                            <div class="d-flex flex-row">
+                                <div class="form-floating me-3">
+                                    <input type="number" class="form-control" id="create-account-date-of-birth-date" placeholder="0" min="1" max="31">
+                                    <label for="floatingInput">Date</label>
+                                </div>
+                                <div class="form-floating me-3">
+                                    <input type="number" class="form-control" id="create-account-date-of-birth-month" placeholder="0" min="1" max="12">
+                                    <label for="floatingInput">Month</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="create-account-date-of-birth-year" placeholder="0" min="1900" max="2100">
+                                    <label for="floatingInput">Year</label>
+                                </div>
+                            </div>
+                        </div>
                         <div class = "mb-3" id = "create-account-gender-radio">
                             <label for="create-account-gender-radio" class="form-label">Gender</label>
                             <div class="form-check">
@@ -105,14 +122,14 @@
                         <div class = "mb-3" id = "create-account-type">
                             <label for="create-account-type-radio" class="form-label">Gender</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-1">
-                                <label class="form-check-label" for="create-account-type-radio-1">
+                                <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-student">
+                                <label class="form-check-label" for="create-account-type-radio-student">
                                     Student
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-2" checked>
-                                <label class="form-check-label" for="create-account-type-radio-2">
+                                <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-teacher" checked>
+                                <label class="form-check-label" for="create-account-type-radio-teacher">
                                     Teacher
                                 </label>
                             </div>
@@ -128,6 +145,15 @@
 
         <!--login fail message toast-->
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="empty-name-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Name cannot be empty
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+
             <div id="empty-email-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
@@ -168,6 +194,24 @@
                 <div class="d-flex">
                     <div class="toast-body">
                         Email and password does not match
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+
+            <div id="invalid-date-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Invalid date
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+
+            <div id="email-already-exists-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Invalid date
                     </div>
                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
