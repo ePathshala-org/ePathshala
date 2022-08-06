@@ -301,7 +301,19 @@ const GoHome = function()
 
 GoHome();
 
-document.getElementsByTagName('a').namedItem('navbar-home-anchor').click = function()
+document.getElementsByTagName('a').namedItem('navbar-home-anchor').onclick = function()
 {
     GoHome();
+};
+
+document.getElementsByTagName('button').namedItem('login-modal-create-account-button').onclick = function()
+{
+
+    let loginModal = document.getElementById('login-modal');
+    let createAccountModal = document.getElementById('create-account-modal');
+    let loginModalInstance = bootstrap.Modal.getInstance(loginModal);
+    let createAccountModalInstance = bootstrap.Modal.getInstance(createAccountModal);
+
+    console.log(loginModalInstance);
+    console.log(createAccountModalInstance);
 };
