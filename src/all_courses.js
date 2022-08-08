@@ -40,7 +40,7 @@ const SetupStudentsAllCourses = async function()
                 {
                     buttons.item(i).onclick = function()
                     {
-                        console.log(i);
+                        console.log(location.hostname);
                     }
                 }
             }

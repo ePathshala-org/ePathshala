@@ -95,8 +95,7 @@ const InitLoggedIn = async function()
         localStorage.removeItem('user_id');
         localStorage.removeItem('password');
         localStorage.removeItem('account_type');
-
-        InitNotLoggedIn();
+        location.href = 'index.html';
     };
     let http = new XMLHttpRequest();
 
@@ -191,7 +190,8 @@ const InitLoggedIn = async function()
                     {
                         buttons.item(i).onclick = function()
                         {
-                            console.log(i);
+                            let hostname = location.hostname;
+                            location.href = 'course.html?course_id=' + response.query_user_courses[i].course_id;
                         };
                     }
                 }

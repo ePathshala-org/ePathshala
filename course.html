@@ -11,7 +11,7 @@
 
     <body>
         <!--navbar start-->
-        <nav class="navbar navbar-expand-lg bg-light">
+        <nav class="navbar navbar-expand-lg bg-light" id="navbar-course">
             <div class="container-fluid">
                 <a class="navbar-brand" id="navbar-home-anchor">ePathshala</a>
                 <div class = "d-flex">
@@ -52,8 +52,8 @@
                         <h5
                             class="me-2"
                         >Creator:</h5>
-                        <a href="">
-                            <h5>{Name}</h5>
+                        <a href="" class="link-secondary">
+                            <h5 id="course-creator-name">{Name}</h5>
                         </a>
                     </div>
                     <h6 id="course-description">
@@ -65,23 +65,19 @@
                 >
                     <p
                         class="me-2"
-                        id="student-home-rank-name"
+                        id="course-number-of-enrolls"
                         style=
                         "margin-top: auto;
                         margin-bottom: auto;"
                     >{Count} enrolls</p>
                     <p
                         class="me-2"
-                        id="student-home-rank-name"
+                        id="course-rate"
                         style=
                         "margin-top: auto;
                         margin-bottom: auto;"
                     >
-                        Rate: 
-                        <a href="">
-                            {rate}
-                        </a>
-                        /5
+                        Rate: {rate}/5
                     </p>
                 </div>
             </div>
@@ -105,6 +101,7 @@
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
         <!--<script src="bootstrap/js/bootstrap.js"></script>-->
+        <script src="src/nav_bar.js"></script>
         <script src="src/course.js"></script>
     </body>
 </html>

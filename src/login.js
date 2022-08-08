@@ -76,7 +76,8 @@ loginButton.onclick = function()
                         let loginModal = bootstrap.Modal.getInstance(document.getElementById('login-modal'));
 
                         loginModal.hide();
-                        InitLoggedIn();
+                        
+                        location.href = 'index.html';
 
                         localStorage.setItem('user_id', userId);
                         localStorage.setItem('password', password);
