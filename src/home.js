@@ -26,7 +26,7 @@ const InitNotLoggedIn = async function()
 
             if(Array.isArray(responseObject.query_top_courses))
             {
-                let popularCoursesListItemUI = await fetch('ui/popular_courses_list_item.html');
+                let popularCoursesListItemUI = await fetch('ui/courses_list_item.html');
                 let popularCoursesListItemUIText = await popularCoursesListItemUI.text();;
 
                 for(let i = 0; i < responseObject.query_top_courses.length; ++i)
@@ -52,7 +52,7 @@ const InitNotLoggedIn = async function()
 
             if(Array.isArray(responseObject.query_top_videos))
             {
-                let popularVideosCardUI = await fetch('ui/popular_videos_card.html');
+                let popularVideosCardUI = await fetch('ui/videos_card.html');
                 let popularVideosCardUIText = await popularVideosCardUI.text();
 
                 for(let i = 0; i < responseObject.query_top_videos.length; ++i)
@@ -111,11 +111,11 @@ const InitLoggedIn = async function()
         let loggedInUIText = await loggedInUI.text();
         root.innerHTML = loggedInUIText;
 
-        let studentAllCoursesButton = root.getElementsByTagName('button').namedItem('student-home-all-courses-button');
+        let studentHomeAllCoursesButton = root.getElementsByTagName('button').namedItem('student-home-all-courses-button');
 
-        studentAllCoursesButton.onclick = function()
+        studentHomeAllCoursesButton.onclick = function()
         {
-            SetupStudentsAllCourses();
+            SetupAllCourses();
         };
 
         getUserdata =
@@ -174,7 +174,7 @@ const InitLoggedIn = async function()
             {
                 if(Array.isArray(response.query_user_courses))
                 {
-                    let userCoursesListItemUI = await fetch('ui/user_courses_list_item.html');
+                    let userCoursesListItemUI = await fetch('ui/courses_list_item.html');
                     let userCoursesListItemUIText = await userCoursesListItemUI.text();
 
                     for(let i = 0; i < response.query_user_courses.length; ++i)
@@ -261,7 +261,7 @@ const InitLoggedIn = async function()
             {
                 if(Array.isArray(response.query_user_courses))
                 {
-                    let userCoursesListItemUI = await fetch('ui/user_courses_list_item.html');
+                    let userCoursesListItemUI = await fetch('ui/courses_list_item.html');
                     let userCoursesListItemUIText = await userCoursesListItemUI.text();
 
                     for(let i = 0; i < response.query_user_courses.length; ++i)
