@@ -27,51 +27,60 @@
         </nav>
         <!--navbar end-->
 
-        <div id = "root">
+        <div 
+            id = "root"
+        >
             <div
-                class="d-flex"
+                class="position-fixed"
+                style=
+                "
+                    min-width: 20%;
+                    max-width: 20%;
+                "
             >
-                <div
-                    style=
-                    "
-                        min-width: 20%;
-                        max-width: 20%;
-                    "
+                <div 
+                    class="card m-1"
                 >
-                    <div 
-                        class="card m-1"
+                    <div
+                        class="card-body"
+                        id="course-content-list"
                     >
-                        <div
-                            class="card-body"
-                            id="course-content-list"
+                        <a
+                            href="#"
+                            class="link-dark"
+                            id="course-title-button"
                         >
-                            <a
-                                href="#"
-                                class="link-secondary"
-                                id="course-title-button"
+                            <h3
+                                id="course-title"
                             >
-                                <h3
-                                    id="course-title"
-                                >
-                                    {title}
-                                </h3>
-                            </a>
-                            <ul
-                                id="content-list"
-                                class="list-group"
-                            >
+                                {title}
+                            </h3>
+                        </a>
+                        <ul
+                            id="content-list"
+                            class="list-group overflow-auto"
+                            style=
+                            "
+                                max-height: 85vh;
+                            "
+                        >
 
-                            </ul>
-                        </div>
+                        </ul>
                     </div>
                 </div>
+            </div>
+            <div
+                class="p-1 position-fixed"
+                style=
+                "
+                    min-width: 60%;
+                    max-width: 60%;
+                    margin-left: 20%;
+                "
+            >
                 <div
-                    class="p-1"
-                    style=
-                    "
-                        min-width: 60%;
-                        max-width: 60%;
-                    "
+                    class="overflow-auto"
+                    style="max-height: 93vh;"
                 >
                     <video
                         id="video-player"
@@ -106,7 +115,7 @@
                             >
                                 <p
                                     id="video-rate"
-                                    class="text-end"
+                                    class="text-end text-secondary"
                                 >
                                     Rate: {rate}/5
                                 </p>
@@ -132,11 +141,13 @@
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
         <!--<script src="bootstrap/js/bootstrap.js"></script>-->
-        <script src="src/class_content.js"></script>
-        <script src="src/class_course.js"></script>
+        <script src="src/class/Content.js"></script>
+        <script src="src/class/Course.js"></script>
+        <script src="src/class/ContentComment.js"></script>
         <script src="src/get_content.js"></script>
         <script src="src/get_course.js"></script>
         <script src="src/get_ui_text.js"></script>
+        <script src="src/get/comment.js"></script>
         <script src="src/nav_bar.js"></script>
         <script src="src/get_user_details.js"></script>
         <script src="src/video.js"></script>

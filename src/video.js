@@ -18,6 +18,11 @@ let userDetails = null;
 
 SetupNavBar(userDetails, navBar);
 
+/**
+ * 
+ * @param {Content[]} contents 
+ * @param {string} courseName
+ */
 const SetupContentsList = async function(contents, courseName)
 {
     root.getElementsByTagName('h3').namedItem('course-title').textContent = courseName;
@@ -37,6 +42,59 @@ const SetupContentsList = async function(contents, courseName)
         };
 
         contentsUl.append(listItemWrapper.firstChild);
+    }
+};
+
+/**
+ * 
+ * @param {Content} content
+ * @param {Course} course
+ */
+const SetupVideoDetails = function(content, course)
+{
+    let videoPlayer = root.getElementsByTagName('video').namedItem('video-player');
+    videoPlayer.src = 'contents/videos/' + course.courseId + '/' + content.contentId + '.mp4';
+    videoPlayer.load();
+
+    let videoTitle = root.getElementsByTagName('h2').namedItem('video-title');
+    videoTitle.textContent = content.title;
+    let videoDescription = root.getElementsByTagName('p').namedItem('video-description');
+    videoDescription.textContent = content.description;
+    let videoRate = root.getElementsByTagName('p').namedItem('video-rate');
+    videoRate.textContent = 'Rate: ' + content.rate + '/5';
+    let videoRateButton = root.getElementsByTagName('button').namedItem('rate-button');
+    videoRateButton.onclick = function()
+    {
+        console.log('rate video');
+    };
+};
+
+/**
+ * 
+ * @param {ContentComment[]} comments 
+ */
+const SetupComments = async function(comments)
+{
+    let commentListItemUI = await GetUIText('ui/list_item/comment.html');
+    let commentsUl = root.getElementsByTagName('ul').namedItem('comments-list');
+
+    for(let i = 0; i < comments.length; ++i)
+    {
+        let commentWrapper = document.createElement('div');
+        commentWrapper.innerHTML = commentListItemUI;
+        let commentDescription = commentWrapper.getElementsByTagName('h6').namedItem('comment-description');
+        commentDescription.textContent = comments[i].description;
+        let commenterName = commentWrapper.getElementsByTagName('h4').namedItem('commenter-name');
+        commenterName.textContent = comments[i].commenterName;
+        let commentRate = commentWrapper.getElementsByTagName('p').namedItem('comment-rate');
+        commentRate.textContent = 'Rate: ' + comments[i].rate + '/5';
+        let commentRateButton = commentWrapper.getElementsByTagName('button').namedItem('comment-rate-button');
+        commentRateButton.onclick = function()
+        {
+            console.log('comment rate');
+        };
+
+        commentsUl.append(commentWrapper.firstChild);
     }
 };
 
@@ -76,23 +134,16 @@ if(params.has('content_id'))
             course = GetCourseFromContentId(content.contentId);
         }
 
-        SetupContentsList(contents, course.title);
+        let comments = null;
 
-        let videoPlayer = root.getElementsByTagName('video').namedItem('video-player');
-        videoPlayer.src = 'contents/videos/' + course.courseId + '/' + content.contentId + '.mp4';
-        videoPlayer.load();
-
-        let videoTitle = root.getElementsByTagName('h2').namedItem('video-title');
-        videoTitle.textContent = content.title;
-        let videoDescription = root.getElementsByTagName('p').namedItem('video-description');
-        videoDescription.textContent = content.description;
-        let videoRate = root.getElementsByTagName('p').namedItem('video-rate');
-        videoRate.textContent = 'Rate: ' + content.rate + '/5';
-        let videoRateButton = root.getElementsByTagName('button').namedItem('rate-button');
-        videoRateButton.onclick = function()
+        while(comments == null)
         {
-            console.log('rate video');
-        };
+            comments = GetCommentsFromContentId(content.contentId);
+        }
+
+        SetupContentsList(contents, course.title);
+        SetupVideoDetails(content, course);
+        SetupComments(comments);
     }
 }
 else

@@ -1,7 +1,7 @@
 /**
  * 
  * @param {string} path 
- * @returns {string}
+ * @returns {Promise<string>}
  */
 const GetUIText = async function(path)
 {

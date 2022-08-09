@@ -74,19 +74,22 @@ const GetContentFromId = function(contentId)
          if(response.ok)
          {
              let contents = [];
- 
-             for(let i = 0; i < response.contents.length; ++i)
+
+             if(Array.isArray(response.contents))
              {
-                 let content = new Content();
-                 content.contentId = response.contents[i].content_id;
-                 content.title = response.contents[i].title;
-                 content.description = response.contents[i].description;
-                 content.rate = response.contents[i].rate;
-                 content.dateOfCreation = response.contents[i].date_of_creation;
-                 content.contentType = response.contents[i].content_type;
-                 content.viewCount = response.contents[i].view_count;
- 
-                 contents.push(content);
+                for(let i = 0; i < response.contents.length; ++i)
+                {
+                    let content = new Content();
+                    content.contentId = response.contents[i].content_id;
+                    content.title = response.contents[i].title;
+                    content.description = response.contents[i].description;
+                    content.rate = response.contents[i].rate;
+                    content.dateOfCreation = response.contents[i].date_of_creation;
+                    content.contentType = response.contents[i].content_type;
+                    content.viewCount = response.contents[i].view_count;
+    
+                    contents.push(content);
+                }
              }
  
              return contents;
