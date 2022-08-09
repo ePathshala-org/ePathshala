@@ -17,9 +17,9 @@ let userDetails = GetUserDetails(userId, accountType);
 
 SetupNavBar(userDetails, navBar);
 
-const SetupContentsList = async function(contents, courseId)
+const SetupContentsList = async function(contents, courseName)
 {
-    root.getElementsByTagName('h3').namedItem('course-title').textContent = courseId;
+    root.getElementsByTagName('h3').namedItem('course-title').textContent = courseName;
     let contentsUl = root.getElementsByTagName('ul').namedItem('content-list');
     let h5LinkListItemUIText = await GetUIText('ui/h5_link_list_item.html');
 
@@ -43,77 +43,13 @@ if(params.has('content_id'))
 {
     if(accountType == 'student')
     {
-        let studentInCourse = null;
-
-        while(studentInCourse == null)
-        {
-            studentInCourse = IsStudentInContentCourse(userId, contentId);
-        }
-
         if(studentInCourse)
         {
-            let courseId = GetContentCourseId(params.get('content_id'));
-            let contents = null;
-
-            while(contents == null)
-            {
-                contents = GetCourseContents(courseId);
-            }
-
-            let contentsUl = root.getElementsByTagName('ul').namedItem('content-list');
-            let h5LinkListItemUIText = GetUIText('ui/h5_lin_list_item.html')
-
-            for(let i = 0; i < contents.length; ++i)
-            {
-                let listItemWrapper = document.createElement('div');
-                listItemWrapper.innerHTML = h5LinkListItemUIText;
-                let h5 = listItemWrapper.getElementsByTagName('h5').namedItem('h5-link-list-item-text-content');
-                h5.textContent = contents[i].title;
-                let button = listItemWrapper.getElementsByTagName('h5').namedItem('h5-link');
-                button.onclick = function()
-                {
-                    console.log(contents[i].contentId);
-                };
-
-                contentsUl.append(listItemWrapper.firstChild);
-            }
-
-            let videoPlayer = root.getElementsByTagName('video').namedItem('video-player');
-            let videoPlayerSource = videoPlayer.getElementsByTagName('source').namedItem('video-source');
-            videoPlayerSource.src = 'videos/' + courseId + '/' + params.get('content_id') + '.mp4';
+            
         }
         else
         {
-            let courseId = GetContentCourseId(params.get('content_id'));
-            let contents = null;
-
-            while(contents == null)
-            {
-                contents = GetCourseContents(courseId);
-            }
-
-            root.getElementsByTagName('h3').namedItem('course-title').textContent = courseId;
-            let contentsUl = root.getElementsByTagName('ul').namedItem('content-list');
-            let h5LinkListItemUIText = GetUIText('ui/h5_lin_list_item.html')
-
-            for(let i = 0; i < contents.length; ++i)
-            {
-                let listItemWrapper = document.createElement('div');
-                listItemWrapper.innerHTML = h5LinkListItemUIText;
-                let h5 = listItemWrapper.getElementsByTagName('h5').namedItem('h5-link-list-item-text-content');
-                h5.textContent = contents[i].title;
-                let button = listItemWrapper.getElementsByTagName('h5').namedItem('h5-link');
-                button.onclick = function()
-                {
-                    console.log(contents[i].contentId);
-                };
-
-                contentsUl.append(listItemWrapper.firstChild);
-            }
-
-            let videoPlayer = root.getElementsByTagName('video').namedItem('video-player');
-            let videoPlayerSource = videoPlayer.getElementsByTagName('source').namedItem('video-source');
-            videoPlayerSource.src = 'videos/' + courseId + '/' + params.get('content_id') + '.mp4';
+            
         }
     }
     else
@@ -126,10 +62,17 @@ if(params.has('content_id'))
             contents = GetCourseContents(courseId);
         }
 
-        SetupContentsList(contents, courseId);
+        let course = null;
+
+        while(course == null)
+        {
+            course = GetCourseFromContentId(params.get('content_id'));
+        }
+
+        SetupContentsList(contents, course.title);
 
         let videoPlayer = root.getElementsByTagName('video').namedItem('video-player');
-        videoPlayer.src = 'contents/videos/1/5.mp4';
+        videoPlayer.src = 'contents/videos/' + courseId + '/' + params.get('content_id') + '.mp4';
         videoPlayer.load();
     }
 
