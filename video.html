@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ePathshala</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="styles/index.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="bootstrap/css/bootstrap.css" rel="stylesheet">-->
+    </head>
+
+    <body>
+        <!--navbar start-->
+        <nav class="navbar navbar-expand-lg bg-light" id="navbar-course">
+            <div class="container-fluid">
+                <a class="navbar-brand" id="navbar-home-anchor">ePathshala</a>
+                <div class = "d-flex">
+                    <div class = "d-flex me-2" role="search">
+                        <input id = "navbar-search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button id = "navbar-search-button" class="btn btn-outline-success" type="button">Search</button>
+                    </div>
+                    <div id = "login-status-ui">
+                        
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!--navbar end-->
+
+        <div id = "root">
+            <div
+                class="d-flex"
+            >
+                <div
+                    style=
+                    "
+                        min-width: 20%;
+                        max-width: 20%;
+                    "
+                >
+                    <div 
+                        class="card m-1"
+                    >
+                        <div
+                            class="card-body"
+                            id="course-content-list"
+                        >
+                            <h3
+                                id="course-title"
+                            >
+                                {title}
+                            </h3>
+                            <ul
+                                id="content-list"
+                                class="list-group"
+                            >
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style=
+                    "
+                        min-width: 60%;
+                        max-width: 60%;
+                    "
+                >
+                    <video
+                        id="video-player"
+                        class="pe-3"
+                        width="100%"
+                        controls
+                    >
+                        <source id="video-source" src="" type="video/mp4">
+                    </video>
+                    <h2>Comments:</h2>
+                    <ul
+                        id="comments-list"
+                        class="list-group"
+                    >
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <!--<script src="bootstrap/js/bootstrap.js"></script>-->
+        <script src="src/get_ui_text.js"></script>
+        <script src="src/nav_bar.js"></script>
+        <script src="src/get_content_course_id.js"></script>
+        <script src="src/get_user_details.js"></script>
+        <script src="src/get_course_content.js"></script>
+        <script src="src/video.js"></script>
+    </body>
+</html>
