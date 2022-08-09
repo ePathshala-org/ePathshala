@@ -126,11 +126,11 @@ if(params.has('content_id'))
             contents = GetCourseContents(courseId);
         }
 
-        SetupContentsList(contents, courseId)
+        SetupContentsList(contents, courseId);
 
         let videoPlayer = root.getElementsByTagName('video').namedItem('video-player');
-        let videoPlayerSource = videoPlayer.getElementsByTagName('source').namedItem('video-source');
-        videoPlayerSource.src = 'videos/' + courseId + '/' + params.get('content_id') + '.mp4';
+        videoPlayer.src = 'contents/videos/1/5.mp4';
+        videoPlayer.load();
     }
 
     let http = new XMLHttpRequest();
