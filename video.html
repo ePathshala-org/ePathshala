@@ -60,6 +60,7 @@
                     </div>
                 </div>
                 <div
+                    class="p-1"
                     style=
                     "
                         min-width: 60%;
@@ -74,12 +75,46 @@
                     >
 
                     </video>
-                    <h2>Comments:</h2>
+                    <h2 id="video-title">{title}</h2>
+                        <div
+                            class="d-flex"
+                        >
+                        <div
+                            class="card flex-grow-1 me-1"
+                        >
+                            <div class="card-body">
+                                <p
+                                    id="video-description"
+                                >
+                                    {description}
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div
+                            class="card"
+                        >
+                            <div class="card-body">
+                                <p
+                                    id="video-rate"
+                                >
+                                    Rate: {rate}/5
+                                </p>
+                                <button
+                                    id="rate-button"
+                                    class="btn btn-primary"
+                                >
+                                    Rate
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>Comments:</h3>
                     <ul
                         id="comments-list"
                         class="list-group"
                     >
-
+                        
                     </ul>
                 </div>
             </div>
@@ -87,11 +122,13 @@
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
         <!--<script src="bootstrap/js/bootstrap.js"></script>-->
+        <script src="src/class_content.js"></script>
+        <script src="src/class_course.js"></script>
+        <script src="src/get_content.js"></script>
+        <script src="src/get_course.js"></script>
         <script src="src/get_ui_text.js"></script>
         <script src="src/nav_bar.js"></script>
-        <script src="src/get_content_course_id.js"></script>
         <script src="src/get_user_details.js"></script>
-        <script src="src/get_course_content.js"></script>
         <script src="src/video.js"></script>
     </body>
 </html>

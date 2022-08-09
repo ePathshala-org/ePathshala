@@ -16,7 +16,7 @@ const GetContentFromId = function(contentId)
         content_id: parseInt(contentId)
     };
 
-    http.send(data);
+    http.send(JSON.stringify(data));
 
     if(http.readyState == 4 && http.status == 200)
     {

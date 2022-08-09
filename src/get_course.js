@@ -80,18 +80,18 @@ const GetCourseFromContentId = function(contentId)
 
         if(response.ok)
         {
-        let course = new Course();
-        course.courseId = response.course_id;
-        course.title = response.title;
-        course.description = response.description;
-        course.dateOfCreation = response.date_of_creation;
-        course.price = response.price;
-        course.creatorId = response.creator_id;
-        course.creatorName = response.creator_name;
-        course.rate = response.rate;
-        course.enrollCount = response.enroll_count;
+            let course = new Course();
+            course.courseId = response.course_id;
+            course.title = response.title;
+            course.description = response.description;
+            course.dateOfCreation = response.date_of_creation;
+            course.price = response.price;
+            course.creatorId = response.creator_id;
+            course.creatorName = response.creator_name;
+            course.rate = response.rate;
+            course.enrollCount = response.enroll_count;
 
-        return course;
+            return course;
         }
         else
         {

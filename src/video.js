@@ -13,7 +13,8 @@ let password = localStorage.getItem('password');
  * @type {string | null}
  */
 let accountType = localStorage.getItem('account_type');
-let userDetails = GetUserDetails(userId, accountType);
+//let userDetails = GetUserDetails(userId, accountType);
+let userDetails = null;
 
 SetupNavBar(userDetails, navBar);
 
@@ -54,44 +55,32 @@ if(params.has('content_id'))
     }
     else
     {
-        let courseId = GetContentCourseId(params.get('content_id'));
+        let content = null;
+
+        while(content == null)
+        {
+            content = GetContentFromId(params.get('content_id'));
+        }
+
         let contents = null;
 
         while(contents == null)
         {
-            contents = GetCourseContents(courseId);
+            contents = GetCourseContents(content.courseId);
         }
 
         let course = null;
 
         while(course == null)
         {
-            course = GetCourseFromContentId(params.get('content_id'));
+            course = GetCourseFromContentId(content.contentId);
         }
 
         SetupContentsList(contents, course.title);
 
         let videoPlayer = root.getElementsByTagName('video').namedItem('video-player');
-        videoPlayer.src = 'contents/videos/' + courseId + '/' + params.get('content_id') + '.mp4';
+        videoPlayer.src = 'contents/videos/' + course.courseId + '/' + content.contentId + '.mp4';
         videoPlayer.load();
-    }
-
-    let http = new XMLHttpRequest();
-
-    http.open('POST', '/', false);
-    http.setRequestHeader('Content-Type', 'application/json');
-
-    let data = 
-    {
-        type: 'get-content-details',
-        course_id: parseInt(params.get('content_id'))
-    };
-
-    http.send(JSON.stringify(data));
-
-    if(http.readyState == 4 && http.status == 200)
-    {
-        
     }
 }
 else
