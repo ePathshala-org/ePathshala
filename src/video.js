@@ -81,6 +81,18 @@ if(params.has('content_id'))
         let videoPlayer = root.getElementsByTagName('video').namedItem('video-player');
         videoPlayer.src = 'contents/videos/' + course.courseId + '/' + content.contentId + '.mp4';
         videoPlayer.load();
+
+        let videoTitle = root.getElementsByTagName('h2').namedItem('video-title');
+        videoTitle.textContent = content.title;
+        let videoDescription = root.getElementsByTagName('p').namedItem('video-description');
+        videoDescription.textContent = content.description;
+        let videoRate = root.getElementsByTagName('p').namedItem('video-rate');
+        videoRate.textContent = 'Rate: ' + content.rate + '/5';
+        let videoRateButton = root.getElementsByTagName('button').namedItem('rate-button');
+        videoRateButton.onclick = function()
+        {
+            console.log('rate video');
+        };
     }
 }
 else

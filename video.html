@@ -45,11 +45,17 @@
                             class="card-body"
                             id="course-content-list"
                         >
-                            <h3
-                                id="course-title"
+                            <a
+                                href="#"
+                                class="link-secondary"
+                                id="course-title-button"
                             >
-                                {title}
-                            </h3>
+                                <h3
+                                    id="course-title"
+                                >
+                                    {title}
+                                </h3>
+                            </a>
                             <ul
                                 id="content-list"
                                 class="list-group"
@@ -76,9 +82,9 @@
 
                     </video>
                     <h2 id="video-title">{title}</h2>
-                        <div
-                            class="d-flex"
-                        >
+                    <div
+                        class="d-flex"
+                    >
                         <div
                             class="card flex-grow-1 me-1"
                         >
@@ -93,10 +99,14 @@
                         
                         <div
                             class="card"
+                            style="width: 10em;"
                         >
-                            <div class="card-body">
+                            <div 
+                                class="card-body d-flex flex-column"
+                            >
                                 <p
                                     id="video-rate"
+                                    class="text-end"
                                 >
                                     Rate: {rate}/5
                                 </p>
@@ -114,7 +124,7 @@
                         id="comments-list"
                         class="list-group"
                     >
-                        
+
                     </ul>
                 </div>
             </div>
