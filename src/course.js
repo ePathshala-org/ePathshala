@@ -13,114 +13,104 @@ let password = localStorage.getItem('password');
  * @type {string | null}
  */
 let accountType = localStorage.getItem('account_type');
-let userDetails = GetUserDetails(userId, accountType);
+let userDetails = null;
 
 SetupNavBar(userDetails, navBar);
 
-if(params.has('course_id'))
+/**
+ * 
+ * @param {Course} course 
+ */
+const SetupCourseDetails = function(course)
 {
-    let http = new XMLHttpRequest();
+    let courseName = root.getElementsByTagName('h3').namedItem('course-name');
+    let creatorName = root.getElementsByTagName('h5').namedItem('course-creator-name');
+    let courseDescription = root.getElementsByTagName('h6').namedItem('course-description');
+    let numberOfEnrolls = root.getElementsByTagName('p').namedItem('course-number-of-enrolls');
+    let rate = root.getElementsByTagName('p').namedItem('course-rate');
+    courseName.textContent = course.title;
+    courseDescription.textContent = course.description;
+    creatorName.textContent = course.creatorName;
+    numberOfEnrolls.textContent = course.enrollCount + ' enrolls';
+    rate.textContent = 'Rate: ' + course.rate;
+};
 
-    http.open('POST', '/', false);
-    http.setRequestHeader('Content-Type', 'application/json');
+/**
+ * 
+ * @param {Content[]} contents
+ */
+const SetupContents = async function(contents)
+{
+    let videoListItemUI = await GetUIText('ui/list_item/video.html');
+    let pageListItemUI = await GetUIText('ui/list_item/page.html');
+    let quizListItemUI = await GetUIText('ui/list_item/quiz.html');
+    let contentsList = root.getElementsByTagName('ul').namedItem('contents-ul');
 
-    let data = 
+    for(let i = 0; i < contents.length; ++i)
     {
-        type: 'get-course-details',
-        course_id: parseInt(params.get('course_id'))
-    };
-
-    http.send(JSON.stringify(data));
-
-    if(http.readyState == 4 && http.status == 200)
-    {
-        let response = JSON.parse(http.responseText);
-        let courseTitle = root.getElementsByTagName('h3').namedItem('course-name-h3');
-        let courseCreator = root.getElementsByTagName('h5').namedItem('course-creator-name');
-        let courseDescription = root.getElementsByTagName('h6').namedItem('course-description');
-        let enrollCount = root.getElementsByTagName('p').namedItem('course-number-of-enrolls');
-        let rate = root.getElementsByTagName('p').namedItem('course-rate');
-        courseTitle.textContent = response.title;
-        courseDescription.textContent = response.description;
-        courseCreator.textContent = response.creator_name;
-        enrollCount.textContent = response.enroll_count + ' enrolls';
-        rate.textContent = 'Rate: ' + response.rate + '/5';
-    }
-
-    data = 
-    {
-        type: 'get-course-contents',
-        course_id: parseInt(params.get('course_id'))
-    };
-
-    http.open('POST', '/', false);
-    http.setRequestHeader('Content-Type', 'application/json');
-    http.send(JSON.stringify(data));
-
-    if(http.readyState == 4 && http.status == 200)
-    {
-        let response = JSON.parse(http.responseText);
-
-        if(response.ok)
+        if(contents[i].contentType == 'VIDEO')
         {
-            if(Array.isArray(response.contents))
+            let videoItemWrapper = document.createElement('div');
+            videoItemWrapper.innerHTML = videoListItemUI;
+            videoItemWrapper.getElementsByTagName('img').item(0).src = 'assets/video.png';
+            videoItemWrapper.getElementsByTagName('h5').namedItem('video-title').textContent = contents[i].title;
+            videoItemWrapper.getElementsByTagName('h6').namedItem('video-description').textContent = contents[i].description;
+            videoItemWrapper.getElementsByTagName('a').item(0).onclick = function()
             {
-                let videoListItemUI = await fetch('ui/video_list_item.html');
-                let pageListItemUI = await fetch('ui/page_list_item.html');
-                let quizListUI = await fetch('ui/quiz_list_item.html');
-                let videoListItemUIText = await videoListItemUI.text();
-                let pageListItemUIText = await pageListItemUI.text();
-                let quizListItemUIText = await quizListUI.text();
-                let contentsList = root.getElementsByTagName('ul').namedItem('contents-ul');
+                location.href = 'video.html?content_id=' + contents[i].contentId;
+            };
 
-                for(let i = 0; i < response.contents.length; ++i)
-                {
-                    if(response.contents[i].content_type.trim() == 'VIDEO')
-                    {
-                        let videoItemWrapper = document.createElement('div');
-                        videoItemWrapper.innerHTML = videoListItemUIText;
-                        videoItemWrapper.getElementsByTagName('img').item(0).src = 'assets/video.png';
-                        videoItemWrapper.getElementsByTagName('h5').namedItem('video-title').textContent = response.contents[i].title;
-                        videoItemWrapper.getElementsByTagName('h6').namedItem('video-description').textContent = response.contents[i].description;
-                        videoItemWrapper.getElementsByTagName('a').item(0).onclick = function()
-                        {
-                            console.log(response.contents[i].content_id);
-                        };
+            contentsList.append(videoItemWrapper.firstChild);
+        }
+        else if(contents[i].contentType == 'PAGE')
+        {
+            let pageItemWrapper = document.createElement('div');
+            pageItemWrapper.innerHTML = pageListItemUI;
+            pageItemWrapper.getElementsByTagName('img').item(0).src = 'assets/page.png';
+            pageItemWrapper.getElementsByTagName('h5').namedItem('page-title').textContent = contents[i].title;
+            pageItemWrapper.getElementsByTagName('h6').namedItem('page-description').textContent = contents[i].description;
+            pageItemWrapper.getElementsByTagName('a').item(0).onclick = function()
+            {
+                console.log(contents[i].contentId);
+            };
 
-                        contentsList.append(videoItemWrapper.firstChild);
-                    }
-                    else if(response.contents[i].content_type.trim() == 'PAGE')
-                    {
-                        let pageItemWrapper = document.createElement('div');
-                        pageItemWrapper.innerHTML = pageListItemUIText;
-                        pageItemWrapper.getElementsByTagName('img').item(0).src = 'assets/page.png';
-                        pageItemWrapper.getElementsByTagName('h5').namedItem('page-title').textContent = response.contents[i].title;
-                        pageItemWrapper.getElementsByTagName('h6').namedItem('page-description').textContent = response.contents[i].description;
-                        pageItemWrapper.getElementsByTagName('a').item(0).onclick = function()
-                        {
-                            console.log(response.contents[i].content_id);
-                        };
+            contentsList.append(pageItemWrapper.firstChild);
+        }
+        else
+        {
+            let quizItemWrapper = document.createElement('div');
+            quizItemWrapper.innerHTML = quizListItemUI;
+            quizItemWrapper.getElementsByTagName('img').item(0).src = 'assets/quiz.png';
+            quizItemWrapper.getElementsByTagName('h5').namedItem('quiz-title').textContent = contents[i].title;
+            quizItemWrapper.getElementsByTagName('h6').namedItem('quiz-description').textContent = contents[i].description;
+            quizItemWrapper.getElementsByTagName('a').item(0).onclick = function()
+            {
+                console.log(contents[i].content_id);
+            };
 
-                        contentsList.append(pageItemWrapper.firstChild);
-                    }
-                    else
-                    {
-                        let quizItemWrapper = document.createElement('div');
-                        quizItemWrapper.innerHTML = quizListItemUIText;
-                        quizItemWrapper.getElementsByTagName('img').item(0).src = 'assets/quiz.png';
-                        quizItemWrapper.getElementsByTagName('h5').namedItem('quiz-title').textContent = response.contents[i].title;
-                        quizItemWrapper.getElementsByTagName('h6').namedItem('quiz-description').textContent = response.contents[i].description;
-                        quizItemWrapper.getElementsByTagName('a').item(0).onclick = function()
-                        {
-                            console.log(response.contents[i].content_id);
-                        };
-
-                        contentsList.append(quizItemWrapper.firstChild);
-                    }
-                }
-            }
+            contentsList.append(quizItemWrapper.firstChild);
         }
     }
+};
+
+if(params.has('course_id'))
+{
+    let course = null;
+
+    while(course == null)
+    {
+        course = GetCourseFromId(params.get('course_id'));
+    }
+
+    let contents = null;
+
+    while(contents == null)
+    {
+        contents = GetContentsFromCourseId(course.courseId);
+    }
+
+    SetupCourseDetails(course);
+    SetupContents(contents);
 }
 else
 {

@@ -38,8 +38,8 @@
                 <div
                     class="card-header"
                 >
-                    <h3 id="course-name-h3">
-                        Course Name
+                    <h3 id="course-name">
+                        {Course Name}
                     </h3>
                 </div>
                 <div
@@ -51,13 +51,13 @@
                     >
                         <h5
                             class="me-2"
-                        >Creator:</h5>
-                        <a href="" class="link-secondary">
+                        >Creator: </h5>
+                        <a href="" class="link-dark">
                             <h5 id="course-creator-name">{Name}</h5>
                         </a>
                     </div>
                     <h6 id="course-description">
-                        Description
+                        {Description}
                     </h6>
                 </div>
                 <div
@@ -67,8 +67,10 @@
                         class="me-2"
                         id="course-number-of-enrolls"
                         style=
-                        "margin-top: auto;
-                        margin-bottom: auto;"
+                        "
+                            margin-top: auto;
+                            margin-bottom: auto;
+                        "
                     >{Count} enrolls</p>
                     <p
                         class="me-2"
@@ -101,8 +103,13 @@
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
         <!--<script src="bootstrap/js/bootstrap.js"></script>-->
+        <script src="src/class/Course.js"></script>
+        <script src="src/class/Content.js"></script>
+        <script src="src/get_ui_text.js"></script>
         <script src="src/nav_bar.js"></script>
         <script src="src/get_user_details.js"></script>
+        <script src="src/get/course.js"></script>
+        <script src="src/get/content.js"></script>
         <script src="src/course.js"></script>
     </body>
 </html>

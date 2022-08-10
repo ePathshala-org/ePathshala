@@ -124,7 +124,7 @@ if(params.has('content_id'))
 
         while(contents == null)
         {
-            contents = GetCourseContents(content.courseId);
+            contents = GetContentsFromCourseId(content.courseId);
         }
 
         let course = null;
