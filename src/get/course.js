@@ -68,8 +68,8 @@ const GetCourseFromContentId = function(contentId)
 
     let data = 
     {
-        type: 'get-content-details',
-        content_id: parseInt(content.courseId)
+        type: 'get-course-details',
+        course_id: parseInt(content.courseId)
     };
 
     http.send(JSON.stringify(data));

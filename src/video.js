@@ -100,51 +100,37 @@ const SetupComments = async function(comments)
 
 if(params.has('content_id'))
 {
-    if(accountType == 'student')
+    let content = null;
+
+    while(content == null)
     {
-        if(studentInCourse)
-        {
-            
-        }
-        else
-        {
-            
-        }
+        content = GetContentFromId(params.get('content_id'));
     }
-    else
+
+    let contents = null;
+
+    while(contents == null)
     {
-        let content = null;
-
-        while(content == null)
-        {
-            content = GetContentFromId(params.get('content_id'));
-        }
-
-        let contents = null;
-
-        while(contents == null)
-        {
-            contents = GetContentsFromCourseId(content.courseId);
-        }
-
-        let course = null;
-
-        while(course == null)
-        {
-            course = GetCourseFromContentId(content.contentId);
-        }
-
-        let comments = null;
-
-        while(comments == null)
-        {
-            comments = GetCommentsFromContentId(content.contentId);
-        }
-
-        SetupContentsList(contents, course.title);
-        SetupVideoDetails(content, course);
-        SetupComments(comments);
+        contents = GetContentsFromCourseId(content.courseId);
     }
+
+    let course = null;
+
+    while(course == null)
+    {
+        course = GetCourseFromContentId(content.contentId);
+    }
+
+    let comments = null;
+
+    while(comments == null)
+    {
+        comments = GetCommentsFromContentId(content.contentId);
+    }
+
+    SetupContentsList(contents, course.title);
+    SetupVideoDetails(content, course);
+    SetupComments(comments);
 }
 else
 {
