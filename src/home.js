@@ -43,7 +43,7 @@ const InitNotLoggedIn = async function()
                 {
                     buttons.item(i).onclick = function()
                     {
-                        console.log(i);
+                        location.href = 'course.html?course_id=' + responseObject.query_top_courses[i].course_id;
                     };
                 }
             }
@@ -190,7 +190,6 @@ const InitLoggedIn = async function()
                     {
                         buttons.item(i).onclick = function()
                         {
-                            let hostname = location.hostname;
                             location.href = 'course.html?course_id=' + response.query_user_courses[i].course_id;
                         };
                     }
