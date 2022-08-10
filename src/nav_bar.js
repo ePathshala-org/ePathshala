@@ -1,17 +1,15 @@
-const SetupNavBar = async function(userDetails, navBar)
+const SetupNavBar = async function(userId, navBar)
 {
-    if(userDetails == null || !userDetails.ok)
+    if(userId == null || userId == 0)
     {
-        let loginStatusNotLoggedInUI = await fetch('ui/login_status_not_logged_in.html');
-        let loginStatusNotLoggedInUIText = await loginStatusNotLoggedInUI.text();
-        document.getElementsByTagName('div').namedItem('login-status-ui').innerHTML = loginStatusNotLoggedInUIText;
+        let loginStatusNotLoggedInUI = await GetUIText('ui/login_status_not_logged_in.html');
+        document.getElementsByTagName('div').namedItem('login-status-ui').innerHTML = loginStatusNotLoggedInUI;
     }
     else
     {
-        let loginStatusUI = await fetch('ui/login_status_ui_logged_in.html');
-        let loginStatusUIText = await loginStatusUI.text();
+        let loginStatusUI = await GetUIText('ui/login_status_ui_logged_in.html');
         let navBarLoginStatus = navBar.getElementsByTagName('div').namedItem('login-status-ui');
-        navBarLoginStatus.innerHTML = loginStatusUIText;
+        navBarLoginStatus.innerHTML = loginStatusUI;
         let userNameDropdownButton = navBarLoginStatus.getElementsByTagName('button').namedItem('user-name-drop-button');
         let logoutButton = navBarLoginStatus.getElementsByTagName('button').namedItem('logout-button');
         logoutButton.onclick = function()

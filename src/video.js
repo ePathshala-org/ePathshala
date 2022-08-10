@@ -13,10 +13,8 @@ let password = localStorage.getItem('password');
  * @type {string | null}
  */
 let accountType = localStorage.getItem('account_type');
-//let userDetails = GetUserDetails(userId, accountType);
-let userDetails = null;
 
-SetupNavBar(userDetails, navBar);
+SetupNavBar(userId, navBar);
 
 /**
  * 
