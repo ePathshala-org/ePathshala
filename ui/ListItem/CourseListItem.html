@@ -10,13 +10,18 @@
                 width: 80%;
             "
         >
-            <h3
-                class="card-title placeholder-glow course-title"
+            <a
+                href="javascript:"
+                class="text-decoration-none course-title-button"
             >
-                <span>
-                    {course title}
-                </span>
-            </h3>
+                <h3
+                    class="card-title placeholder-glow course-title"
+                >
+                    <span>
+                        {course title}
+                    </span>
+                </h3>
+            </a>
             <h4
                 class="card-text placeholder-glow course-description"
             >
@@ -25,7 +30,11 @@
                 </span>
             </h4>
             <h6
-                class="placeholder-glow"
+                class="placeholder-glow course-enroll-count"
+                style=
+                "
+                    color: #21242ca3;
+                "
             >
                 <span>
                     {count}
@@ -41,7 +50,7 @@
             "
         >
             <h6
-                class="placeholder-glow"
+                class="placeholder-glow course-rate"
             >
                 Rate: 
                 <span>
@@ -49,10 +58,15 @@
                 </span>
             </h6>
             <h6
-                class="placeholder-glow"
+                class="placeholder-glow course-price"
             >
                 Price: 
-                <span>
+                <span
+                    style=
+                    "
+                        color: #00AA00;
+                    "
+                >
                     {count}
                 </span>
             </h6>

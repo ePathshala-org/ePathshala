@@ -1,8 +1,9 @@
 /**
  * @param {number} courseId
+ * @param {string[]} select
  * @returns {Course | null}
  */
-const GetCourseFromId = function(courseId)
+const GetCourseFromCourseId = function(courseId, select)
 {
     let http = new XMLHttpRequest();
 
@@ -12,7 +13,8 @@ const GetCourseFromId = function(courseId)
     let data = 
     {
         type: 'get-course-details',
-        course_id: parseInt(courseId)
+        course_id: parseInt(courseId),
+        select: select
     };
 
     http.send(JSON.stringify(data));
@@ -35,6 +37,56 @@ const GetCourseFromId = function(courseId)
             course.enrollCount = response.enroll_count;
 
             return course;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    else
+    {
+        return null;
+    }
+};
+
+/**
+ * 
+ * @param {string[]} select 
+ * @param {string[][]} order
+ */
+const GetCourses = function(select, order)
+{
+    if(select == null)
+    {
+        select = [];
+    }
+
+    if(order == null)
+    {
+        order = [];
+    }
+
+    let http = new XMLHttpRequest();
+
+    http.open('POST', '/', false);
+    http.setRequestHeader('Content-Type', 'application/json');
+
+    let data = 
+    {
+        type: 'get-courses',
+        select: select,
+        order: order
+    };
+
+    http.send(JSON.stringify(data));
+
+    if(http.readyState == 4 && http.status == 200)
+    {
+        let response = JSON.parse(http.responseText);
+
+        if(response.ok)
+        {
+            return response;
         }
         else
         {
@@ -103,3 +155,36 @@ const GetCourseFromContentId = function(contentId)
         return null;
     }
 };
+
+const GetCoursesPopular = function()
+{
+    let http = new XMLHttpRequest();
+
+    http.open('POST', '/', false);
+    http.setRequestHeader('Content-Type', 'application/json');
+
+    let data = 
+    {
+        type: 'get-courses-popular'
+    };
+
+    http.send(JSON.stringify(data));
+
+    if(http.readyState == 4 && http.status == 200)
+    {
+        let response = JSON.parse(http.responseText);
+
+        if(response.ok)
+        {
+            return response;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    else
+    {
+        return null;
+    }
+}

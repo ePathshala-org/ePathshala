@@ -14,15 +14,15 @@ const SetupNavBar = async function(userId)
             userDetails = GetUserDetails(parseInt(userId), ['FULL_NAME', 'USER_TYPE']);
         }
 
-        let navBar = document.getElementsByTagName('nav').item(0);
         let loginStatusUI = await GetUIText('ui/LoginStatus.html');
-        let navBarLoginStatus = navBar.getElementsByTagName('div').namedItem('login-status-ui');
         let loginStatusWrapper = document.createElement('div');
         loginStatusWrapper.innerHTML = loginStatusUI;
         let settingsButton = loginStatusWrapper.getElementsByTagName('a').namedItem('settings-button');
         let logoutButton = loginStatusWrapper.getElementsByTagName('a').namedItem('logout-button');
-        navBarLoginStatus.innerHTML = loginStatusUI;
         let userNameButton = loginStatusWrapper.getElementsByTagName('button').namedItem('user-name');
+        let loginStatus = document.getElementsByTagName('div').namedItem('login-status');
+        loginStatus.innerHTML = '';
+        loginStatus.append(loginStatusWrapper.firstChild);
         logoutButton.onclick = function()
         {
             loginStatus = false;
