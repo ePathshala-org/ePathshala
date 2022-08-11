@@ -11,11 +11,11 @@ if(userId != null) // not null means already logged in
 {
     if(isStudent) // redirect to student page
     {
-        location.href = "student.html?user_id=" + userId;
+        location.replace("student.html?user_id=" + userId);
     }
     else // redirect to teacher page
     {
-        location.href = "teacher.html?user_id=" + userId;
+        location.replace("teacher.html?user_id=" + userId)
     }
 }
 
@@ -84,11 +84,11 @@ loginButton.onclick = function()
 
                 if(student.checked) // redirect to student page
                 {
-                    location.href = 'student.html?user_id=' + userId;
+                    location.replace('student.html?user_id=' + userId);
                 }
                 else // redirect to teacher page
                 {
-                    location.href = 'teacher.html?user_id=' + userId;
+                    location.replace('teacher.html?user_id=' + userId);
                 }
             }
             else

@@ -1,9 +1,10 @@
 /**
  * 
  * @param {number} userId 
- * @returns {User | null}
+ * @param {string[] | null}
+ * @returns {any}
  */
-const GetUserDetails = function(userId)
+const GetUserDetails = function(userId, select)
 {
     let http = new XMLHttpRequest();
 
@@ -13,7 +14,8 @@ const GetUserDetails = function(userId)
     let data = 
     {
         type: 'get-user-details',
-        user_id: parseInt(userId)
+        user_id: parseInt(userId),
+        select: select
     };
 
     http.send(JSON.stringify(data));
@@ -24,18 +26,7 @@ const GetUserDetails = function(userId)
 
         if(response.ok)
         {
-            let user = new User();
-            user.userId = response.user_id;
-            user.fullName = response.full_name;
-            user.bankId = response.bank_id;
-            user.bio = response.bio;
-            user.creditCardId = response.credit_card_id;
-            user.dateOfBirth = response.date_of_birth;
-            user.email = response.email;
-            user.gender = response.gender;
-            user.userType = response.user_type;
-
-            return user;
+            return response;
         }
         else
         {

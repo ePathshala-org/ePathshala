@@ -1,25 +1,28 @@
 /**
  * 
- * @param {User} user
+ * @param {string} userId
  * @param {HTMLElement} navBar
  */
-const SetupNavBar = async function(user, navBar)
+const SetupNavBar = async function(userId)
 {
-    if(user == null)
+    if(userId != null)
     {
-        let loginStatusNotLoggedInUI = await GetUIText('ui/login_status_not_logged_in.html');
-        document.getElementsByTagName('div').namedItem('login-status-ui').innerHTML = loginStatusNotLoggedInUI;
-    }
-    else
-    {
-        let loginStatusUI = await GetUIText('ui/login_status_ui_logged_in.html');
+        let userDetails = null;
+
+        while(userDetails == null)
+        {
+            userDetails = GetUserDetails(parseInt(userId), ['FULL_NAME', 'USER_TYPE']);
+        }
+
+        let navBar = document.getElementsByTagName('nav').item(0);
+        let loginStatusUI = await GetUIText('ui/LoginStatus.html');
         let navBarLoginStatus = navBar.getElementsByTagName('div').namedItem('login-status-ui');
         let loginStatusWrapper = document.createElement('div');
         loginStatusWrapper.innerHTML = loginStatusUI;
-        let settingsButton = loginStatusWrapper.getElementsByTagName('button').namedItem('settings-button');
-        let logoutButton = loginStatusWrapper.getElementsByTagName('button').namedItem('logout-button');
+        let settingsButton = loginStatusWrapper.getElementsByTagName('a').namedItem('settings-button');
+        let logoutButton = loginStatusWrapper.getElementsByTagName('a').namedItem('logout-button');
         navBarLoginStatus.innerHTML = loginStatusUI;
-        let userNameButton = loginStatusWrapper.getElementsByTagName('button').namedItem('user-name-drop-button');
+        let userNameButton = loginStatusWrapper.getElementsByTagName('button').namedItem('user-name');
         logoutButton.onclick = function()
         {
             loginStatus = false;
@@ -34,9 +37,9 @@ const SetupNavBar = async function(user, navBar)
         };
         settingsButton.onclick = function()
         {
-            location.href = "?user_id=" + user.userId + "&type=" + user.userType;
+            location.href = "settings?user_id=" + userId + "&type=" + userDetails.USER_TYPE;
         }
 
-        userNameButton.textContent = userDetails.full_name;
+        userNameButton.textContent = userDetails.FULL_NAME;
     }
 };

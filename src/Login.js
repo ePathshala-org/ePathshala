@@ -30,7 +30,7 @@ const Login = async function(email, password, student)
 
         if(response.ok)
         {
-            return response.user_id;
+            return response.USER_ID;
         }
         else
         {
