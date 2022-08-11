@@ -40,6 +40,11 @@ const SetupCourses = async function()
             coursePrice.textContent = response.courses[i].PRICE;
 
             coursesList.append(coursesListItemWrapper.firstChild);
+
+            courseTitle.onclick = function()
+            {
+                location.href = 'coursedetails.html?course_id=' + response.courses[i].COURSE_ID;
+            };
         }
     }
 };
