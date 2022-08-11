@@ -32,8 +32,46 @@ coursePrice.textContent = courseDetails.PRICE;
 
 const SetupContentsList = async function()
 {
-    let contents = GetContentsFromCourseId(courseId, ['CONTENT_ID', 'TITLE', 'DESCRIPTION', 'VIEW_COUNT', ''])
-    let contentListItemUI = await GetUITest('ui/ListItem/ContentListItem.html');
+    let response = GetContentsFromCourseId(courseId, ['CONTENT_ID', 'TITLE', 'DESCRIPTION', 'VIEW_COUNT', 'CONTENT_TYPE']);
+    let contentListItemUI = await GetUIText('ui/ListItem/ContentListItem.html');
+    let contentsUl = document.getElementsByTagName('ul').namedItem('contents-list');
+
+    if(Array.isArray(response.contents))
+    {
+        for(let i = 0; i < response.contents.length; ++i)
+        {
+            let contentListItemWrapper = document.createElement('div');
+            contentListItemWrapper.innerHTML = contentListItemUI;
+
+            let contentTitle = contentListItemWrapper.getElementsByTagName('h3').namedItem('content-title');
+            let contentDescription = contentListItemWrapper.getElementsByTagName('h4').namedItem('content-description');
+            let contentRate = contentListItemWrapper.getElementsByTagName('h6').namedItem('content-rate');
+            let viewCount = contentListItemWrapper.getElementsByTagName('h6').namedItem('content-view-count').getElementsByTagName('span').item(0);
+            let viewType = contentListItemWrapper.getElementsByTagName('h6').namedItem('content-view-count').getElementsByTagName('span').item(1);
+            let contentImage = contentListItemWrapper.getElementsByTagName('img').item(0);
+            contentTitle.textContent = response.contents[i].TITLE;
+            contentDescription.textContent = response.contents[i].DESCRIPTION;
+            viewCount.textContent = response.contents[i].VIEW_COUNT;
+            contentRate.textContent = response.contents[i].RATE;
+
+            if(response.contents[i].CONTENT_TYPE == 'VIDEO')
+            {
+                contentImage.src = 'assets/video.png';
+            }
+            else if(response.contents[i].CONTENT_TYPE == 'PAGE')
+            {
+                contentImage.src = 'assets/page.png';
+                viewType.textContent = 'readers';
+            }
+            else
+            {
+                contentImage.src = 'assets/quiz.png';
+                viewType.textContent = 'attemptees';
+            }
+
+            contentsUl.append(contentListItemWrapper.firstChild);
+        }
+    }
 };
 
 SetupContentsList();

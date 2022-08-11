@@ -68,7 +68,8 @@ const GetContentsFromCourseId = function(courseId, select)
     let data = 
     {
         type: 'get-course-contents',
-        course_id: parseInt(courseId)
+        course_id: parseInt(courseId),
+        select: select
     };
 
     http.send(JSON.stringify(data));

@@ -6,7 +6,7 @@
     >
         <img
             src=""
-            width="30%"
+            width="10%"
             style=
             "
                 margin-right: 50px;
@@ -14,30 +14,35 @@
                 margin-bottom: auto; 
             "
         >
-        <div
-            class="ml-2"
-        >
+        <div>
             <a
                 href="javascript:"
-                class="content-title-button"
+                class="text-decoration-none"
+                id="content-title-button"
             >
                 <h3
-                    class="content-title"
+                    class="card-title"
+                    id="content-title"
                 >
-                    <span>
-                        {content title}
-                    </span>
+                    {content title}
                 </h3>
             </a>
             <h4
-                class="content-description"
+                class="card-text"
+                id="content-description"
             >
-                <span>
-                    {content description}
-                </span>
+                {content description}
             </h4>
             <h6
-                class="content-view-count"
+                id="content-rate"
+            >
+                Rate: 
+                <span>
+                    {rate}
+                </span>
+            </h6>
+            <h6
+                id="content-view-count"
                 style=
                 "
                     color: #21242ca3;
@@ -46,7 +51,9 @@
                 <span>
                     {count}
                 </span>
-                views
+                <span>
+                    views
+                </span>
             </h6>
         </div>
     </div>
