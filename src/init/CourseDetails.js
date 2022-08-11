@@ -29,3 +29,11 @@ courseDescription.textContent = courseDetails.DESCRIPTION;
 enrollCount.textContent = courseDetails.ENROLL_COUNT;
 courseRate.textContent = courseDetails.RATE;
 coursePrice.textContent = courseDetails.PRICE;
+
+const SetupContentsList = async function()
+{
+    let contents = GetContentsFromCourseId(courseId, ['CONTENT_ID', 'TITLE', 'DESCRIPTION', 'VIEW_COUNT', ''])
+    let contentListItemUI = await GetUITest('ui/ListItem/ContentListItem.html');
+};
+
+SetupContentsList();

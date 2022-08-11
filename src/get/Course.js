@@ -1,7 +1,7 @@
 /**
  * @param {number} courseId
  * @param {string[]} select
- * @returns {Course | null}
+ * @returns {any | null}
  */
 const GetCourseFromCourseId = function(courseId, select)
 {
@@ -49,6 +49,7 @@ const GetCourseFromCourseId = function(courseId, select)
  * 
  * @param {string[]} select 
  * @param {string[][]} order
+ * @returns {any | null}
  */
 const GetCourses = function(select, order)
 {
@@ -183,4 +184,4 @@ const GetCoursesPopular = function()
     {
         return null;
     }
-}
+};
