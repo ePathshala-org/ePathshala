@@ -1,6 +1,11 @@
-const SetupNavBar = async function(userId, navBar)
+/**
+ * 
+ * @param {User} user
+ * @param {HTMLElement} navBar
+ */
+const SetupNavBar = async function(user, navBar)
 {
-    if(userId == null || userId == 0)
+    if(user == null)
     {
         let loginStatusNotLoggedInUI = await GetUIText('ui/login_status_not_logged_in.html');
         document.getElementsByTagName('div').namedItem('login-status-ui').innerHTML = loginStatusNotLoggedInUI;
@@ -9,9 +14,12 @@ const SetupNavBar = async function(userId, navBar)
     {
         let loginStatusUI = await GetUIText('ui/login_status_ui_logged_in.html');
         let navBarLoginStatus = navBar.getElementsByTagName('div').namedItem('login-status-ui');
+        let loginStatusWrapper = document.createElement('div');
+        loginStatusWrapper.innerHTML = loginStatusUI;
+        let settingsButton = loginStatusWrapper.getElementsByTagName('button').namedItem('settings-button');
+        let logoutButton = loginStatusWrapper.getElementsByTagName('button').namedItem('logout-button');
         navBarLoginStatus.innerHTML = loginStatusUI;
-        let userNameDropdownButton = navBarLoginStatus.getElementsByTagName('button').namedItem('user-name-drop-button');
-        let logoutButton = navBarLoginStatus.getElementsByTagName('button').namedItem('logout-button');
+        let userNameButton = loginStatusWrapper.getElementsByTagName('button').namedItem('user-name-drop-button');
         logoutButton.onclick = function()
         {
             loginStatus = false;
@@ -24,7 +32,11 @@ const SetupNavBar = async function(userId, navBar)
             localStorage.removeItem('account_type');
             location.href = 'index.html';
         };
+        settingsButton.onclick = function()
+        {
+            location.href = "?user_id=" + user.userId + "&type=" + user.userType;
+        }
 
-        userNameDropdownButton.textContent = userDetails.full_name;
+        userNameButton.textContent = userDetails.full_name;
     }
 };

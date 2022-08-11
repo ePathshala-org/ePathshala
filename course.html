@@ -9,106 +9,51 @@
     </head>
 
     <body>
-        <!--navbar start-->
-        <nav class="navbar navbar-expand-lg bg-light" id="navbar-course">
+        <img
+            src="assets/courses/left-background.png"
+            style=
+            "
+                position: fixed;
+                left: 0;
+                bottom: 10%;
+            "
+        >
+        <img
+            src="assets/courses/right-background.png"
+            style=
+            "
+                position: fixed;
+                right: 0;
+                top: 10%;
+            "
+        >
+        <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" id="navbar-home-anchor">ePathshala</a>
+                <a href="javascript:" class="navbar-brand" id="navbar-home-anchor">
+                    <img src="assets/96x96/ePathshala.png" height="32px">
+                    ePathshala
+                </a>
+                <ul
+                    class="navbar-nav me-auto mb-2 mb-lg-0"
+                >
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="javascript:">Courses</a>
+                    </li>
+                </ul>
                 <div class = "d-flex">
                     <div class = "d-flex me-2" role="search">
                         <input id = "navbar-search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button id = "navbar-search-button" class="btn btn-outline-success" type="button">Search</button>
                     </div>
                     <div id = "login-status-ui">
-                        
+                        <div class = "d-class">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login-modal">Login</button>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#create-account-modal">Create New Account</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </nav>
-        <!--navbar end-->
-
-        <div id = "root">
-            <div
-                class="card mb-3 mt-3"
-                style=
-                "width: 50%;
-                margin-left: auto;
-                margin-right: auto;"
-            >
-                <div
-                    class="card-header"
-                >
-                    <h3 id="course-name">
-                        {Course Name}
-                    </h3>
-                </div>
-                <div
-                    class="card-body"
-                    id="course-card-body"
-                >
-                    <div
-                        class="d-flex align-items-center"
-                    >
-                        <h5
-                            class="me-2"
-                        >Creator: </h5>
-                        <a href="" class="link-dark">
-                            <h5 id="course-creator-name">{Name}</h5>
-                        </a>
-                    </div>
-                    <h6 id="course-description">
-                        {Description}
-                    </h6>
-                </div>
-                <div
-                    class="card-footer text-end"
-                >
-                    <p
-                        class="me-2"
-                        id="course-number-of-enrolls"
-                        style=
-                        "
-                            margin-top: auto;
-                            margin-bottom: auto;
-                        "
-                    >{Count} enrolls</p>
-                    <p
-                        class="me-2"
-                        id="course-rate"
-                        style=
-                        "margin-top: auto;
-                        margin-bottom: auto;"
-                    >
-                        Rate: {rate}/5
-                    </p>
-                </div>
-            </div>
-            <h2
-                class="mt-3"
-                style=
-                "width: 50%;
-                margin-left: auto;
-                margin-right: auto;"
-            >Contents:</h2>
-            <ul
-                id="contents-ul"
-                class="list-group pb-3"
-                style=
-                "width: 50%;
-                margin-left: auto;
-                margin-right: auto;"
-            >
-            </ul>
-        </div>
         
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <!--<script src="bootstrap/js/bootstrap.js"></script>-->
-        <script src="src/class/Course.js"></script>
-        <script src="src/class/Content.js"></script>
-        <script src="src/get_ui_text.js"></script>
-        <script src="src/nav_bar.js"></script>
-        <script src="src/get_user_details.js"></script>
-        <script src="src/get/course.js"></script>
-        <script src="src/get/content.js"></script>
-        <script src="src/course.js"></script>
     </body>
 </html>
