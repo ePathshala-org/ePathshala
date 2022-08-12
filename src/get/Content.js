@@ -2,7 +2,6 @@
  * 
  * @param {number} contentId 
  * @param {string[]} select
- * @returns {Content}
  */
 const GetContentFromContentId = function(contentId, select)
 {

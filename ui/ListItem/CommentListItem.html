@@ -1,0 +1,51 @@
+<li
+    class="list-group-item p-3"
+>
+    <div
+        class="d-flex align-items-center mb-2"
+    >
+        <img
+            src="pfp/default.png"
+            height="24px"
+        >&#160
+        <h4
+            class="commenter-name m-0"
+        >
+            {commenter name}                                    
+        </h4>
+    </div>
+    <div
+        class="card card-body comment-description"
+    >
+        {comment description}
+    </div>
+    <div
+        class="d-flex align-items-center mt-3"
+    >
+        <div
+            class="d-flex align-items-center flex-grow-1"
+            style=
+            "
+                color: #21242ca3;
+            "
+        >
+            <h6
+                class="comment-time m-0"
+            >
+                {comment time}
+            </h6>
+            &#160&#8226&#160
+            <h6
+                class="comment-date m-0"
+            >
+                {comment date}
+            </h6>
+        </div>
+        <button
+            class="comment-rate-button btn btn-secondary btn-sm"
+        >
+            Rate:
+            <span>{rate}</span>/5
+        </button>
+    </div>
+</li>
