@@ -123,3 +123,15 @@ loginButton.onclick = function()
         });
     }
 };
+
+let createNewAccountButton = document.getElementsByTagName('button').namedItem('create-new-account-button');
+createNewAccountButton.onclick = function()
+{
+    let fullName = document.getElementsByTagName('input').namedItem('create-account-full-name');
+    let email = document.getElementsByTagName('input').namedItem('create-account-email');
+    let password = document.getElementsByTagName('input').namedItem('create-account-password');
+    let dayOfBirth = document.getElementsByTagName('input').namedItem('create-account-day-of-birth');
+    let monthOfBirth = document.getElementsByTagName('input').namedItem('create-account-month-of-birth');
+    let yearOfBirth = document.getElementsByTagName('input').namedItem('create-account-month-of-birth');
+    
+};
