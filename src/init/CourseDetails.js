@@ -8,7 +8,7 @@ let userId = localStorage.getItem('user_id');
 let student = localStorage.getItem('student');
 let params = new URLSearchParams(location.search);
 
-if(userId == null || !params.has('course_id'))
+if(!params.has('course_id'))
 {
     location.replace('course.html');
 }
@@ -56,16 +56,16 @@ const SetupContentsList = async function()
 
             if(response.contents[i].CONTENT_TYPE == 'VIDEO')
             {
-                contentImage.src = 'assets/video.png';
+                contentImage.src = 'assets/96x96/video.png';
             }
             else if(response.contents[i].CONTENT_TYPE == 'PAGE')
             {
-                contentImage.src = 'assets/page.png';
+                contentImage.src = 'assets/96x96/page.png';
                 viewType.textContent = 'readers';
             }
             else
             {
-                contentImage.src = 'assets/quiz.png';
+                contentImage.src = 'assets/96x96/quiz.png';
                 viewType.textContent = 'attemptees';
             }
 

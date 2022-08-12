@@ -1,10 +1,16 @@
 /**
  * 
  * @param {number} contentId 
+ * @param {string[]} select
  * @returns {Content}
  */
-const GetContentFromId = function(contentId)
+const GetContentFromContentId = function(contentId, select)
 {
+    if(!Array.isArray(select))
+    {
+        select = [];
+    }
+
     let http = new XMLHttpRequest();
 
     http.open('POST', '/', false);
@@ -13,7 +19,8 @@ const GetContentFromId = function(contentId)
     let data = 
     {
         type: 'get-content-details',
-        content_id: parseInt(contentId)
+        content_id: parseInt(contentId),
+        select: select
     };
 
     http.send(JSON.stringify(data));
@@ -24,17 +31,7 @@ const GetContentFromId = function(contentId)
 
         if(response.ok)
         {
-            let content = new Content();
-            content.contentId = response.content_id;
-            content.dateOfCreation = response.date_of_Creation;
-            content.contentType = response.content_type;
-            content.rate = response.rate;
-            content.title = response.title;
-            content.description = response.description;
-            content.courseId = response.course_id;
-            content.viewCount = response.viewer_count;
-
-            return content;
+            return response;
         }
         else
         {

@@ -43,7 +43,7 @@ const SetupNavBar = async function(userId)
             localStorage.removeItem('user_id');
             localStorage.removeItem('password');
             localStorage.removeItem('account_type');
-            location.href = 'index.html';
+            location.reload();
         };
         settingsButton.onclick = function()
         {

@@ -8,7 +8,12 @@
         <!--<link href="bootstrap/css/bootstrap.css" rel="stylesheet">-->
     </head>
 
-    <body>
+    <body
+        style=
+        "
+            overflow-y: scroll;
+        "
+    >
         <!--navbar start-->
         <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
@@ -51,7 +56,8 @@
                 "
             >
                 <video
-                    id="video-palyer"
+                    id="video-player"
+                    controlsList="nodownload"
                     style=
                     "
                         width: 100%;
@@ -59,23 +65,128 @@
                     "
                     controls
                 ></video>
-                <h3
-                    id="video-title"
-                >
-                    {video title}
-                </h3>
                 <div
-                    class="d-flex"
+                    style=
+                    "
+                        margin-left: 10px;
+                        margin-right: 10px;
+                    "
                 >
-                    <div
-                        class="d-flex flex-grow-1"
+                    <h3
+                        id="video-title"
                     >
-
-                    </div>
+                        {video title}
+                    </h3>
                     <div
                         class="d-flex"
                     >
-
+                        <div
+                            class="d-flex align-items-center flex-grow-1"
+                            style=
+                            "
+                                color: #21242ca3;
+                            "
+                        >
+                            <h6
+                                id="video-view-count"
+                                style=
+                                "
+                                    margin-bottom: 0;
+                                "
+                            >
+                                <span>
+                                    {count}
+                                </span>
+                                views
+                            </h6>
+                            &#160&#8226&#160
+                            <h6
+                                id="video-date-of-creation"
+                                style=
+                                "
+                                    margin-bottom: 0;
+                                "
+                            >
+                                {date}
+                            </h6>
+                        </div>
+                        <div
+                            class="d-flex align-items-center"
+                        >
+                            <button
+                                id="video-rate-button"
+                                class="btn btn-secondary me-1"
+                            >
+                                <div
+                                    class="d-flex align-items-center"
+                                >
+                                    <img src="assets/16x16/rate.png" height="16px">&#160
+                                    Rate:&#160
+                                    <span>{rate}</span>/5
+                                </div>
+                            </button>
+                            <button
+                                class="btn btn-primary"
+                            >
+                                <div
+                                    class="d-flex align-items-center"
+                                >
+                                    <img src="assets/16x16/share.png" height="16px">&#160Share
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <a
+                        id="video-course-button"
+                        class="link-primary text-decoration-none"
+                        href="javascript:"
+                    >
+                        <h4>
+                            {course name}
+                        </h4>
+                    </a>
+                    <a
+                        href="javascript:"
+                        id="video-description-button"
+                        class="link-secondary text-decoration-none"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#video-description-card"
+                    >
+                        Show Description
+                    </a>
+                    <div class="collapse" id="video-description-card">
+                        <div
+                            id="video-description"
+                            class="card card-body"
+                        >
+                            {description}
+                        </div>
+                    </div>
+                    <div
+                        style=
+                        "
+                            margin-top: 20px;
+                            margin-bottom: 20px;
+                        "
+                    >
+                        <h3>
+                            Comments
+                        </h3>
+                        <div
+                            class="d-flex align-items-center"
+                        >
+                            <input
+                                class="form-control flex-grow-1 me-3"
+                                id="new-comment-text"
+                                placeholder="Say something..."
+                            ></input>
+                            <button
+                                id="post-comment-button"
+                                class="btn btn-primary"
+                            >
+                                Post
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,5 +194,10 @@
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
         <!--<script src="bootstrap/js/bootstrap.js"></script>-->
+        <script src="src/get/User.js"></script>
+        <script src="src/get/Content.js"></script>
+        <script src="src/get/UIText.js"></script>
+        <script src="src/NavBar.js"></script>
+        <script src="src/init/Video.js"></script>
     </body>
 </html>

@@ -18,3 +18,5 @@ if(userId != null) // not null means already logged in
         location.replace("teacher.html?user_id=" + userId)
     }
 }
+
+SetupNavBar(userId);
