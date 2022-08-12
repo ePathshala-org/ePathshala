@@ -5,6 +5,16 @@
  */
 const SetupNavBar = async function(userId)
 {
+    document.getElementsByTagName('a').namedItem('navbar-home-button').onclick = function()
+    {
+        location.href = 'index.html';
+    };
+
+    document.getElementsByTagName('a').namedItem('navbar-courses-button').onclick = function()
+    {
+        location.href = 'course.html';
+    };
+
     if(userId != null)
     {
         let userDetails = null;
