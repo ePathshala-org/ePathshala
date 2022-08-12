@@ -79,30 +79,87 @@
                     background-color: #F5F5F5;
                     border-radius: 10px;
                 "
-                class="d-flex"
             >
-                <img
-                    id="student-pfp"
-                    height="96px"
-                    src="pfp/default.png"
-                >
                 <div
-                    class="flex-grow-1"
+                    class="d-flex"
                 >
-                    <h2
-                        id="student-name"
+                    <img
+                        id="student-pfp"
+                        height="96px"
+                        src="pfp/default.png"
                     >
-                        {student name}
-                    </h2>
-                    <h6
-                        id="date-of-join"
+                    <div
+                        class="flex-grow-1"
+                    >
+                        <h2
+                            id="student-name"
+                        >
+                            {student name}
+                        </h2>
+                        <h4
+                            id="student-email"
+                        >
+                            {email}
+                        </h4>
+                    </div>
+                </div>
+                <div
+                    class="d-flex flex-column"
+                >
+                    <div
+                        class="d-flex align-items-center"
                         style=
                         "
                             color: #21242ca3;
                         "
                     >
-                        {date of join}
-                    </h6>
+                        <h6
+                            id="date-of-join"
+                            style=
+                            "
+                                margin-bottom: 0;
+                            "
+                        >
+                            Joined: <span>{date of join}</span>
+                        </h6>
+                        &#160&#8226&#160
+                        <h6
+                            id="date-of-birth"
+                            style=
+                            "
+                                margin-bottom: 0;
+                            "
+                        >
+                            Birthday: <span>{birthday}</span>
+                        </h6>
+                    </div>
+                    <div
+                        class="d-flex align-items-center"
+                        style=
+                        "
+                            color: #21242ca3;
+                        "
+                    >
+                        <h6
+                            id="rank-point"
+                            style=
+                            "
+                                margin-bottom: 0;
+                            "
+                        >
+                            Point: <span>{rank}</span>
+                        </h6>
+                        &#160&#8226&#160
+                        <h6
+                            id="interests"
+                            style=
+                            "
+                                margin-bottom: 0;
+                            "
+                        >
+                            Intersests: <span>{interests}</span>
+                        </h6>
+                    </div>
                     <div
                         id="bio-container"
                     >
@@ -129,10 +186,10 @@
                     </div>
                     <a
                         class="link-secondary text-decoration-none"
-                        id="add-bio"
+                        id="add-bio-button"
                         href="javascript:"
                     >
-                        Add bio
+                        Add Bio
                     </a>
                 </div>
             </div>
@@ -142,13 +199,14 @@
                     margin-top: 50px;
                     margin-bottom: 50px;
                 "
+                id="courses-list-container"
             >
                 <h2>
-                    Contents
+                    Enrolled Courses
                 </h2>
                 <ul
                     class="list-group"
-                    id="contents-list"
+                    id="courses-list"
                     style=
                     "
                         margin-top: 20px;
@@ -162,5 +220,11 @@
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
         <!--<script src="bootstrap/js/bootstrap.js"></script>-->
+        <script src="src/get/Course.js"></script>
+        <script src="src/get/User.js"></script>
+        <script src="src/get/Student.js"></script>
+        <script src="src/get/UIText.js"></script>
+        <script src="src/NavBar.js"></script>
+        <script src="src/init/Student.js"></script>
     </body>
 </html>
