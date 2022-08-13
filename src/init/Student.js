@@ -53,20 +53,33 @@ rank.textContent = studentDetails.RANK_POINT;
 // let studentInterests = GetStudentInterests(userId);
 
 let coursesContainer = document.getElementsByTagName('div').namedItem('courses-list-container');
-let coursesList = GetCoursesFromStudentId(userId, ['COURSE_ID', 'TITLE', 'DESCRIPTION']);
+let coursesList = GetCoursesFromStudentId(userId, ['COURSE_ID', 'TITLE', 'DESCRIPTION', 'RATE', 'ENROLL_COUNT']);
 
 const SetupCourses = async function()
 {
     if(Array.isArray(coursesList.courses))
     {
-        let courseListItemUI = await GetUIText('ui/ListItem/CourseStudentListItem.html');
+        let courseListItemUI = await GetUIText('ui/ListItem/CourseListItem.html');
         let coursesUl = document.getElementsByTagName('ul').namedItem('courses-list');
 
         for(let i = 0; i < coursesList.courses.length; ++i)
         {
             let courseListItemWrapper = document.createElement('div');
             courseListItemWrapper.innerHTML = courseListItemUI;
-            
+            let courseTitle = courseListItemWrapper.getElementsByClassName('course-title').item(0);
+            let courseDescription = courseListItemWrapper.getElementsByClassName('course-description').item(0);
+            let rate = courseListItemWrapper.getElementsByClassName('course-rate').item(0).getElementsByTagName('span').item(0);
+            let enrollCount = courseListItemWrapper.getElementsByClassName('course-enroll-count').item(0).getElementsByTagName('span').item(0);
+            let price = courseListItemWrapper.getElementsByClassName('course-price').item(0);
+
+            courseListItemWrapper.remove(price);
+
+            courseTitle.textContent = coursesList.courses[i].TITLE;
+            courseDescription.textContent = coursesList.courses[i].DESCRIPTION;
+            rate.textContent = coursesList.courses[i].RATE;
+            enrollCount.textContent = coursesList.courses[i].ENROLL_COUNT;
+
+            coursesUl.append(courseListItemWrapper.firstChild);
         }
     }
     else
@@ -74,3 +87,5 @@ const SetupCourses = async function()
         coursesContainer.innerHTML = '';
     }
 };
+
+SetupCourses();
