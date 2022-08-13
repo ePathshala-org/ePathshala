@@ -54,3 +54,15 @@ rank.textContent = studentDetails.RANK_POINT;
 
 let coursesContainer = document.getElementsByTagName('div').namedItem('courses-list-container');
 let coursesList = GetCoursesFromStudentId(userId, ['COURSE_ID', 'TITLE', 'DESCRIPTION']);
+
+const SetupCourses = async function()
+{
+    if(Array.isArray(coursesList.courses))
+    {
+        
+    }
+    else
+    {
+        coursesContainer.innerHTML = ''
+    }
+};
