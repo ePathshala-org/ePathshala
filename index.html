@@ -4,7 +4,7 @@
     <head>
         <title>ePathshala</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <!--<link href="bootstrap/css/bootstrap.css" rel="stylesheet">-->
     </head>
 
@@ -12,14 +12,27 @@
         <!--navbar start-->
         <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" id="navbar-home-anchor">ePathshala</a>
+                <a href="javascript:" class="navbar-brand" id="navbar-home-button">
+                    <img src="assets/96x96/ePathshala.png" height="32px">
+                    ePathshala
+                </a>
+                <ul
+                    class="navbar-nav me-auto mb-2 mb-lg-0"
+                >
+                    <li class="nav-item">
+                        <a id="navbar-courses-button" class="nav-link" aria-current="page" href="javascript:">Courses</a>
+                    </li>
+                </ul>
                 <div class = "d-flex">
                     <div class = "d-flex me-2" role="search">
                         <input id = "navbar-search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button id = "navbar-search-button" class="btn btn-outline-success" type="button">Search</button>
                     </div>
-                    <div id = "login-status-ui">
-                        
+                    <div id = "login-status">
+                        <div class = "d-class">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login-modal">Login</button>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#create-account-modal">Create New Account</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -36,29 +49,29 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="login-floating-email" placeholder="name@email.com">
-                            <label for="login-floating-email">Email</label>
+                            <input type="email" class="form-control" id="login-email" placeholder="name@email.com">
+                            <label for="login-email">Email</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="login-floating-password" placeholder="Password" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Password length must be minimum 8 and maximum 32">
-                            <label for="login-floating-password">Password</label>
+                            <input type="password" class="form-control" id="login-password" placeholder="Password" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Password length must be minimum 8 and maximum 32">
+                            <label for="login-password">Password</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="student-teacher-login" id="student-teacher-login-student" value="student" checked>
-                            <label class="form-check-label" for="student-teacher-login-student">
+                            <input class="form-check-input" type="radio" name="student-teacher-login" id="login-type-student" value="student" checked>
+                            <label class="form-check-label" for="login-type-student">
                                 Student
                             </label>
                             </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="student-teacher-login" id="student-teacher-login-teacher" value="teacher">
-                            <label class="form-check-label" for="student-teacher-login-teacher">
+                            <input class="form-check-input" type="radio" name="student-teacher-login" id="login-type-teacher" value="teacher">
+                            <label class="form-check-label" for="login-type-teacher">
                                 Teacher
                             </label>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id = "login-button">Login</button>
-                        <button type="button" class="btn btn-secondary" id="login-modal-create-account-button" data-bs-toggle="modal" data-bs-target="#create-account-modal">Create New Account</button>
+                        <button type="button" class="btn btn-primary" id="login-button">Login</button>
+                        <button type="button" class="btn btn-secondary" id="login-modal-create-new-account-button" data-bs-toggle="modal" data-bs-target="#create-account-modal">Create New Account</button>
                     </div>
                 </div>
             </div>
@@ -75,31 +88,31 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="create-account-floating-full-name" placeholder="Full Name">
+                            <input type="text" class="form-control" id="create-account-full-name" placeholder="Full Name">
                             <label for="create-account-floating-full-name">Full Name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="create-account-floating-email" placeholder="someone@email.com">
+                            <input type="text" class="form-control" id="create-account-email" placeholder="someone@email.com">
                             <label for="create-account-floating-account-name">Email</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="create-account-floating-password" placeholder="Password">
+                            <input type="password" class="form-control" id="create-account-password" placeholder="Password">
                             <label for="create-account-floating-password">Password</label>
                         </div>
                         <div class="mb-3" id="create-account-date-of-birth">
                             <label for="create-account-date-of-birth" class="form-label">Date of Birth</label>
                             <div class="d-flex flex-row">
                                 <div class="form-floating me-3">
-                                    <input type="number" class="form-control" id="create-account-date-of-birth-date" placeholder="0" min="1" max="31">
-                                    <label for="floatingInput">Date</label>
+                                    <input type="number" class="form-control" id="create-account-day-of-birth" placeholder="0" min="1" max="31">
+                                    <label for="create-account-day-of-birth">Date</label>
                                 </div>
                                 <div class="form-floating me-3">
-                                    <input type="number" class="form-control" id="create-account-date-of-birth-month" placeholder="0" min="1" max="12">
-                                    <label for="floatingInput">Month</label>
+                                    <input type="number" class="form-control" id="create-account-month-of-birth" placeholder="0" min="1" max="12">
+                                    <label for="create-account-month-of-birth">Month</label>
                                 </div>
                                 <div class="form-floating">
-                                    <input type="number" class="form-control" id="create-account-date-of-birth-year" placeholder="0" min="1900" max="2100">
-                                    <label for="floatingInput">Year</label>
+                                    <input type="number" class="form-control" id="create-account-year-of-birth" placeholder="0" min="1900" max="2100">
+                                    <label for="create-account-year-of-birth">Year</label>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +148,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button id="create-new-account-create-button" type="button" class="btn btn-primary">Create</button>
+                        <button id="create-new-account-button" type="button" class="btn btn-primary">Create</button>
                     </div>
                 </div>
             </div>
@@ -219,16 +232,318 @@
         <!--login fail message toast end-->
 
         <div id = "root">
-            
+            <div
+                style=
+                "
+                    max-width: 60%;
+                    min-width: 60%;
+                    margin-left: auto;
+                    margin-right: auto;
+                    margin-top: 100px;
+                    margin-bottom: 50px;
+                "
+            >
+                <div
+                    class="d-flex justify-content-center"
+                >
+                    <img
+                        src="assets/index/hero_student_collage_compressed.png"
+                        width="50%"
+                        style=
+                        "
+                            margin-right: 50px;
+                            margin-top: auto;
+                            margin-bottom: auto; 
+                        "
+                    >
+                    <div
+                        class="d-flex flex-column justify-content-center"
+                    >
+                        <h1>
+                            For every student,
+                            every classroom.
+                            Real results.
+                        </h1>
+                        <p>
+                            We are with the mission to provide world-class education for anyone, anywhere.
+                        </p>
+                        <button
+                            class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#login-modal"
+                        >
+                            Get Started
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div
+                style=
+                "
+                    min-width: 90%;
+                    max-width: 90%;
+                    margin-left: auto;
+                    margin-right: auto;
+                    background-color: #F5F5F5;
+                    padding-left: 200px;
+                    padding-right: 200px;
+                    padding-top: 50px;
+                    padding-bottom: 50px;
+                    border-radius: 10px;
+                    margin-top: 50px;
+                    margin-bottom: 50px;
+                "
+            >
+                <h1
+                    style=
+                    "
+                        text-align: center;
+                    "
+                >Why ePathshala works</h1>
+                <div
+                    class="d-flex justify-content-center"
+                >
+                    <div
+                        class="m-3"
+                    >
+                        <img
+                            src="assets/index/personalized_learning_icon.png"
+                            width="104px"
+                            class="mx-auto d-block"
+                        >
+                        <h3
+                            style=
+                            "
+                                text-align: center;
+                            "
+                        >
+                            Personalized learning
+                        </h3>
+                        <p
+                            style=
+                            "
+                                text-align: center;
+                            "
+                        >
+                            Students practice at their own pace, first filling in gaps in their understanding and then accelerating their learning.
+                        </p>
+                    </div>
+                    <div
+                        class="m-3"
+                    >
+                        <img
+                            src="assets/index/trusted_content_icon.png"
+                            width="104px"
+                            class="mx-auto d-block"
+                        >
+                        <h3
+                            style=
+                            "
+                                text-align: center;
+                            "
+                        >
+                            Trusted content
+                        </h3>
+                        <p
+                            style=
+                            "
+                                text-align: center;
+                            "
+                        >
+                            Created by experts, ePathshala&#39s library of trusted practice and lessons covers math, science, and more. Always the best for learners and teachers.
+                        </p>
+                    </div>
+                    <div
+                        class="m-3"
+                    >
+                        <img
+                            src="assets/index/empower_teachers_icon.png"
+                            width="104px"
+                            class="mx-auto d-block"
+                        >
+                        <h3
+                            style=
+                            "
+                                text-align: center;
+                            "
+                        >
+                            Tools to empower teachers
+                        </h3>
+                        <p
+                            style=
+                            "
+                                text-align: center;
+                            "
+                        >
+                            With ePathshala, teachers can identify gaps in their students&#39 understanding, tailor instruction, and meet the needs of every student.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div
+                style=
+                "
+                    max-width: 60%;
+                    min-width: 60%;
+                    margin-left: auto;
+                    margin-right: auto;
+                    margin-top: 50px;
+                    margin-bottom: 100px;
+                "
+            >
+                <div
+                    class="d-flex justify-content-center"
+                >
+                    <img
+                        src="assets/index/faces_collage.png"
+                        width="50%"
+                        style=
+                        "
+                            margin-right: 50px;
+                            margin-top: auto;
+                            margin-bottom: auto; 
+                        "
+                    >
+                    <div
+                        class="d-flex flex-column justify-content-center"
+                    >
+                        <p
+                            style=
+                            "
+                                color: #21242ca3;
+                            "
+                        >
+                            TEACHERS
+                        </p>
+                        <h1>
+                            Differentiate your course and engage every student.
+                        </h1>
+                        <p>
+                            We empower teachers to support their entire course. 90% of the teachers who have used ePathshala have found us effective.
+                        </p>
+                        <button
+                            class="btn btn-primary"
+                            data-bs-toggle="modal" data-bs-target="#login-modal"
+                        >
+                            Teachers, Login Here
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div
+                style=
+                "
+                    max-width: 60%;
+                    min-width: 60%;
+                    margin-left: auto;
+                    margin-right: auto;
+                    margin-top: 100px;
+                    margin-bottom: 50px;
+                "
+            >
+                <div
+                    class="d-flex justify-content-center"
+                >
+                    <div
+                        class="d-flex flex-column justify-content-center"
+                    >
+                        <h1>
+                            You can learn anything.
+                        </h1>
+                        <p>
+                            Build a deep, solid understanding in math, science, and more.
+                        </p>
+                        <button
+                            class="btn btn-primary"
+                            data-bs-toggle="modal" data-bs-target="#login-modal"
+                        >
+                            Students, Login Here
+                        </button>
+                    </div>
+                    <img
+                        src="assets/index/laptop_collage.png"
+                        width="50%"
+                        style=
+                        "
+                            margin-left: 50px;
+                            margin-top: auto;
+                            margin-bottom: auto; 
+                        "
+                    >
+                </div>
+            </div>
+            <div
+                style=
+                "
+                    min-width: 90%;
+                    max-width: 90%;
+                    margin-left: auto;
+                    margin-right: auto;
+                    background-color: #F5F5F5;
+                    padding-left: 200px;
+                    padding-right: 200px;
+                    padding-top: 50px;
+                    padding-bottom: 50px;
+                    border-radius: 10px;
+                    margin-top: 50px;
+                    margin-bottom: 100px;
+                "
+            >
+                <h2>
+                    "When I was a child, I used to fear mathematics. But now, I am in love with mathematics because of ePathshala."
+                </h2>
+                <div
+                    class="d-flex justify-content-end"
+                >
+                    <h3>
+                        -Beth Smith
+                    </h3>
+                    </div>
+            </div>
+            <div
+                style=
+                "
+                    min-width: 50%;
+                    max-width: 50%;
+                    margin-left: auto;
+                    margin-right: auto;
+                    margin-top: 100px;
+                    margin-bottom: 50px;
+                "
+            >
+                <h1
+                    style=
+                    "
+                        text-align: center;
+                    "
+                >
+                    Join ePathshala today
+                </h1>
+                <div
+                    class="d-flex justify-content-center"
+                >
+                <button
+                    class="btn btn-primary mt-3"
+                    style=
+                    "
+                        margin-left: auto;
+                        margin-right: auto;
+                    "
+                    data-bs-toggle="modal" data-bs-target="#create-account-modal"
+                >
+                    Create New Account
+                </button>
+                </div>
+            </div>
         </div>
         
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
         <!--<script src="bootstrap/js/bootstrap.js"></script>-->
-        <script src="src/index.js"></script>
-        <script src="src/all_courses.js"></script>
-        <script src="src/home.js"></script>
-        <script src="src/search.js"></script>
-        <script src="src/login.js"></script>
-        <script src="src/create_new_account.js"></script>
+        <script src="src/class/User.js"></script>
+        <script src="src/get/UIText.js"></script>
+        <script src="src/get/User.js"></script>
+        <script src="src/NavBar.js"></script>
+        <script src="src/Login.js"></script>
+        <script src="src/init/Index.js"></script>
     </body>
 </html>

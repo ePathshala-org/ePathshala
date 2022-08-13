@@ -4,151 +4,207 @@
     <head>
         <title>ePathshala</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <!--<link href="bootstrap/css/bootstrap.css" rel="stylesheet">-->
     </head>
 
-    <body>
+    <body
+        style=
+        "
+            overflow-y: scroll;
+        "
+    >
         <!--navbar start-->
-        <nav class="navbar navbar-expand-lg bg-light" id="navbar-video">
+        <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" id="navbar-home-anchor">ePathshala</a>
+                <a href="javascript:" class="navbar-brand" id="navbar-home-button">
+                    <img src="assets/96x96/ePathshala.png" height="32px">
+                    ePathshala
+                </a>
+                <ul
+                    class="navbar-nav me-auto mb-2 mb-lg-0"
+                >
+                    <li class="nav-item">
+                        <a id="navbar-courses-button" class="nav-link" aria-current="page" href="javascript:">Courses</a>
+                    </li>
+                </ul>
                 <div class = "d-flex">
                     <div class = "d-flex me-2" role="search">
                         <input id = "navbar-search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button id = "navbar-search-button" class="btn btn-outline-success" type="button">Search</button>
                     </div>
-                    <div id = "login-status-ui">
-                        
+                    <div id = "login-status">
+                        <div class = "d-class">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login-modal">Login</button>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#create-account-modal">Create New Account</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </nav>
         <!--navbar end-->
 
-        <div 
+        <div
             id = "root"
         >
             <div
-                class="position-fixed"
                 style=
                 "
-                    min-width: 20%;
-                    max-width: 20%;
+                    margin-left: 5%;
+                    margin-top: 20px;
+                    width: 60%;
                 "
             >
-                <div 
-                    class="card m-1"
-                >
-                    <div
-                        class="card-body"
-                        id="course-content-list"
-                    >
-                        <a
-                            href="#"
-                            class="link-dark"
-                            id="course-title-button"
-                        >
-                            <h3
-                                id="course-title"
-                            >
-                                {title}
-                            </h3>
-                        </a>
-                        <ul
-                            id="content-list"
-                            class="list-group overflow-auto"
-                            style=
-                            "
-                                max-height: 85vh;
-                            "
-                        >
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div
-                class="p-1 position-fixed"
-                style=
-                "
-                    min-width: 60%;
-                    max-width: 60%;
-                    margin-left: 20%;
-                "
-            >
+                <video
+                    id="video-player"
+                    controlsList="nodownload"
+                    style=
+                    "
+                        width: 100%;
+                        margin-bottom: 20px;
+                    "
+                    controls
+                ></video>
                 <div
-                    class="overflow-auto"
-                    style="max-height: 93vh;"
+                    style=
+                    "
+                        margin-left: 10px;
+                        margin-right: 10px;
+                    "
                 >
-                    <video
-                        id="video-player"
-                        class="pe-3"
-                        width="100%"
-                        controls
+                    <h3
+                        id="video-title"
                     >
-
-                    </video>
-                    <h2 id="video-title">{title}</h2>
+                        {video title}
+                    </h3>
                     <div
                         class="d-flex"
                     >
                         <div
-                            class="card flex-grow-1 me-1"
+                            class="d-flex align-items-center flex-grow-1"
+                            style=
+                            "
+                                color: #21242ca3;
+                            "
                         >
-                            <div class="card-body">
-                                <p
-                                    id="video-description"
-                                >
-                                    {description}
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div
-                            class="card"
-                            style="width: 10em;"
-                        >
-                            <div 
-                                class="card-body d-flex flex-column"
+                            <h6
+                                id="video-view-count"
+                                style=
+                                "
+                                    margin-bottom: 0;
+                                "
                             >
-                                <p
-                                    id="video-rate"
-                                    class="text-end text-secondary"
+                                <span>
+                                    {count}
+                                </span>
+                                views
+                            </h6>
+                            &#160&#8226&#160
+                            <h6
+                                id="video-date-of-creation"
+                                style=
+                                "
+                                    margin-bottom: 0;
+                                "
+                            >
+                                {date}
+                            </h6>
+                        </div>
+                        <div
+                            class="d-flex align-items-center"
+                        >
+                            <button
+                                id="video-rate-button"
+                                class="btn btn-secondary me-1"
+                            >
+                                <div
+                                    class="d-flex align-items-center"
                                 >
-                                    Rate: {rate}/5
-                                </p>
-                                <button
-                                    id="rate-button"
-                                    class="btn btn-primary"
+                                    <img src="assets/16x16/rate.png" height="16px">&#160
+                                    Rate:&#160
+                                    <span>{rate}</span>/5
+                                </div>
+                            </button>
+                            <button
+                                class="btn btn-primary"
+                            >
+                                <div
+                                    class="d-flex align-items-center"
                                 >
-                                    Rate
-                                </button>
-                            </div>
+                                    <img src="assets/16x16/share.png" height="16px">&#160Share
+                                </div>
+                            </button>
                         </div>
                     </div>
-                    <h3>Comments:</h3>
-                    <ul
-                        id="comments-list"
-                        class="list-group"
+                    <a
+                        id="video-course-button"
+                        class="link-primary text-decoration-none"
+                        href="javascript:"
                     >
-
-                    </ul>
+                        <h4>
+                            {course name}
+                        </h4>
+                    </a>
+                    <a
+                        href="javascript:"
+                        id="video-description-button"
+                        class="link-secondary text-decoration-none"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#video-description-card"
+                    >
+                        Show Description
+                    </a>
+                    <div class="collapse" id="video-description-card">
+                        <div
+                            id="video-description"
+                            class="card card-body"
+                        >
+                            {description}
+                        </div>
+                    </div>
+                    <div
+                        style=
+                        "
+                            margin-top: 20px;
+                            margin-bottom: 20px;
+                        "
+                    >
+                        <h3>
+                            Comments
+                        </h3>
+                        <div
+                            class="d-flex align-items-center mb-3"
+                        >
+                            <input
+                                class="form-control flex-grow-1 me-3"
+                                id="new-comment-text"
+                                placeholder="Say something..."
+                            ></input>
+                            <button
+                                id="post-comment-button"
+                                class="btn btn-primary"
+                            >
+                                Post
+                            </button>
+                        </div>
+                        <ul
+                            class="list-group list-group-flush"
+                            id="comments-list"
+                        >
+                                                
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
         <!--<script src="bootstrap/js/bootstrap.js"></script>-->
-        <script src="src/class/Content.js"></script>
-        <script src="src/class/Course.js"></script>
-        <script src="src/class/ContentComment.js"></script>
-        <script src="src/get/content.js"></script>
-        <script src="src/get/course.js"></script>
-        <script src="src/get_ui_text.js"></script>
-        <script src="src/get/comment.js"></script>
-        <script src="src/nav_bar.js"></script>
-        <script src="src/get/user_details.js"></script>
-        <script src="src/video.js"></script>
+        <script src="src/get/User.js"></script>
+        <script src="src/get/Content.js"></script>
+        <script src="src/get/Comment.js"></script>
+        <script src="src/get/UIText.js"></script>
+        <script src="src/NavBar.js"></script>
+        <script src="src/init/Video.js"></script>
     </body>
 </html>
