@@ -59,10 +59,18 @@ const SetupCourses = async function()
 {
     if(Array.isArray(coursesList.courses))
     {
-        
+        let courseListItemUI = await GetUIText('ui/ListItem/CourseStudentListItem.html');
+        let coursesUl = document.getElementsByTagName('ul').namedItem('courses-list');
+
+        for(let i = 0; i < coursesList.courses.length; ++i)
+        {
+            let courseListItemWrapper = document.createElement('div');
+            courseListItemWrapper.innerHTML = courseListItemUI;
+            
+        }
     }
     else
     {
-        coursesContainer.innerHTML = ''
+        coursesContainer.innerHTML = '';
     }
 };

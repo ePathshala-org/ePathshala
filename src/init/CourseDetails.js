@@ -49,6 +49,7 @@ const SetupContentsList = async function()
             let viewCount = contentListItemWrapper.getElementsByTagName('h6').namedItem('content-view-count').getElementsByTagName('span').item(0);
             let viewType = contentListItemWrapper.getElementsByTagName('h6').namedItem('content-view-count').getElementsByTagName('span').item(1);
             let contentImage = contentListItemWrapper.getElementsByTagName('img').item(0);
+            let contentTitleButton = contentListItemWrapper.getElementsByTagName('a').namedItem('content-title-button');
             contentTitle.textContent = response.contents[i].TITLE;
             contentDescription.textContent = response.contents[i].DESCRIPTION;
             viewCount.textContent = response.contents[i].VIEW_COUNT;
@@ -57,6 +58,10 @@ const SetupContentsList = async function()
             if(response.contents[i].CONTENT_TYPE == 'VIDEO')
             {
                 contentImage.src = 'assets/96x96/video.png';
+                contentTitleButton.onclick = function()
+                {
+                    location.href = 'video.html?content_id=' + response.contents[i].CONTENT_ID;
+                };
             }
             else if(response.contents[i].CONTENT_TYPE == 'PAGE')
             {
