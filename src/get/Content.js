@@ -51,7 +51,7 @@ const GetContentFromContentId = function(contentId, select)
  */
 const GetContentsFromCourseId = function(courseId, select)
 {
-    if(select == null)
+    if(!Array.isArray(select))
     {
         select = [];
     }

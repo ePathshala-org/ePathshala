@@ -49,3 +49,8 @@ studentPfp.src = 'pfp/' + studentDetails.USER_ID + '.png';
 dateOfJoin.textContent = studentDetails.DATE_OF_JOIN;
 dateOfBirth.textContent = studentDetails.DATE_OF_BIRTH;
 rank.textContent = studentDetails.RANK_POINT;
+
+// let studentInterests = GetStudentInterests(userId);
+
+let coursesContainer = document.getElementsByTagName('div').namedItem('courses-list-container');
+let coursesList = GetCoursesFromStudentId(userId, ['COURSE_ID', 'TITLE', 'DESCRIPTION']);

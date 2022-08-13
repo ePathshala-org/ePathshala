@@ -47,20 +47,14 @@ const GetCourseFromCourseId = function(courseId, select)
 
 /**
  * 
+ * @param {number} userId 
  * @param {string[]} select 
- * @param {string[][]} order
- * @returns {any | null}
  */
-const GetCourses = function(select, order)
+const GetCoursesFromStudentId = function(userId, select)
 {
-    if(select == null)
+    if(!Array.isArray(select))
     {
         select = [];
-    }
-
-    if(order == null)
-    {
-        order = [];
     }
 
     let http = new XMLHttpRequest();
@@ -70,9 +64,9 @@ const GetCourses = function(select, order)
 
     let data = 
     {
-        type: 'get-courses',
-        select: select,
-        order: order
+        type: 'get-courses-student',
+        user_id: parseInt(userId),
+        select: select
     };
 
     http.send(JSON.stringify(data));
@@ -94,7 +88,7 @@ const GetCourses = function(select, order)
     {
         return null;
     }
-};
+}
 
 /**
  * 
