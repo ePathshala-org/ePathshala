@@ -135,3 +135,41 @@ createNewAccountButton.onclick = function()
     let yearOfBirth = document.getElementsByTagName('input').namedItem('create-account-month-of-birth');
     
 };
+
+let loginModal = document.getElementsByTagName('div').namedItem('login-modal');
+let createAccountModal = document.getElementsByTagName('div').namedItem('create-account-modal');
+
+if(loginModal != null)
+{
+    loginModal.addEventListener('show.bs.modal', (event)=>
+    {
+        let email = document.getElementsByTagName('input').namedItem('login-email');
+        let password = document.getElementsByTagName('input').namedItem('login-password');
+        let loginTypeStudent = document.getElementsByTagName('input').namedItem('login-type-student');
+
+        email.value = '';
+        password.value = '';
+        loginTypeStudent.checked = true;
+    });
+}
+
+if(createAccountModal != null)
+{
+    createAccountModal.addEventListener('show.bs.modal', (event)=>
+    {
+        let fullName = document.getElementsByTagName('input').namedItem('create-account-full-name');
+        let email = document.getElementsByTagName('input').namedItem('create-account-email');
+        let password = document.getElementsByTagName('input').namedItem('create-account-password');
+        let day = document.getElementsByTagName('input').namedItem('create-account-day-of-birth');
+        let month = document.getElementsByTagName('input').namedItem('create-account-month-of-birth');
+        let year = document.getElementsByTagName('input').namedItem('create-account-year-of-birth');
+        let typeStudent = document.getElementsByTagName('input').namedItem('create-account-type-radio-student');
+        fullName.value = '';
+        email.value = '';
+        password.value = '';
+        day.value = '';
+        month.value = '';
+        year.value = '';
+        typeStudent.checked = true;
+    });
+}

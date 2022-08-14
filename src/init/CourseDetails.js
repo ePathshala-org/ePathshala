@@ -15,6 +15,17 @@ if(!params.has('course_id'))
 
 SetupNavBar(userId);
 
+document.getElementsByTagName('div').namedItem('buy-course-modal').addEventListener('show.bs.modal', (event)=>
+{
+    let creditCardId = document.getElementsByTagName('input').namedItem('credit-card-id');
+    let password = document.getElementsByTagName('input').namedItem('credit-card-password');
+    let bank = document.getElementsByTagName('select').namedItem('select-bank');
+
+    creditCardId.value = '';
+    password.value = '';
+    bank.selectedIndex = 0;
+});
+
 let courseId = parseInt(params.get('course_id'));
 
 const SetupCourseDetails = function()
@@ -33,6 +44,9 @@ const SetupCourseDetails = function()
     courseRate.textContent = courseDetails.RATE;
     coursePrice.textContent = courseDetails.PRICE;
     let enrollButton = document.getElementsByTagName('button').namedItem('enroll-button');
+    let buyButton = document.getElementsByTagName('button').namedItem('buy-course-button');
+
+    buyButton.removeAttribute('disabled');
 
     if(userId != null)
     {
@@ -46,10 +60,10 @@ const SetupCourseDetails = function()
         {
             enrollButton.setAttribute('data-bs-target', '#enroll-modal');
 
-            let buyButton = document.getElementsByTagName('button').namedItem('buy-course-button');
-
             buyButton.onclick = function()
             {
+                buyButton.setAttribute('disbled', '');
+
                 let creditCardId = document.getElementsByTagName('input').namedItem('credit-card-id');
                 let creditCardPassword = document.getElementsByTagName('input').namedItem('credit-card-password');
                 let bank = document.getElementsByTagName('select').namedItem('select-bank');
@@ -58,7 +72,26 @@ const SetupCourseDetails = function()
                 let bankValue = bank.value;
                 let response = BuyCourse(userId, courseId, creditCardIdValue, creditCardPasswordValue, bankValue, courseDetails.PRICE);
 
-                console.log(response);
+                if(response.return == 1)
+                {
+                    buyButton.removeAttribute('disabled');
+
+                    let toast = new bootstrap.Toast(document.getElementsByTagName('div').namedItem('invalid-creds-toast'));
+
+                    toast.show();
+                }
+                else if(response.return == 2)
+                {
+                    buyButton.removeAttribute('disabled');
+
+                    let toast = new bootstrap.Toast(document.getElementsByTagName('div').namedItem('insufficient-credits-toast'));
+
+                    toast.show();
+                }
+                else
+                {
+                    location.reload();
+                }
             };
         }
     }
