@@ -38,13 +38,26 @@ const SetupCourseDetails = function()
     {
         let enrolledResponse = CheckUserEnrolled(userId, courseDetails.COURSE_ID);
 
-        if(student != 'false' || enrolledResponse.ENROLLED)
+        if(student == 'false' || enrolledResponse.ENROLLED)
         {
             enrollButton.remove();
         }
         else
         {
             enrollButton.setAttribute('data-bs-target', '#enroll-modal');
+
+            let buyButton = document.getElementsByTagName('button').namedItem('buy-course-button');
+
+            buyButton.onclick = function()
+            {
+                let creditCardId = document.getElementsByTagName('input').namedItem('credit-card-id');
+                let creditCardPassword = document.getElementsByTagName('input').namedItem('credit-card-password');
+                let bank = document.getElementsByTagName('select').namedItem('select-bank');
+                let creditCardIdValue = creditCardId.value;
+                let creditCardPasswordValue = creditCardPassword.value;
+                let bankValue = bank.value;
+                let response = BankPay(userId, courseId, creditCardIdValue, creditCardPasswordValue, bankValue);
+            };
         }
     }
 };
