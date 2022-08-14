@@ -56,7 +56,9 @@ const SetupCourseDetails = function()
                 let creditCardIdValue = creditCardId.value;
                 let creditCardPasswordValue = creditCardPassword.value;
                 let bankValue = bank.value;
-                let response = BankPay(userId, courseId, creditCardIdValue, creditCardPasswordValue, bankValue);
+                let response = BuyCourse(userId, courseId, creditCardIdValue, creditCardPasswordValue, bankValue, courseDetails.PRICE);
+
+                console.log(response);
             };
         }
     }

@@ -5,8 +5,9 @@
  * @param {number} creditCardId
  * @param {string} creditCardPassword
  * @param {number} bank
+ * @param {number} price
  */
-const BankPay = function(userId, courseId, creditCardId, creditCardPassword, bank)
+const BuyCourse = function(userId, courseId, creditCardId, creditCardPassword, bank, price)
 {
     let http = new XMLHttpRequest();
 
@@ -20,7 +21,8 @@ const BankPay = function(userId, courseId, creditCardId, creditCardPassword, ban
         course_id: parseInt(courseId),
         credit_card_id: parseInt(creditCardId),
         password: creditCardPassword,
-        bank: parseInt(bank)
+        bank: parseInt(bank),
+        price: parseInt(price)
     };
 
     http.send(JSON.stringify(data));
