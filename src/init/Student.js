@@ -6,9 +6,8 @@ let userId = localStorage.getItem('user_id');
  * @type {string | null}
  */
 let student = localStorage.getItem('student');
-let params = new URLSearchParams(location.search);
 
-if(userId == null || !params.has('user_id'))
+if(userId == null)
 {
     location.replace('index.html');
 }
@@ -32,7 +31,7 @@ if(studentDetails.BIO == '')
 
     addBioButton.onclick = function()
     {
-
+        // add bio
     };
 }
 else
@@ -53,7 +52,7 @@ rank.textContent = studentDetails.RANK_POINT;
 // let studentInterests = GetStudentInterests(userId);
 
 let coursesContainer = document.getElementsByTagName('div').namedItem('courses-list-container');
-let coursesList = GetCoursesFromStudentId(userId, ['COURSE_ID', 'TITLE', 'DESCRIPTION', 'RATE', 'ENROLL_COUNT']);
+let coursesList = GetCoursesFromStudentId(userId, ['COURSE_ID', 'TITLE', 'DESCRIPTION', 'RATE']);
 
 const SetupCourses = async function()
 {
@@ -66,18 +65,33 @@ const SetupCourses = async function()
         {
             let courseListItemWrapper = document.createElement('div');
             courseListItemWrapper.innerHTML = courseListItemUI;
+            let courseTitleButton = courseListItemWrapper.getElementsByClassName('course-title-button').item(0);
             let courseTitle = courseListItemWrapper.getElementsByClassName('course-title').item(0);
             let courseDescription = courseListItemWrapper.getElementsByClassName('course-description').item(0);
             let rate = courseListItemWrapper.getElementsByClassName('course-rate').item(0).getElementsByTagName('span').item(0);
-            let enrollCount = courseListItemWrapper.getElementsByClassName('course-enroll-count').item(0).getElementsByTagName('span').item(0);
+            let enrollCount = courseListItemWrapper.getElementsByClassName('course-enroll-count').item(0);
             let price = courseListItemWrapper.getElementsByClassName('course-price').item(0);
+            let right = courseListItemWrapper.getElementsByClassName('right').item(0);
+            let remain = document.createElement('h6');
+            let remainSpan = document.createElement('span');
+            remain.textContent = 'Remaining: ';
+            let contentCountResponse = GetCourseRemainingContentCountOfUser(userId, coursesList.courses[i].COURSE_ID);
+            remainSpan.textContent = contentCountResponse.CONTENT_COUNT;
 
-            courseListItemWrapper.remove(price);
+            remain.append(remainSpan);
+            right.append(remain);
+
+            price.remove();
+            enrollCount.remove();
 
             courseTitle.textContent = coursesList.courses[i].TITLE;
             courseDescription.textContent = coursesList.courses[i].DESCRIPTION;
             rate.textContent = coursesList.courses[i].RATE;
-            enrollCount.textContent = coursesList.courses[i].ENROLL_COUNT;
+
+            courseTitleButton.onclick = function()
+            {
+                location.href = 'coursedetails.html?course_id=' + coursesList.courses[i].COURSE_ID;
+            };
 
             coursesUl.append(courseListItemWrapper.firstChild);
         }

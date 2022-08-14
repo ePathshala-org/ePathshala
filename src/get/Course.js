@@ -179,3 +179,43 @@ const GetCoursesPopular = function()
         return null;
     }
 };
+
+/**
+ * 
+ * @param {number} userId 
+ * @param {number} courseId 
+ */
+const CheckUserEnrolled = function(userId, courseId)
+{
+    let http = new XMLHttpRequest();
+
+    http.open('POST', '/', false);
+    http.setRequestHeader('Content-Type', 'application/json');
+
+    let data = 
+    {
+        type: 'check-user-enrolled',
+        user_id: parseInt(userId),
+        course_id: parseInt(courseId)
+    };
+
+    http.send(JSON.stringify(data));
+
+    if(http.readyState == 4 && http.status == 200)
+    {
+        let response = JSON.parse(http.responseText);
+
+        if(response.ok)
+        {
+            return response;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    else
+    {
+        return null;
+    }
+};

@@ -54,6 +54,121 @@
                 </div>
             </div>
         </nav>
+        <!--login modal start-->
+        <div class="modal fade" id="login-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Login</h5>
+                        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="login-email" placeholder="name@email.com">
+                            <label for="login-email">Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="login-password" placeholder="Password" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Password length must be minimum 8 and maximum 32">
+                            <label for="login-password">Password</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="student-teacher-login" id="login-type-student" value="student" checked>
+                            <label class="form-check-label" for="login-type-student">
+                                Student
+                            </label>
+                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="student-teacher-login" id="login-type-teacher" value="teacher">
+                            <label class="form-check-label" for="login-type-teacher">
+                                Teacher
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="login-button">Login</button>
+                        <button type="button" class="btn btn-secondary" id="login-modal-create-new-account-button" data-bs-toggle="modal" data-bs-target="#create-account-modal">Create New Account</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--login modal end-->
+
+        <!--create acc modal start-->
+        <div class="modal fade" id="create-account-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Create New Account</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="create-account-full-name" placeholder="Full Name">
+                            <label for="create-account-floating-full-name">Full Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="create-account-email" placeholder="someone@email.com">
+                            <label for="create-account-floating-account-name">Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="create-account-password" placeholder="Password">
+                            <label for="create-account-floating-password">Password</label>
+                        </div>
+                        <div class="mb-3" id="create-account-date-of-birth">
+                            <label for="create-account-date-of-birth" class="form-label">Date of Birth</label>
+                            <div class="d-flex flex-row">
+                                <div class="form-floating me-3">
+                                    <input type="number" class="form-control" id="create-account-day-of-birth" placeholder="0" min="1" max="31">
+                                    <label for="create-account-day-of-birth">Date</label>
+                                </div>
+                                <div class="form-floating me-3">
+                                    <input type="number" class="form-control" id="create-account-month-of-birth" placeholder="0" min="1" max="12">
+                                    <label for="create-account-month-of-birth">Month</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="create-account-year-of-birth" placeholder="0" min="1900" max="2100">
+                                    <label for="create-account-year-of-birth">Year</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "mb-3" id = "create-account-gender-radio">
+                            <label for="create-account-gender-radio" class="form-label">Gender</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="RadioGender" id="create-account-gender-radio-male" checked>
+                                <label class="form-check-label" for="create-account-gender-radio-male">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="RadioGender" id="create-account-gender-radio-female">
+                                <label class="form-check-label" for="create-account-gender-radio-female">
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+                        <div class = "mb-3" id = "create-account-type">
+                            <label for="create-account-type-radio" class="form-label">Gender</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-student">
+                                <label class="form-check-label" for="create-account-type-radio-student">
+                                    Student
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-teacher" checked>
+                                <label class="form-check-label" for="create-account-type-radio-teacher">
+                                    Teacher
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="create-new-account-button" type="button" class="btn btn-primary">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--create acc modal end-->
         <div
             style=
             "
@@ -147,6 +262,9 @@
                     </h6>
                     <button
                         class="btn btn-primary"
+                        id="enroll-button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#login-modal"
                     >
                         Enroll
                     </button>
