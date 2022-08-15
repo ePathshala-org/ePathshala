@@ -243,6 +243,8 @@ const GetCoursesFromTeacherId = function(teacherId, select)
 
     if(http.readyState == 4 && http.status == 200)
     {
+        let response = JSON.parse(http.responseText);
+
         if(response.ok)
         {
             return response;
