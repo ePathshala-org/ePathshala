@@ -5,7 +5,7 @@ let userId = localStorage.getItem('user_id');
 /**
  * @type {string | null}
  */
-let teacher = localStorage.getItem('teacher');
+let student = localStorage.getItem('student');
 
 if(userId == null)
 {
@@ -14,7 +14,7 @@ if(userId == null)
 
 SetupNavBar(userId);
 
-let teacherDetails = GetTeacherDetailsFromUserId(userId, ['USER_ID', 'FULL_NAME', 'EMAIL', 'DATE_OF_BIRTH', 'DATE_OF_JOIN', 'BIO', 'RANK_POINT']);
+let teacherDetails = GetTeacherDetailsFromUserId(userId, ['USER_ID', 'FULL_NAME', 'EMAIL', 'DATE_OF_BIRTH', 'DATE_OF_JOIN', 'BIO', 'RATE']);
 let teacherPfp = document.getElementsByTagName('img').namedItem('teacher-pfp');
 let teacherName = document.getElementsByTagName('h2').namedItem('teacher-name');
 let teacherEmail = document.getElementsByTagName('h4').namedItem('teacher-email');
