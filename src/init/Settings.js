@@ -63,19 +63,9 @@ saveButton.onclick = async function()
 
     if(pfpFile.files.length > 0)
     {
-        let reader = new FileReader();
+        let file = pfpFile.files.item(0);
 
-        reader.readAsDataURL(pfpFile.files.item(0));
-
-        reader.onload = function(event)
-        {
-            let image = new Image();
-            image.src = event.target.result;
-            image.onload = function()
-            {
-                console.log(this.width + ' ' + this.height);
-            };
-        };
+        await UploadFile(file, 'temp/' + file.name, 'check-pfp', {user_id: parseInt(userId)});
     }
 
     if(imageUploadSuccess)
