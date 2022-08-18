@@ -49,8 +49,6 @@ dateOfJoin.textContent = teacherDetails.DATE_OF_JOIN;
 dateOfBirth.textContent = teacherDetails.DATE_OF_BIRTH;
 rate.textContent = teacherDetails.RATE;
 
-// let teacherInterests = GetStudentInterests(userId);
-
 let coursesContainer = document.getElementsByTagName('div').namedItem('courses-list-container');
 let coursesList = GetCoursesFromTeacherId(userId, ['COURSE_ID', 'TITLE', 'DESCRIPTION', 'RATE', 'ENROLL_COUNT', 'PRICE']);
 
@@ -60,6 +58,7 @@ const SetupCourses = async function()
     {
         let courseListItemUI = await GetUIText('ui/ListItem/CourseListItem.html');
         let coursesUl = document.getElementsByTagName('ul').namedItem('courses-list');
+        coursesUl.innerHTML = '';
 
         for(let i = 0; i < coursesList.courses.length; ++i)
         {
@@ -94,3 +93,38 @@ const SetupCourses = async function()
 };
 
 SetupCourses();
+
+document.getElementsByTagName('div').namedItem('new-course-modal').addEventListener('show.bs.modal', ()=>
+{
+    let courseTitle = document.getElementsByTagName('input').namedItem('new-course-title');
+    let courseDescription = document.getElementsByTagName('textarea').namedItem('new-course-description');
+    let coursePrice = document.getElementsByTagName('input').namedItem('new-course-price');
+    courseTitle.value = '';
+    courseDescription.value = '';
+    coursePrice.value = '';
+});
+
+let addCourse = document.getElementsByTagName('button').namedItem('add-course-button');
+
+addCourse.onclick = function()
+{
+    addCourse.setAttribute('disabled', '');
+
+    let courseTitle = document.getElementsByTagName('input').namedItem('new-course-title');
+    let courseDescription = document.getElementsByTagName('textarea').namedItem('new-course-description');
+    let coursePrice = document.getElementsByTagName('input').namedItem('new-course-price');
+    let response = InsertNewCourse(userId, courseTitle.value, courseDescription.value, coursePrice.value);
+
+    addCourse.removeAttribute('disabled');
+
+    if(response.return == 0)
+    {
+        location.reload();
+    }
+    else
+    {
+        let toast = new bootstrap.Toast(document.getElementById('empty-title-toast'));
+
+        toast.show();
+    }
+};

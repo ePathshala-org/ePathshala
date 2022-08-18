@@ -90,23 +90,39 @@ saveButton.onclick = async function()
         }
         else if(response.return == 1)
         {
-            // empty full name
+            let toastElement = document.getElementById('empty-name-toast');
+            let toast = new bootstrap.Toast(toastElement);
+
+            toast.show();
         }
         else if(response.return == 2)
         {
-            // empty email
-        }
+            let toastElement = document.getElementById('empty-email-toast');
+            let toast = new bootstrap.Toast(toastElement);
+
+            toast.show();        }
         else if(response.return == 3)
         {
-            //invalid email
+            let toastElement = document.getElementById('invalid-email-address-toast');
+            let toast = new bootstrap.Toast(toastElement);
+
+            toast.show();
         }
         else
         {
-            // invalid password size
+            let toastElement = document.getElementById('invalid-password-toast');
+            let toast = new bootstrap.Toast(toastElement);
+
+            toast.show();
         }
     }
     else
     {
-        // invalid pfp
+        let toastElement = document.getElementById('invalid-pfp');
+        let toast = new bootstrap.Toast(toastElement);
+
+        toast.show();
     }
+
+    saveButton.removeAttribute('disabled');
 }

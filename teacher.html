@@ -57,6 +57,45 @@
         </nav>
         <!--navbar end-->
 
+        <div class="modal fade" id="new-course-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Add New Course</h5>
+                        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="new-course-title" class="form-label">Course Title</label>
+                            <input type="text" class="form-control" id="new-course-title" placeholder="New Course" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-course-description" class="form-label">Course Description</label>
+                            <textarea class="form-control" id="new-course-description" rows="3" placeholder="About new course..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-course-price" class="form-label">Course Price</label>
+                            <input type="number" class="form-control" id="new-course-price" min="0" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" id="add-course-button">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="empty-title-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Title cannot be empty
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
         <div
             style=
             "
@@ -215,11 +254,18 @@
                 >
                     
                 </ul>
+                <button
+                    class="btn btn-primary"
+                    id="add-course-modal-button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#new-course-modal"
+                >Add New Course</button>
             </div>
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
         <!--<script src="bootstrap/js/bootstrap.js"></script>-->
+        <script src="src/Insert/Course.js"></script>
         <script src="src/get/Course.js"></script>
         <script src="src/get/User.js"></script>
         <script src="src/get/Teacher.js"></script>
