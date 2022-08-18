@@ -59,13 +59,18 @@ saveButton.onclick = async function()
     let passwordValue = password.value;
     let bioValue = bio.value;
     let dateValue = dateOfBirth.valueAsDate.getFullYear() + '-' + (dateOfBirth.valueAsDate.getMonth() + 1).toString() + '-' + dateOfBirth.valueAsDate.getDate();
-    let imageUploadSuccess = true;
+    let imageUploadSuccess = false;
 
     if(pfpFile.files.length > 0)
     {
         let file = pfpFile.files.item(0);
 
-        await UploadFile(file, 'temp/' + file.name, 'check-pfp', {user_id: parseInt(userId)});
+        let pfpResponse = await UpdatePfp(userId, file);
+
+        if(pfpResponse.pfp_updated)
+        {
+            imageUploadSuccess = true;
+        }
     }
 
     if(imageUploadSuccess)
@@ -102,6 +107,6 @@ saveButton.onclick = async function()
     }
     else
     {
-
+        // invalid pfp
     }
 }
