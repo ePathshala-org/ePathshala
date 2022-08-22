@@ -5,13 +5,6 @@
  */
 const GetCourseFromCourseId = function(courseId, select)
 {
-    courseId = parseInt(courseId);
-
-    if(select == null)
-    {
-        select = [];
-    }
-
     let http = new XMLHttpRequest();
 
     http.open('POST', '/', false);
@@ -156,7 +149,8 @@ const GetCoursesPopular = function()
 
     let data = 
     {
-        type: 'get-courses-popular'
+        type: 'get-courses-popular',
+        select: ['COURSE_ID', 'TITLE', 'DESCRIPTION', 'ENROLL_COUNT', 'RATE', 'PRICE']
     };
 
     http.send(JSON.stringify(data));
