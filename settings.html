@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ePathshala</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="bootstrap/css/bootstrap.css" rel="stylesheet">-->
+    </head>
+
+    <body>
+        <img
+            src="assets/backgrounds/left-background.png"
+            style=
+            "
+                position: fixed;
+                left: 0;
+                bottom: 10%;
+            "
+        >
+        <img
+            src="assets/backgrounds/right-background.png"
+            style=
+            "
+                position: fixed;
+                right: 0;
+                top: 10%;
+            "
+        >
+        
+        <!--navbar start-->
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a href="javascript:" class="navbar-brand" id="navbar-home-button">
+                    <img src="assets/96x96/ePathshala.png" height="32px">
+                    ePathshala
+                </a>
+                <ul
+                    class="navbar-nav me-auto mb-2 mb-lg-0"
+                >
+                    <li class="nav-item">
+                        <a id="navbar-courses-button" class="nav-link" aria-current="page" href="javascript:">Courses</a>
+                    </li>
+                </ul>
+                <div class = "d-flex">
+                    <div class = "d-flex me-2" role="search">
+                        <input id = "navbar-search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button id = "navbar-search-button" class="btn btn-outline-success" type="button">Search</button>
+                    </div>
+                    <div id = "login-status">
+                        <div class = "d-class">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login-modal">Login</button>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#create-account-modal">Create New Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!--navbar end-->
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="empty-name-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Name cannot be empty
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+            <div id="empty-email-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Email field cannot be empty
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+
+            <div id="invalid-email-address-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Not a valid email address
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+
+            <div id="invalid-password-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Length of password must be atleast 8 and atmost 32
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+
+            <div id="invalid-pfp" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Insert a square of 96 pixels
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
+        <div
+            style=
+            "
+                max-width: 50%;
+                min-width: 50%;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 50px;
+            "
+            id="root"
+        >
+            <img
+                id="pfp"
+                src="pfp/default.png"
+                class="rounded"
+            >
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Select Profile Picture</label>
+                <input class="form-control" type="file" id="pfp-file" accept=".png">
+            </div>
+            <div class="mb-3">
+                <label for="full-name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="full-name" placeholder="Someone">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="someone@email.com">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password">
+            </div>
+            <div class="mb-3">
+                <label for="bio" class="form-label">Bio</label>
+                <textarea type="text" class="form-control" id="bio" placeholder="Say something..."></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="date-of-birth" class="form-label">Date of Birth</label>
+                <input type="date" class="form-control" id="date-of-birth">
+            </div>
+            <div
+                id="interests-container"
+            >
+                <div class="mb-3" id="interests">
+                    <label for="interests" class="form-label">Interests</label>
+                    <div
+                        class="d-flex alignt-items-center mb-2"
+                    >
+                        <div
+                            class="d-flex border border-primary p-1 rounded me-1 alignt-items-center"
+                        >
+                            <span>{interest 1}</span>
+                            <button type="button" class="btn-close" aria-label="Close"></button>
+                        </div>
+                        <div
+                            class="d-flex border border-primary p-1 rounded me-1 alignt-items-center"
+                        >
+                            <span>{interest 2}</span>
+                            <button type="button" class="btn-close" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex"
+                    >
+                        <input 
+                            type="text"
+                            class="form-control me-2"
+                            id="new-interest-input"
+                            placeholder="new interest"
+                            style=
+                            "
+                                width: 30%;
+                            "
+                            >
+                        <button
+                            class="btn btn-primary"
+                            id="add-interest-button"
+                        >Add</button>
+                    </div>
+                </div>
+            </div>
+            <div
+                id="specialities-container"
+            >
+                <div class="mb-3" id="specialities">
+                    <label for="specialities" class="form-label">Specialities</label>
+                    <div
+                        class="d-flex alignt-items-center mb-2"
+                    >
+                        <div
+                            class="d-flex border border-primary p-1 rounded me-1 alignt-items-center"
+                        >
+                            <span>{specilaity 1}</span>
+                            <button type="button" class="btn-close" aria-label="Close"></button>
+                        </div>
+                        <div
+                            class="d-flex border border-primary p-1 rounded me-1 alignt-items-center"
+                        >
+                            <span>{specilaity 1}</span>
+                            <button type="button" class="btn-close" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex"
+                    >
+                        <input 
+                            type="text"
+                            class="form-control me-2"
+                            id="new-speciality-input"
+                            placeholder="new interest"
+                            style=
+                            "
+                                width: 30%;
+                            "
+                            >
+                        <button
+                            class="btn btn-primary"
+                            id="add-speciality-button"
+                        >Add</button>
+                    </div>
+                </div>
+            </div>
+            <button
+                id="save-button"
+                class="btn btn-success"
+            >
+                Save
+            </button>
+            <button
+                id="teacher-button"
+                class="btn btn-primary"
+            >
+                Add Teacher Account
+            </button>
+            <button
+                id="student-button"
+                class="btn btn-primary"
+            >
+                Add Student Account
+            </button>
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!--<script src="bootstrap/js/bootstrap.js"></script>-->
+        <script src="src/UpdatePfp.js"></script>
+        <script src="src/get/UIText.js"></script>
+        <script src="src/get/User.js"></script>
+        <script src="src/NavBar.js"></script>
+        <script src="src/init/Settings.js"></script>
+    </body>
+</html>

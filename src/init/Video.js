@@ -16,6 +16,7 @@ if(userId == null || !params.has('content_id'))
 SetupNavBar(userId);
 
 let contentDetails = GetContentFromContentId(params.get('content_id'), ['CONTENT_ID','TITLE', 'DESCRIPTION', 'COURSE_ID', 'COURSE_NAME', 'RATE', 'VIEW_COUNT', 'DATE_OF_CREATION']);
+let commenteSelected = 0;
 
 const SetupVideoPlayer = async function()
 {
@@ -37,12 +38,42 @@ const SetupVideoPlayer = async function()
     videoPlayer.load();
 };
 
+SetupVideoPlayer();
+
+let commentTextArea = document.getElementsByTagName('input').namedItem('new-comment-text');
+let commentPostButton = document.getElementsByTagName('button').namedItem('post-comment-button');
+
+commentTextArea.addEventListener('input', (event)=>
+{
+    if(event.target.value == '')
+    {
+        commentPostButton.setAttribute('disabled', '');
+    }
+    else
+    {
+        commentPostButton.removeAttribute('disabled');
+    }
+});
+
+commentPostButton.onclick = function()
+{
+    let commentValue = commentTextArea.value;
+
+    PostComment(userId, contentDetails.CONTENT_ID, commentValue);
+
+    SetupComments();
+};
+
 const SetupComments = async function()
 {
+    commentTextArea.value = '';
+
+    commentPostButton.setAttribute('disabled', '');
+
     let commentsListUl = document.getElementsByTagName('ul').namedItem('comments-list');
     commentsListUl.innerHTML = '';
     let commentListItemUI = await GetUIText('ui/ListItem/CommentListItem.html');
-    let response = GetCommentsFromContentId(contentDetails.CONTENT_ID, ['COMMENT_ID', 'COMMENTER_ID', 'COMMENTER_NAME', 'DESCRIPTION', 'TIME', 'DATE', 'RATE']);
+    let response = GetCommentsFromContentId(contentDetails.CONTENT_ID, ['COMMENT_ID', 'COMMENTER_ID', 'COMMENTER_NAME', 'DESCRIPTION', 'TIME_OF_COMMENT', 'DATE_OF_COMMENT', 'RATE']);
 
     if(Array.isArray(response.comments))
     {
@@ -60,14 +91,80 @@ const SetupComments = async function()
             commenterPfp.src = 'pfp/' + response.comments[i].COMMENTER_ID + '.png';
             commenterName.textContent = response.comments[i].COMMENTER_NAME;
             commentDescription.textContent = response.comments[i].DESCRIPTION;
-            commentTime.textContent = response.comments[i].TIME;
-            commentDate.textContent = response.comments[i].DATE;
+            commentTime.textContent = response.comments[i].TIME_OF_COMMENT;
+            commentDate.textContent = response.comments[i].DATE_OF_COMMENT;
             commentRate.textContent = response.comments[i].RATE;
+            let commentEdit = commentListItemWrapper.getElementsByClassName('comment-edit-button').item(0);
+            let commentDelete = commentListItemWrapper.getElementsByClassName('comment-delete-button').item(0);
+
+            commentRateButton.onclick = function()
+            {
+                commenteSelected = response.comments[i].COMMENT_ID;
+                let commentRateModalInput = document.getElementsByTagName('input').namedItem('comment-rate-input');
+                commentRateModalInput.value = response.comments[i].RATE;
+            };
+
+            commentEdit.onclick = function()
+            {
+                commenteSelected = response.comments[i].COMMENT_ID;
+                let commentEditModalInput = document.getElementsByTagName('input').namedItem('comment-edit-input');
+                commentEditModalInput.value = response.comments[i].DESCRIPTION;
+            };
+
+            commentDelete.onclick = function()
+            {
+                DeleteComment(response.comments[i].COMMENT_ID);
+
+                SetupComments();
+            };
 
             commentsListUl.append(commentListItemWrapper.firstChild);
         }
     }
 };
 
-SetupVideoPlayer();
+let commentRateModal = document.getElementsByTagName('div').namedItem('comment-rate-modal')
+let commentRateModalInput = document.getElementsByTagName('input').namedItem('comment-rate-input');
+let commentRateUpdateButton = document.getElementsByTagName('button').namedItem('comment-rate-update-button');
+
+commentRateModalInput.addEventListener('input', (event)=>
+{
+    if(commentRateModalInput.value == '')
+    {
+        commentRateUpdateButton.setAttribute('disabled', '');
+    }
+    else
+    {
+        commentRateUpdateButton.removeAttribute('disabled');
+    }
+});
+
+commentRateUpdateButton.onclick = function()
+{
+    UpdateCommentRate(commenteSelected, commentRateModalInput.value);
+    SetupComments();
+};
+
+let commentEditModal = document.getElementsByTagName('div').namedItem('comment-edit-modal');
+let commentEditModalInput = document.getElementsByTagName('input').namedItem('comment-edit-input');
+let commentEditButton = document.getElementsByTagName('button').namedItem('comment-edit-button');
+
+commentEditModalInput.addEventListener('input', (event)=>
+{
+    if(commentEditModalInput.value == '')
+    {
+        commentEditButton.setAttribute('disabled', '');
+    }
+    else
+    {
+        commentEditButton.removeAttribute('disabled');
+    }
+});
+
+commentEditButton.onclick = function()
+{
+    UpdateComment(commenteSelected, commentEditModalInput.value);
+    SetupComments();
+};
+
 SetupComments();

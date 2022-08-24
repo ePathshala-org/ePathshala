@@ -5,13 +5,6 @@
  */
 const GetCourseFromCourseId = function(courseId, select)
 {
-    courseId = parseInt(courseId);
-
-    if(select == null)
-    {
-        select = [];
-    }
-
     let http = new XMLHttpRequest();
 
     http.open('POST', '/', false);
@@ -156,7 +149,88 @@ const GetCoursesPopular = function()
 
     let data = 
     {
-        type: 'get-courses-popular'
+        type: 'get-courses-popular',
+        select: ['COURSE_ID', 'TITLE', 'DESCRIPTION', 'ENROLL_COUNT', 'RATE', 'PRICE']
+    };
+
+    http.send(JSON.stringify(data));
+
+    if(http.readyState == 4 && http.status == 200)
+    {
+        let response = JSON.parse(http.responseText);
+
+        if(response.ok)
+        {
+            return response;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    else
+    {
+        return null;
+    }
+};
+
+/**
+ * 
+ * @param {number} userId 
+ * @param {number} courseId 
+ */
+const CheckUserEnrolled = function(userId, courseId)
+{
+    let http = new XMLHttpRequest();
+
+    http.open('POST', '/', false);
+    http.setRequestHeader('Content-Type', 'application/json');
+
+    let data = 
+    {
+        type: 'check-user-enrolled',
+        user_id: parseInt(userId),
+        course_id: parseInt(courseId)
+    };
+
+    http.send(JSON.stringify(data));
+
+    if(http.readyState == 4 && http.status == 200)
+    {
+        let response = JSON.parse(http.responseText);
+
+        if(response.ok)
+        {
+            return response;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    else
+    {
+        return null;
+    }
+};
+
+/**
+ * 
+ * @param {number} teacherId
+ * @param {string[]} select
+ */
+const GetCoursesFromTeacherId = function(teacherId, select)
+{
+    let http = new XMLHttpRequest();
+
+    http.open('POST', '/', false);
+    http.setRequestHeader('Content-Type', 'application/json');
+
+    let data = 
+    {
+        type: 'get-courses-teacher',
+        teacher_id: parseInt(teacherId),
+        select: select
     };
 
     http.send(JSON.stringify(data));
