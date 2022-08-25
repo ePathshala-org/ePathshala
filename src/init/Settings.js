@@ -69,10 +69,69 @@ const SetupInterests = async function()
 
         SetupInterests();
     };
+};
 
-    let teacherResponse = GetTeacherDetailsFromUserId(userDetails, ['USER_ID']);
+const SetupSpecialities = function()
+{
+    let specialitiesResponse = GetTeacherSpecialities(userId);
+    let addSpecialityButton = document.getElementsByTagName('button').namedItem('add-specialitie-button');
+    
+    if(specialitiesResponse.ok)
+    {
+        let specialities = specialitiesResponse.specialities;
+        let specialitiesList = document.getElementsByTagName('div').namedItem('specialities-list');
+        specialitiesList.innerHTML = '';
 
-    if(teacherResponse.USER_ID == null)
+        if(Array.isArray(specialities))
+        {
+            for(let i = 0; i < specialities.length; ++i)
+            {
+                let specialityWrapper = document.createElement('div');
+                specialityWrapper.innerHTML = await GetUIText('ui/Interest.html');
+                let span = specialityWrapper.getElementsByTagName('span').item(0);
+                span.textContent = specialities[i];
+                let deleteButton = specialityWrapper.getElementsByTagName('a').item(0);
+                deleteButton.onclick = function()
+                {
+                    DeleteSpeciality(userId, specialities[i]);
+                    SetupSpeciality();
+                };
+
+                specialitiesList.append(specialityWrapper.firstChild);
+            }
+
+            if(specialities.length == 3)
+            {
+                addSpecialityButton.setAttribute('disabled', '');
+            }
+            else
+            {
+                addSpecialityButton.removeAttribute('disabled');
+            }
+        }
+    }
+
+    addSpecialityButton.onclick = function()
+    {
+        let speciality = document.getElementsByTagName('input').namedItem('new-speciality-input');
+
+        InsertSpeciality(userId, speciality.value);
+
+        speciality.value = '';
+
+        SetupSpeciality();
+    };
+};
+
+if(student == 'true')
+{
+    specialitiesContainer.remove();
+    addStudentButton.remove();
+    SetupInterests();
+
+    let teacher = GetTeacherDetailsFromUserId(userDetails, ['USER_ID']);
+
+    if(teacher.USER_ID == null)
     {
         addTeacherButton.onclick = function()
         {
@@ -84,18 +143,26 @@ const SetupInterests = async function()
     {
         addTeacherButton.remove();
     }
-};
-
-if(student == 'true')
-{
-    specialitiesContainer.remove();
-    addStudentButton.remove();
-    SetupInterests();
 }
 else
 {
     interestsContainer.remove();
     addTeacherButton.remove();
+
+    let student = GetStudentDetailsFromUserId(userId, ['USER_ID']);
+
+    if(student.USER_ID == null)
+    {
+        addStudentButton.onclick = function()
+        {
+            InsertStudent(userId);
+            addStudentButton.remove();
+        };
+    }
+    else
+    {
+        addStudentButton.remove();
+    }
 }
 
 let userDetails = GetUserDetails(userId, ['FULL_NAME', 'EMAIL', 'BIO', 'DATE_OF_BIRTH']);

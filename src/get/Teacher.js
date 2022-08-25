@@ -37,3 +37,35 @@ const GetTeacherDetailsFromUserId = function(userId, select)
         return null;
     }
 };
+
+/**
+ * 
+ * @param {number} userId 
+ */
+const GetTeacherSpecialities = function(userId)
+{
+    let http = new XMLHttpRequest();
+
+    http.open('POST', '/', false);
+    http.setRequestHeader('Content-Type', 'application/json');
+
+    let data = 
+    {
+        type: 'get-specialities',
+        teacher_id: parseInt(userId)
+    };
+
+    http.send(JSON.stringify(data));
+
+    if(http.readyState == 4)
+    {
+        if(http.status == 200)
+        {
+            return http.response;
+        }
+        else
+        {
+            return {ok: false, error: http.status};
+        }
+    }
+};

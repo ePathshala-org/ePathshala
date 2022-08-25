@@ -9,7 +9,7 @@ let isStudent = localStorage.getItem('student');
 
 if(userId != null) // not null means already logged in
 {
-    if(isStudent) // redirect to student page
+    if(isStudent == 'true') // redirect to student page
     {
         location.replace("student.html?user_id=" + userId);
     }
