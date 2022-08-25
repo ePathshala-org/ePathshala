@@ -41,8 +41,7 @@ const SetupNavBar = async function(userId)
             accountType = null;
 
             localStorage.removeItem('user_id');
-            localStorage.removeItem('password');
-            localStorage.removeItem('account_type');
+            localStorage.removeItem('student');
             location.reload();
         };
         settingsButton.onclick = function()
