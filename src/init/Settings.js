@@ -71,10 +71,10 @@ const SetupInterests = async function()
     };
 };
 
-const SetupSpecialities = function()
+const SetupSpecialities = async function()
 {
     let specialitiesResponse = GetTeacherSpecialities(userId);
-    let addSpecialityButton = document.getElementsByTagName('button').namedItem('add-specialitie-button');
+    let addSpecialityButton = document.getElementsByTagName('button').namedItem('add-speciality-button');
     
     if(specialitiesResponse.ok)
     {
@@ -87,14 +87,14 @@ const SetupSpecialities = function()
             for(let i = 0; i < specialities.length; ++i)
             {
                 let specialityWrapper = document.createElement('div');
-                specialityWrapper.innerHTML = await GetUIText('ui/Interest.html');
+                specialityWrapper.innerHTML = await GetUIText('ui/Speciality.html');
                 let span = specialityWrapper.getElementsByTagName('span').item(0);
                 span.textContent = specialities[i];
                 let deleteButton = specialityWrapper.getElementsByTagName('a').item(0);
                 deleteButton.onclick = function()
                 {
                     DeleteSpeciality(userId, specialities[i]);
-                    SetupSpeciality();
+                    SetupSpecialities();
                 };
 
                 specialitiesList.append(specialityWrapper.firstChild);
@@ -119,7 +119,7 @@ const SetupSpecialities = function()
 
         speciality.value = '';
 
-        SetupSpeciality();
+        SetupSpecialities();
     };
 };
 
@@ -148,6 +148,7 @@ else
 {
     interestsContainer.remove();
     addTeacherButton.remove();
+    SetupSpecialities();
 
     let student = GetStudentDetailsFromUserId(userId, ['USER_ID']);
 

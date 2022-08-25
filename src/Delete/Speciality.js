@@ -3,7 +3,7 @@
  * @param {number} userId 
  * @param {string} speciality 
  */
-const InsertSpeciality = function(userId, speciality)
+const DeleteSpeciality = function(userId, speciality)
 {
     let http = new XMLHttpRequest();
 
@@ -12,7 +12,7 @@ const InsertSpeciality = function(userId, speciality)
 
     let data = 
     {
-        type: 'insert-speciality',
+        type: 'delete-speciality',
         teacher_id: parseInt(userId),
         speciality: speciality
     };
@@ -23,7 +23,7 @@ const InsertSpeciality = function(userId, speciality)
     {
         if(http.status == 200)
         {
-            return http.response;
+            return JSON.parse(http.responseText);
         }
         else
         {

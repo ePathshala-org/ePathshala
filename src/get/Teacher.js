@@ -61,7 +61,7 @@ const GetTeacherSpecialities = function(userId)
     {
         if(http.status == 200)
         {
-            return http.response;
+            return JSON.parse(http.responseText);
         }
         else
         {
