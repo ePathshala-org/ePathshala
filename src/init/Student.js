@@ -48,8 +48,30 @@ studentPfp.src = 'pfp/' + studentDetails.USER_ID + '.png';
 dateOfJoin.textContent = studentDetails.DATE_OF_JOIN;
 dateOfBirth.textContent = studentDetails.DATE_OF_BIRTH;
 rank.textContent = studentDetails.RANK_POINT;
+let interestsH6 = document.getElementsByTagName('h6').namedItem('interests');
+let interestsSpan = interestsH6.getElementsByTagName('span').item(0);
+let interestsResponse = GetStudentInterests(userId);
 
-// let studentInterests = GetStudentInterests(userId);
+if(Array.isArray(interestsResponse.interests))
+{
+    interestsSpan.textContent = '';
+
+    for(let i = 0; i < interestsResponse.interests.length; ++i)
+    {
+        if(i == 0)
+        {
+            interestsSpan.textContent += interestsResponse.interests[i];
+        }
+        else
+        {
+            interestsSpan.textContent += ', ' + interestsResponse.interests[i];
+        }
+    }
+}
+else
+{
+    interestsH6.remove();
+}
 
 let coursesContainer = document.getElementsByTagName('div').namedItem('courses-list-container');
 let coursesList = GetCoursesFromStudentId(userId, ['COURSE_ID', 'TITLE', 'DESCRIPTION', 'RATE']);
@@ -92,6 +114,9 @@ const SetupCourses = async function()
             {
                 location.href = 'coursedetails.html?course_id=' + coursesList.courses[i].COURSE_ID;
             };
+
+            let deleteCourseContainer = courseListItemWrapper.getElementsByClassName('delete-container').item(0);
+            deleteCourseContainer.remove();
 
             coursesUl.append(courseListItemWrapper.firstChild);
         }

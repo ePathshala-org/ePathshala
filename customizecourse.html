@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ePathshala</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="bootstrap/css/bootstrap.css" rel="stylesheet">-->
+    </head>
+
+    <body>
+        <img
+            src="assets/backgrounds/left-background.png"
+            style=
+            "
+                position: fixed;
+                left: 0;
+                bottom: 10%;
+            "
+        >
+        <img
+            src="assets/backgrounds/right-background.png"
+            style=
+            "
+                position: fixed;
+                right: 0;
+                top: 10%;
+            "
+        >
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a href="javascript:" class="navbar-brand" id="navbar-home-button">
+                    <img src="assets/96x96/ePathshala.png" height="32px">
+                    ePathshala
+                </a>
+                <ul
+                    class="navbar-nav me-auto mb-2 mb-lg-0"
+                >
+                    <li class="nav-item">
+                        <a id="navbar-courses-button" class="nav-link" aria-current="page" href="javascript:">Courses</a>
+                    </li>
+                </ul>
+                <div class = "d-flex">
+                    <div class = "d-flex me-2" role="search">
+                        <input id = "navbar-search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button id = "navbar-search-button" class="btn btn-outline-success" type="button">Search</button>
+                    </div>
+                    <div id = "login-status">
+                        <div class = "d-class">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login-modal">Login</button>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#create-account-modal">Create New Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            
+        </div>
+        <div
+            style=
+            "
+                max-width: 50%;
+                min-width: 50%;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 50px;
+                margin-bottom: 50px;
+            "
+            id="root"
+        >
+            <form
+                class="needs-validation"
+                action=""
+            >
+                <div class="mb-3">
+                    <label for="course-title" class="form-label">Course Title</label>
+                    <input type="text" class="form-control" id="course-title" placeholder="Course Title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="course-description" class="form-label">Course Title</label>
+                    <textarea type="text" class="form-control" id="course-description" placeholder="Course Description" rows="3" maxlength="100"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="course-price" class="form-label">Price</label>
+                    <input type="number" class="form-control" id="course-price" placeholder="0" min="0" required>
+                </div>
+                <button
+                    class="btn btn-success"
+                    id="save-course-button"
+                >Save</button>
+            </form>
+            <div
+                class="d-flex justify-content-between"
+            >
+                <h2
+                    class="mt-3"
+                >Contents</h2>
+            </div>
+            <ul
+                class="list-group mb-3"
+                id="contents-list"
+            >
+
+            </ul>
+            <div
+                class="d-flex mb-3"
+            >
+                <button
+                    class="btn btn-primary me-2"
+                    id="add-content-button"
+                >Add Content</button>
+                <div>
+                    <div
+                        class="input-group"
+                    >
+                        <span
+                            class="input-group-text"
+                        >
+                            Type
+                        </span>
+                        <select
+                            class="form-select"
+                            aria-label="Content Type"
+                            id="content-type-select"
+                        >
+                            <option selected>Video</option>
+                            <option>Page</option>
+                            <option>Quiz</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="src/Delete/Content.js"></script>
+        <script src="src/Update/Course.js"></script>
+        <script src="src/get/UIText.js"></script>
+        <script src="src/get/User.js"></script>
+        <script src="src/get/Course.js"></script>
+        <script src="src/get/Content.js"></script>
+        <script src="src/NavBar.js"></script>
+        <script src="src/init/CustomizeCourse.js"></script>
+    </body>
+</html>

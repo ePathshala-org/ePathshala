@@ -38,13 +38,15 @@ const SetupCourses = async function()
             courseEnrollCount.textContent = response.courses[i].ENROLL_COUNT;
             courseRate.textContent = response.courses[i].RATE;
             coursePrice.textContent = response.courses[i].PRICE;
-
-            coursesList.append(coursesListItemWrapper.firstChild);
-
             courseTitle.onclick = function()
             {
                 location.href = 'coursedetails.html?course_id=' + response.courses[i].COURSE_ID;
             };
+
+            let deleteCourseContainer = coursesListItemWrapper.getElementsByClassName('delete-container').item(0);
+            deleteCourseContainer.remove();
+
+            coursesList.append(coursesListItemWrapper.firstChild);
         }
     }
 };
