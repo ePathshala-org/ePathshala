@@ -70,7 +70,7 @@ const SetupCourses = async function()
             let rate = courseListItemWrapper.getElementsByClassName('course-rate').item(0).getElementsByTagName('span').item(0);
             let enrollCount = courseListItemWrapper.getElementsByClassName('course-enroll-count').item(0).getElementsByTagName('span').item(0);
             let price = courseListItemWrapper.getElementsByClassName('course-price').item(0).getElementsByTagName('span').item(0);
-
+            let courseDeleteButton = courseListItemWrapper.getElementsByClassName('delete-course-button').item(0);
 
             courseTitle.textContent = coursesList.courses[i].TITLE;
             courseDescription.textContent = coursesList.courses[i].DESCRIPTION;
@@ -81,6 +81,12 @@ const SetupCourses = async function()
             courseTitleButton.onclick = function()
             {
                 location.href = 'customizecourse.html?course_id=' + coursesList.courses[i].COURSE_ID;
+            };
+
+            courseDeleteButton.onclick = function()
+            {
+                DeleteCourse(coursesList.courses[i].COURSE_ID);
+                location.reload();
             };
 
             coursesUl.append(courseListItemWrapper.firstChild);
