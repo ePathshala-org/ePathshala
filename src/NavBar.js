@@ -47,7 +47,7 @@ const SetupNavBar = async function(userId)
         };
         settingsButton.onclick = function()
         {
-            location.href = "settings?user_id=" + userId + "&type=" + userDetails.USER_TYPE;
+            location.href = "settings.html";
         }
 
         userNameButton.textContent = userDetails.FULL_NAME;

@@ -44,38 +44,32 @@ const GetStudentDetailsFromUserId = function(userId, select)
 
 /**
  * 
- * @param {number} userId
+ * @param {number} userId 
  */
 const GetStudentInterests = function(userId)
 {
     let http = new XMLHttpRequest();
-
+    
     http.open('POST', '/', false);
     http.setRequestHeader('Content-Type', 'application/json');
 
     let data = 
     {
-        type: 'get-student-interests',
+        type: 'get-interests',
         user_id: parseInt(userId)
     };
 
     http.send(JSON.stringify(data));
 
-    if(http.readyState == 4 && http.status == 200)
+    if(http.readyState == 4)
     {
-        let response = JSON.parse(http.responseText);
-
-        if(response.ok)
+        if(http.status == 200)
         {
-            return response;
+            return JSON.parse(http.responseText);
         }
         else
         {
-            return null;
+            return {ok: false, error: http.status};
         }
-    }
-    else
-    {
-        return null;
     }
 };

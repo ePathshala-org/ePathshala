@@ -19,10 +19,78 @@ let specialitiesContainer = document.getElementsByTagName('div').namedItem('spec
 let addTeacherButton = document.getElementsByTagName('button').namedItem('teacher-button');
 let addStudentButton = document.getElementsByTagName('button').namedItem('student-button');
 
+const SetupInterests = async function()
+{
+    let interestsResponse = GetStudentInterests(userId);
+    let addInterestButton = document.getElementsByTagName('button').namedItem('add-interest-button');
+    
+    if(interestsResponse.ok)
+    {
+        let interests = interestsResponse.interests;
+        let interestsList = document.getElementsByTagName('div').namedItem('interests-list');
+        interestsList.innerHTML = '';
+
+        if(Array.isArray(interests))
+        {
+            for(let i = 0; i < interests.length; ++i)
+            {
+                let interestWrapper = document.createElement('div');
+                interestWrapper.innerHTML = await GetUIText('ui/Interest.html');
+                let span = interestWrapper.getElementsByTagName('span').item(0);
+                span.textContent = interests[i];
+                let deleteButton = interestWrapper.getElementsByTagName('a').item(0);
+                deleteButton.onclick = function()
+                {
+                    DeleteInterest(userId, interests[i]);
+                    SetupInterests();
+                };
+
+                interestsList.append(interestWrapper.firstChild);
+            }
+
+            if(interests.length == 3)
+            {
+                addInterestButton.setAttribute('disabled', '');
+            }
+            else
+            {
+                addInterestButton.removeAttribute('disabled');
+            }
+        }
+    }
+
+    addInterestButton.onclick = function()
+    {
+        let interest = document.getElementsByTagName('input').namedItem('new-interest-input');
+
+        InsertInterest(userId, interest.value);
+
+        interest.value = '';
+
+        SetupInterests();
+    };
+
+    let teacherResponse = GetTeacherDetailsFromUserId(userDetails, ['USER_ID']);
+
+    if(teacherResponse.USER_ID == null)
+    {
+        addTeacherButton.onclick = function()
+        {
+            InsertTeacher(userId);
+            addTeacherButton.remove();
+        };
+    }
+    else
+    {
+        addTeacherButton.remove();
+    }
+};
+
 if(student == 'true')
 {
     specialitiesContainer.remove();
     addStudentButton.remove();
+    SetupInterests();
 }
 else
 {
@@ -30,7 +98,7 @@ else
     addTeacherButton.remove();
 }
 
-let userDetails = GetUserDetails(userId, ['FULL_NAME', 'EMAIL', 'SECURITY_KEY', 'BIO', 'DATE_OF_BIRTH', 'PFP']);
+let userDetails = GetUserDetails(userId, ['FULL_NAME', 'EMAIL', 'BIO', 'DATE_OF_BIRTH']);
 let fullName = document.getElementsByTagName('input').namedItem('full-name');
 let email = document.getElementsByTagName('input').namedItem('email');
 let password = document.getElementsByTagName('input').namedItem('password');
@@ -59,7 +127,7 @@ saveButton.onclick = async function()
     let passwordValue = password.value;
     let bioValue = bio.value;
     let dateValue = dateOfBirth.valueAsDate.getFullYear() + '-' + (dateOfBirth.valueAsDate.getMonth() + 1).toString() + '-' + dateOfBirth.valueAsDate.getDate();
-    let imageUploadSuccess = false;
+    let imageUploadSuccess = true;
 
     if(pfpFile.files.length > 0)
     {
@@ -67,9 +135,9 @@ saveButton.onclick = async function()
 
         let pfpResponse = await UpdatePfp(userId, file);
 
-        if(pfpResponse.pfp_updated)
+        if(!pfpResponse.pfp_updated)
         {
-            imageUploadSuccess = true;
+            imageUploadSuccess = false;
         }
     }
 
