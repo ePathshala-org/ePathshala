@@ -28,11 +28,6 @@ let addBioButton = document.getElementsByTagName('a').namedItem('add-bio-button'
 if(teacherDetails.BIO == '')
 {
     addBioButton.parentNode.removeChild(bioContainer);
-
-    addBioButton.onclick = function()
-    {
-        // add bio
-    };
 }
 else
 {
@@ -54,10 +49,11 @@ let coursesList = GetCoursesFromTeacherId(userId, ['COURSE_ID', 'TITLE', 'DESCRI
 
 const SetupCourses = async function()
 {
+    let coursesUl = document.getElementsByTagName('ul').namedItem('courses-list');
+
     if(Array.isArray(coursesList.courses))
     {
         let courseListItemUI = await GetUIText('ui/ListItem/CourseListItem.html');
-        let coursesUl = document.getElementsByTagName('ul').namedItem('courses-list');
         coursesUl.innerHTML = '';
 
         for(let i = 0; i < coursesList.courses.length; ++i)
@@ -94,7 +90,16 @@ const SetupCourses = async function()
     }
     else
     {
-        coursesContainer.innerHTML = '';
+        coursesUl.remove();
+
+        let alert = document.createElement('div');
+
+        alert.classList.add('alert', 'alert-secondary');
+        alert.setAttribute('role', 'alert');
+
+        alert.textContent = 'Wow! Such empty. Create some courses';
+
+        coursesContainer.append(alert);
     }
 };
 
