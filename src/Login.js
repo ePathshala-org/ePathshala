@@ -43,12 +43,14 @@ loginModal.addEventListener('show.bs.modal', (event)=>
 
 let createAccountModalButton = document.getElementsByTagName('button').namedItem('create-account-modal-button');
 let loginButton = document.getElementsByTagName('button').namedItem('login-button');
-loginButton.onclick = function()
+let loginForm = document.getElementsByTagName('form').namedItem('login-form');
+loginForm.onsubmit = function()
 {
     loginButton.setAttribute('disabled', '');
     createAccountModalButton.setAttribute('disabled', '');
 
-    let response = Login(loginEmail.value, loginPassword.value, loginStudent.checked);
+    let student = loginStudent.checked;
+    let response = Login(loginEmail.value, loginPassword.value, student);
 
     if(response.return == -1) // no email
     {
@@ -61,9 +63,9 @@ loginButton.onclick = function()
     else
     {
         localStorage.setItem('user_id', response.return);
-        localStorage.setItem('student', data.student);
+        localStorage.setItem('student', student);
 
-        if(data.student)
+        if(student)
         {
             location.href = 'student.html';
         }
@@ -74,7 +76,9 @@ loginButton.onclick = function()
     }
 
     loginButton.removeAttribute('disabled');
-    createAccountModalButton.remove('disabled');
+    createAccountModalButton.removeAttribute('disabled');
+
+    return false;
 };
 
 let fullName = document.getElementsByTagName('input').namedItem('create-account-full-name');

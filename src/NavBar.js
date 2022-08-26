@@ -21,7 +21,7 @@ const SetupNavBar = async function(userId)
 
         while(userDetails == null)
         {
-            userDetails = GetUserDetails(parseInt(userId), ['FULL_NAME', 'USER_TYPE']);
+            userDetails = GetUserDetails(parseInt(userId), ['FULL_NAME']);
         }
 
         let loginStatusUI = await GetUIText('ui/LoginStatus.html');
