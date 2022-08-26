@@ -102,6 +102,7 @@ const SetupContentsList = async function()
     let response = GetContentsFromCourseId(courseId, ['CONTENT_ID', 'TITLE', 'DESCRIPTION', 'VIEW_COUNT', 'CONTENT_TYPE', 'RATE']);
     let contentListItemUI = await GetUIText('ui/ListItem/ContentListItem.html');
     let contentsUl = document.getElementsByTagName('ul').namedItem('contents-list');
+    let contentsContainer = document.getElementsByTagName('div').namedItem('contents-container');
 
     if(Array.isArray(response.contents))
     {
@@ -146,6 +147,19 @@ const SetupContentsList = async function()
             deleteContainer.remove();
             contentsUl.append(contentListItemWrapper.firstChild);
         }
+    }
+    else
+    {
+        contentsUl.remove();
+
+        let alert = document.createElement('div');
+
+        alert.classList.add('alert', 'alert-secondary');
+        alert.setAttribute('role', 'alert');
+
+        alert.textContent = 'Wow! Such empty';
+
+        contentsContainer.append(alert);
     }
 };
 

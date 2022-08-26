@@ -97,7 +97,8 @@
             id="root"
         >
             <form
-                class="needs-validation"
+                action="javascript:"
+                id="upload-video-form"
             >
                 <div class="mb-3">
                     <label for="course-title" class="form-label">Video Title</label>
@@ -120,6 +121,7 @@
                         class="btn btn-success me-2"
                         id="upload-video-button"
                         type="submit"
+                        form="upload-video-form"
                         data-bs-toggle="modal"
                         data-bs-target="#upload-state-modal"
                     >Upload</button>
