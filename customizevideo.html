@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ePathshala</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="bootstrap/css/bootstrap.css" rel="stylesheet">-->
+    </head>
+
+    <body
+        style=
+        "
+            overflow-y: scroll;
+        "
+    >
+        <!--navbar start-->
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a href="javascript:" class="navbar-brand" id="navbar-home-button">
+                    <img src="assets/96x96/ePathshala.png" height="32px">
+                    ePathshala
+                </a>
+                <ul
+                    class="navbar-nav me-auto mb-2 mb-lg-0"
+                >
+                    <li class="nav-item">
+                        <a id="navbar-courses-button" class="nav-link" aria-current="page" href="javascript:">Courses</a>
+                    </li>
+                </ul>
+                <div class = "d-flex">
+                    <div class = "d-flex me-2" role="search">
+                        <input id = "navbar-search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button id = "navbar-search-button" class="btn btn-outline-success" type="button">Search</button>
+                    </div>
+                    <div id = "login-status">
+                        <div class = "d-class">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login-modal">Login</button>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#create-account-modal">Create New Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!--navbar end-->
+        <div class="modal fade" tabindex="-1" id="upload-state-modal" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Uploading...</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="progress">
+                            <div id="upload-progress-bar" class="progress-bar" role="progressbar" aria-label="Upload Done" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div
+                            class="d-flex justify-content-center"
+                        >
+                            <span
+                                id="upload-progress-value"
+                            >0%</span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            class="btn btn-danger"
+                            id="current-upload-cancel-button"
+                        >Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="duplicate-title-toast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Duplicate Video Title
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+        <div
+            id = "root"
+        >
+            <div
+                class="d-flex ms-3 me-3"
+            >
+                <div
+                    style=
+                    "
+                        margin-top: 20px;
+                        margin-right: 2%;
+                        width: 60%;
+                    "
+                >
+                    <video
+                        id="video-player"
+                        controlsList="nodownload"
+                        style=
+                        "
+                            width: 100%;
+                            margin-bottom: 20px;
+                        "
+                        class="ms-2"
+                        controls
+                    ></video>
+                    <button
+                        class="btn btn-primary ms-2"
+                        id="check-comments-button"
+                    >Check Comments</button>
+                </div>
+                <div
+                    style=
+                    "
+                        margin-top: 20px;
+                        width: 40%;
+                    "
+                >
+                    <div class="mb-3">
+                        <label for="video-file" class="form-label">New File</label>
+                        <input type="file" class="form-control" id="video-file" accept=".mp4">
+                    </div>
+                    <div class="mb-3">
+                        <label for="video-title" class="form-label">Title</label>
+                        <input autocomplete="off" type="text" class="form-control" id="video-title" placeholder="A Beautiful Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="video-description" class="form-label">Description</label>
+                        <textarea class="form-control" id="video-description" row="3" placeholder="A beautiful description..." maxlength="100"></textarea>
+                    </div>
+                    <button
+                        class="btn btn-success"
+                        id="save-video-button"
+                    >Save</button>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="src/get/UIText.js"></script>
+        <script src="src/get/User.js"></script>
+        <script src="src/get/Content.js"></script>
+        <script src="src/get/Course.js"></script>
+        <script src="src/NavBar.js"></script>
+        <script src="src/Update/Video.js"></script>
+        <script src="src/init/CustomizeVideo.js"></script>
+    </body>
+</html>

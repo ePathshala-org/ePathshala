@@ -58,7 +58,7 @@ const SetupCourseDetails = function()
         }
         else
         {
-            enrollButton.setAttribute('data-bs-target', '#enroll-modal');
+            enrollButton.setAttribute('data-bs-target', '#buy-course-modal');
 
             buyButton.onclick = function()
             {
@@ -99,7 +99,7 @@ const SetupCourseDetails = function()
 
 const SetupContentsList = async function()
 {
-    let response = GetContentsFromCourseId(courseId, ['CONTENT_ID', 'TITLE', 'DESCRIPTION', 'VIEW_COUNT', 'CONTENT_TYPE']);
+    let response = GetContentsFromCourseId(courseId, ['CONTENT_ID', 'TITLE', 'DESCRIPTION', 'VIEW_COUNT', 'CONTENT_TYPE', 'RATE']);
     let contentListItemUI = await GetUIText('ui/ListItem/ContentListItem.html');
     let contentsUl = document.getElementsByTagName('ul').namedItem('contents-list');
 
@@ -141,6 +141,9 @@ const SetupContentsList = async function()
                 viewType.textContent = 'attemptees';
             }
 
+            let deleteContainer = contentListItemWrapper.getElementsByClassName('delete-container').item(0);
+
+            deleteContainer.remove();
             contentsUl.append(contentListItemWrapper.firstChild);
         }
     }
