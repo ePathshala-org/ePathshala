@@ -78,6 +78,12 @@ uploadForm.onsubmit = function()
             }
         }
 
+        let uploadCancelButton = document.getElementsByTagName('button').namedItem('cancel-video-upload-button');
+        uploadCancelButton.onclick = function()
+        {
+            http.abort();
+        };
+
         http.send(fileFormData);
     }
 
