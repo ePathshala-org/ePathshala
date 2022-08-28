@@ -1,25 +1,19 @@
 /**
  * 
- * @param {number} askerId
- * @param {string} title
- * @param {string[]} tags
- * @param {string} content
+ * @param {string[]} select
  */
-const InsertForumQuestion = function(askerId, title, tags, content)
+const GetQuestions = function(select)
 {
     let http = new XMLHttpRequest();
 
     http.open('POST', '/', false);
     http.setRequestHeader('Content-Type', 'application/json');
-    http.setRequestHeader('type', 'insert-question');
+    http.setRequestHeader('type', 'get-questions');
 
     let data = 
     {
-        asker_id: parseInt(askerId),
-        title: title,
-        tags: tags,
-        content: JSON.stringify(content)
-    };
+        select: select
+    }
 
     http.send(JSON.stringify(data));
 
