@@ -18,7 +18,7 @@ const InsertForumQuestion = function(askerId, title, tags, content)
         asker_id: parseInt(askerId),
         title: title,
         tags: tags,
-        content: JSON.stringify(content)
+        content: content
     };
 
     http.send(JSON.stringify(data));

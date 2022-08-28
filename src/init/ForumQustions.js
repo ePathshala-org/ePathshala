@@ -9,6 +9,8 @@ let isStudent = localStorage.getItem('student');
  
 SetupNavBar(userId);
 
+// let loginModal = new bootstrap.Modal(document.getElementsByTagName('div').namedItem('login-modal'));
+
 let editor = new Quill(document.getElementsByTagName('div').namedItem('post-editor'),
 {
     modules:
@@ -36,7 +38,14 @@ postForm.onsubmit = function()
 {
     tags = [];
 
-    questionModal.show();
+    if(userId == null)
+    {
+        loginModal.show();
+    }
+    else
+    {
+        questionModal.show();
+    }
 
     return false;
 };
