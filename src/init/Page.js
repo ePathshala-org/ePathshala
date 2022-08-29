@@ -199,6 +199,7 @@ SetupComments();
 let pageRate = document.getElementsByTagName('input').namedItem('page-rate-input');
 let pageRateForm = document.getElementsByTagName('form').namedItem('page-rate-form');
 let pageRateModalElement = document.getElementsByTagName('div').namedItem('page-rate-modal');
+let pageRateModal = new bootstrap.Modal(pageRateModalElement);
 
 pageRateModalElement.addEventListener('show.bs.modal', (event)=>
 {
@@ -207,7 +208,10 @@ pageRateModalElement.addEventListener('show.bs.modal', (event)=>
 
 pageRateForm.onsubmit = function()
 {
+    pageRateModal.hide();
+
     rate.textContent = pageRate.value;
+
     UpdateContentRate(userId, contentDetails.CONTENT_ID, pageRate.value);
 
     return false;
