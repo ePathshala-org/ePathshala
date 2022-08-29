@@ -44,4 +44,13 @@ let editor = new Quill(document.getElementsByTagName('div').namedItem('editor'),
     theme: 'snow'
 });
 
-let saveButton = document
+let pageTitle = document.getElementsByTagName('input').namedItem('page-title');
+let pageForm = document.getElementsByTagName('form').namedItem('page-title-form');
+pageForm.onsubmit = function()
+{
+    InsertPage(pageTitle.value, courseId, editor.getContents());
+
+    location.href = 'customizecourse.html?course_id=' + courseId;
+
+    return false;
+};
