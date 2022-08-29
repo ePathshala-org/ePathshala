@@ -187,10 +187,15 @@
                     <div
                         class="modal-body"
                     >
-                        <div class="mb-3">
-                            <label for="comment-rate-input" class="form-label">Rate</label>
-                            <input type="number" class="form-control" id="comment-rate-input" placeholder="0" min="0" max="5">
-                        </div>
+                        <form
+                            id="comment-rate-update-form"
+                            action="javascript:"
+                        >
+                            <div class="mb-3">
+                                <label for="comment-rate-input" class="form-label">Rate</label>
+                                <input type="number" class="form-control" id="comment-rate-input" placeholder="0" min="0" max="5" required>
+                            </div>
+                        </form>
                     </div>
                     <div
                         class="modal-footer"
@@ -198,8 +203,7 @@
                         <button
                             class="btn btn-primary"
                             id="comment-rate-update-button"
-                            data-bs-toggle="modal"
-                            data-bs-target="#comment-rate-modal"
+                            form="comment-rate-update-form"
                         >Update</button>
                     </div>
                 </div>
@@ -275,10 +279,15 @@
                     <div
                         class="modal-body"
                     >
-                        <div class="mb-3">
-                            <label for="comment-rate-input" class="form-label">Comment Description</label>
-                            <input type="text" class="form-control" id="comment-edit-input" placeholder="Say something...">
-                        </div>
+                        <form
+                            id="comment-edit-modal-form"
+                            action="javascript:"
+                        >
+                            <div class="mb-3">
+                                <label for="comment-rate-input" class="form-label">Comment Description</label>
+                                <input type="text" class="form-control" id="comment-edit-input" placeholder="Say something..." required>
+                            </div>
+                        </form>
                     </div>
                     <div
                         class="modal-footer"
@@ -286,8 +295,8 @@
                         <button
                             class="btn btn-primary"
                             id="comment-edit-button"
-                            data-bs-toggle="modal"
-                            data-bs-target="#comment-edit-modal"
+                            form="comment-edit-modal-form"
+                            type="submit"
                         >Update</button>
                     </div>
                 </div>

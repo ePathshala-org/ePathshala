@@ -201,6 +201,12 @@ SetupComments();
 
 let videoRate = document.getElementsByTagName('input').namedItem('video-rate-input');
 let videoRateForm = document.getElementsByTagName('form').namedItem('video-rate-form');
+let videoRateModalElement = document.getElementsByTagName('div').namedItem('video-rate-modal');
+
+videoRateModalElement.addEventListener('show.bs.modal', (event)=>
+{
+    videoRate.value = contentDetails.RATE;
+});
 
 videoRateForm.onsubmit = function()
 {
