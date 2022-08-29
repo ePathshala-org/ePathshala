@@ -164,54 +164,46 @@ commentForm.onsubmit = function()
     return false;
 };
 
-let commentEditModal = document.getElementsByTagName('div').namedItem('comment-edit-modal');
+let commentEditModalElement = document.getElementsByTagName('div').namedItem('comment-edit-modal');
 let commentEditModalInput = document.getElementsByTagName('input').namedItem('comment-edit-input');
 let commentEditButton = document.getElementsByTagName('button').namedItem('comment-edit-button');
+let commentEditModalForm = document.getElementsByTagName('form').namedItem('comment-edit-modal-form');
+let commentEditModal = new bootstrap.Modal(document.getElementsByTagName('div').namedItem('comment-edit-modal'));
 
-commentEditModalInput.addEventListener('input', (event)=>
+commentEditModalForm.onsubmit = function()
 {
-    if(commentEditModalInput.value == '')
-    {
-        commentEditButton.setAttribute('disabled', '');
-    }
-    else
-    {
-        commentEditButton.removeAttribute('disabled');
-    }
-});
-
-commentEditButton.onclick = function()
-{
+    commentEditModal.hide();
     UpdateComment(commenteSelected, commentEditModalInput.value);
     SetupComments();
+
+    return false;
 };
 
-let commentRateModal = document.getElementsByTagName('div').namedItem('comment-rate-modal')
+let commentRateModalElement = document.getElementsByTagName('div').namedItem('comment-rate-modal');
 let commentRateModalInput = document.getElementsByTagName('input').namedItem('comment-rate-input');
 let commentRateUpdateButton = document.getElementsByTagName('button').namedItem('comment-rate-update-button');
+let commentRateUpdateForm = document.getElementsByTagName('form').namedItem('comment-rate-update-form');
+let commentRateModal = new bootstrap.Modal(commentRateModalElement);
 
-commentRateModalInput.addEventListener('input', (event)=>
+commentRateUpdateForm.onsubmit = function()
 {
-    if(commentRateModalInput.value == '')
-    {
-        commentRateUpdateButton.setAttribute('disabled', '');
-    }
-    else
-    {
-        commentRateUpdateButton.removeAttribute('disabled');
-    }
-});
-
-commentRateUpdateButton.onclick = function()
-{
+    commentRateModal.hide();
     UpdateCommentRate(commenteSelected, commentRateModalInput.value);
     SetupComments();
+
+    return false;
 };
 
 SetupComments();
 
 let pageRate = document.getElementsByTagName('input').namedItem('page-rate-input');
 let pageRateForm = document.getElementsByTagName('form').namedItem('page-rate-form');
+let pageRateModalElement = document.getElementsByTagName('div').namedItem('page-rate-modal');
+
+pageRateModalElement.addEventListener('show.bs.modal', (event)=>
+{
+    pageRate.value = contentDetails.RATE;
+});
 
 pageRateForm.onsubmit = function()
 {
