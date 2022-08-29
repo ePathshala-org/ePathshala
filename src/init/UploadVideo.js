@@ -18,7 +18,7 @@ let params = new URLSearchParams(location.search);
 
 if(!params.has('course_id'))
 {
-    location.replace('teacher.html');
+    location.replace('index.html');
 }
 
 let courseId = params.get('course_id');
@@ -26,7 +26,7 @@ let courseDetails = GetCourseFromCourseId(courseId, ['CREATOR_ID']);
 
 if(courseDetails.CREATOR_ID != userId)
 {
-    location.replace('teacher.html');
+    location.replace('index.html');
 }
 
 let title = document.getElementsByTagName('input').namedItem('video-title');
