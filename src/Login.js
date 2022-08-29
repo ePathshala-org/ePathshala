@@ -27,7 +27,7 @@ const Login = function(email, password, student)
     }
     else
     {
-        return {error: http.status};
+        return {ok: false, error: http.status};
     }
 };
 

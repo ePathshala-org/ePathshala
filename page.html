@@ -57,114 +57,6 @@
         </nav>
         <!--navbar end-->
 
-        <div class="modal fade" id="login-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Login</h5>
-                        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form
-                            id="login-form"
-                            action="javascript:"
-                        >
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="login-email" placeholder="someone@email.com" required>
-                                <label for="login-email">Email Address</label>
-                                <div
-                                    class="invalid-feedback"
-                                >Email not found</div>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="login-password" placeholder="someone@email.com" minlength="8" maxlength="32" required>
-                                <label for="login-password">Password</label>
-                                <div
-                                    class="invalid-feedback"
-                                >Password did not match</div>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="login-type" id="student-login" checked>
-                                <label class="form-check-label" for="student-login">
-                                    Student
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="login-type" id="teacher-login">
-                                <label class="form-check-label" for="teacher-login">
-                                    Teacher
-                                </label>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" id="login-button" type="submit" form="login-form">Login</button>
-                        <button type="button" class="btn btn-secondary" id="create-account-modal-button" data-bs-toggle="modal" data-bs-target="#create-account-modal">Create New Account</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="create-account-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Create New Account</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form
-                            id="create-account-form"
-                            action="javascript:"
-                        >
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="create-account-full-name" placeholder="Full Name" required>
-                                <label for="create-account-full-name">Full Name</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="create-account-email" placeholder="someone@email.com" required>
-                                <label for="create-account-email">Email</label>
-                                <div
-                                    class="invalid-feedback"
-                                >Email address already present</div>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="create-account-password" placeholder="Password" minlength="8" maxlength="32" required>
-                                <label for="create-account-password">Password</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="date" class="form-control" id="date-of-birth" required>
-                                <label for="date-of-birth">Date of Birth</label>
-                            </div>
-                            <div class = "mb-3" id = "create-account-type">
-                                <label for="create-account-type-radio" class="form-label">Account Type</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-student" checked>
-                                    <label class="form-check-label" for="create-account-type-radio-student">
-                                        Student
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-teacher">
-                                    <label class="form-check-label" for="create-account-type-radio-teacher">
-                                        Teacher
-                                    </label>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            id="create-new-account-button"
-                            type="submit"
-                            class="btn btn-primary"
-                            form="create-account-form"
-                        >Create</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div
             class="modal fade"
             tabindex="-1"
@@ -248,8 +140,6 @@
                         <button
                             class="btn btn-primary"
                             id="page-rate-update-button"
-                            data-bs-toggle="modal"
-                            data-bs-target="#page-rate-modal"
                             form="page-rate-form"
                         >Update</button>
                     </div>
@@ -284,8 +174,8 @@
                             action="javascript:"
                         >
                             <div class="mb-3">
-                                <label for="comment-rate-input" class="form-label">Comment Description</label>
-                                <input type="text" class="form-control" id="comment-edit-input" placeholder="Say something..." required>
+                                <label for="comment-edit-input" class="form-label">Comment Description</label>
+                                <input type="text" class="form-control" id="comment-edit-input" placeholder="Say something..." autocomplete="off" required>
                             </div>
                         </form>
                     </div>

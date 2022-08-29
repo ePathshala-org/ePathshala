@@ -1,51 +1,51 @@
 /**
  * @type {string | null}
  */
- let userId = localStorage.getItem('user_id');
- /**
-  * @type {string | null}
-  */
- let student = localStorage.getItem('student');
- let params = new URLSearchParams(location.search);
- 
- if(userId == null || !params.has('content_id'))
- {
-     location.replace('index.html');
- }
- 
- SetupNavBar(userId);
+let userId = localStorage.getItem('user_id');
+/**
+ * @type {string | null}
+ */
+let student = localStorage.getItem('student');
+let params = new URLSearchParams(location.search);
 
- let contentCourse = GetContentFromContentId(params.get('content_id'), ['COURSE_ID']);
- let studentCourses = GetCoursesFromStudentId(userId, ['COURSE_ID']);
- 
- if(Array.isArray(studentCourses.courses))
- {
-     let found = false;
- 
-     for(let i = 0; i < studentCourses.courses.length; ++i)
-     {
-         if(studentCourses.courses[i].COURSE_ID == contentCourse.COURSE_ID)
-         {
-             found = true;
- 
-             break;
-         }
-     }
- 
-     if(!found)
-     {
-         location.replace('index.html');    
-     }
- }
- else
- {
-     location.replace('index.html');
- }
- 
- InsertView(userId, contentCourse.COURSE_ID);
- 
- let contentDetails = GetContentFromContentId(params.get('content_id'), ['CONTENT_ID','TITLE', 'DESCRIPTION', 'COURSE_ID', 'COURSE_NAME', 'RATE', 'VIEW_COUNT', 'DATE_OF_CREATION']);
- let commenteSelected = 0;
+if(userId == null || !params.has('content_id'))
+{
+    location.replace('index.html');
+}
+
+SetupNavBar(userId);
+
+let contentCourse = GetContentFromContentId(params.get('content_id'), ['COURSE_ID']);
+let studentCourses = GetCoursesFromStudentId(userId, ['COURSE_ID']);
+
+if(Array.isArray(studentCourses.courses))
+{
+    let found = false;
+
+    for(let i = 0; i < studentCourses.courses.length; ++i)
+    {
+        if(studentCourses.courses[i].COURSE_ID == contentCourse.COURSE_ID)
+        {
+            found = true;
+
+            break;
+        }
+    }
+
+    if(!found)
+    {
+        location.replace('index.html');    
+    }
+}
+else
+{
+    location.replace('index.html');
+}
+
+InsertView(userId, contentCourse.COURSE_ID);
+
+let contentDetails = GetContentFromContentId(params.get('content_id'), ['CONTENT_ID','TITLE', 'DESCRIPTION', 'COURSE_ID', 'COURSE_NAME', 'RATE', 'VIEW_COUNT', 'DATE_OF_CREATION']);
+let commenteSelected = 0;
 
 let editor = new Quill(document.getElementsByTagName('div').namedItem('editor'),
 {
@@ -114,28 +114,38 @@ const SetupComments = async function()
             commentTime.textContent = response.comments[i].TIME_OF_COMMENT;
             commentDate.textContent = response.comments[i].DATE_OF_COMMENT;
             commentRate.textContent = response.comments[i].RATE;
-            let commentEdit = commentListItemWrapper.getElementsByClassName('comment-edit-button').item(0);
-            let commentDelete = commentListItemWrapper.getElementsByClassName('comment-delete-button').item(0);
+            let menus = commentListItemWrapper.getElementsByClassName('menus').item(0);
+
+            if(response.comments[i].COMMENTER_ID == userId)
+            {
+                let commentEdit = commentListItemWrapper.getElementsByClassName('comment-edit-button').item(0);
+                let commentDelete = commentListItemWrapper.getElementsByClassName('comment-delete-button').item(0);
+
+                commentEdit.onclick = function()
+                {
+                    commenteSelected = response.comments[i].COMMENT_ID;
+                    let commentEditModalInput = document.getElementsByTagName('input').namedItem('comment-edit-input');
+                    commentEditModalInput.value = response.comments[i].DESCRIPTION;
+                };
+
+                commentDelete.onclick = function()
+                {
+                    DeleteComment(response.comments[i].COMMENT_ID);
+                    SetupComments();
+                };
+            }
+            else
+            {
+                menus.setAttribute('disabled', '');
+                
+                menus.style.opacity = '0';
+            }
 
             commentRateButton.onclick = function()
             {
                 commenteSelected = response.comments[i].COMMENT_ID;
                 let commentRateModalInput = document.getElementsByTagName('input').namedItem('comment-rate-input');
                 commentRateModalInput.value = response.comments[i].RATE;
-            };
-
-            commentEdit.onclick = function()
-            {
-                commenteSelected = response.comments[i].COMMENT_ID;
-                let commentEditModalInput = document.getElementsByTagName('input').namedItem('comment-edit-input');
-                commentEditModalInput.value = response.comments[i].DESCRIPTION;
-            };
-
-            commentDelete.onclick = function()
-            {
-                DeleteComment(response.comments[i].COMMENT_ID);
-
-                SetupComments();
             };
 
             commentsListUl.append(commentListItemWrapper.firstChild);
@@ -199,6 +209,7 @@ SetupComments();
 let pageRate = document.getElementsByTagName('input').namedItem('page-rate-input');
 let pageRateForm = document.getElementsByTagName('form').namedItem('page-rate-form');
 let pageRateModalElement = document.getElementsByTagName('div').namedItem('page-rate-modal');
+let pageRateModal = new bootstrap.Modal(pageRateModalElement);
 
 pageRateModalElement.addEventListener('show.bs.modal', (event)=>
 {
@@ -207,7 +218,10 @@ pageRateModalElement.addEventListener('show.bs.modal', (event)=>
 
 pageRateForm.onsubmit = function()
 {
+    pageRateModal.hide();
+
     rate.textContent = pageRate.value;
+
     UpdateContentRate(userId, contentDetails.CONTENT_ID, pageRate.value);
 
     return false;
