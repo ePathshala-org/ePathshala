@@ -42,9 +42,11 @@ else
 }
 
 InsertView(userId, contentCourse.COURSE_ID);
-
+ 
 let contentDetails = GetContentFromContentId(params.get('content_id'), ['CONTENT_ID','TITLE', 'DESCRIPTION', 'COURSE_ID', 'COURSE_NAME', 'RATE', 'VIEW_COUNT', 'DATE_OF_CREATION']);
 let commenteSelected = 0;
+let rate = document.getElementsByTagName('span').namedItem('rate-span');
+rate.textContent = contentDetails.RATE;
 
 const SetupVideoPlayer = async function()
 {
@@ -196,3 +198,14 @@ commentEditButton.onclick = function()
 };
 
 SetupComments();
+
+let videoRate = document.getElementsByTagName('input').namedItem('video-rate-input');
+let videoRateForm = document.getElementsByTagName('form').namedItem('video-rate-form');
+
+videoRateForm.onsubmit = function()
+{
+    rate.textContent = videoRate.value;
+    UpdateContentRate(userId, contentDetails.CONTENT_ID, videoRate.value);
+
+    return false;
+};

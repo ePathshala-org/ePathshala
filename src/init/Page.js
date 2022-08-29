@@ -14,6 +14,7 @@
  }
  
  SetupNavBar(userId);
+
  let contentCourse = GetContentFromContentId(params.get('content_id'), ['COURSE_ID']);
  let studentCourses = GetCoursesFromStudentId(userId, ['COURSE_ID']);
  
@@ -64,6 +65,8 @@ let readerCount = document.getElementsByTagName('h6').namedItem('page-read-count
 let dateOfCreation = document.getElementsByTagName('h6').namedItem('page-date-of-creation');
 readerCount.textContent = contentDetails.VIEW_COUNT;
 dateOfCreation.textContent = contentDetails.DATE_OF_CREATION;
+let rate = document.getElementsByTagName('span').namedItem('rate-span');
+rate.textContent = contentDetails.RATE;
 let content = GetPageContent(contentDetails.CONTENT_ID, contentDetails.COURSE_ID);
 
 courseTitleButton.onclick = function()
@@ -206,3 +209,14 @@ commentRateUpdateButton.onclick = function()
 };
 
 SetupComments();
+
+let pageRate = document.getElementsByTagName('input').namedItem('page-rate-input');
+let pageRateForm = document.getElementsByTagName('form').namedItem('page-rate-form');
+
+pageRateForm.onsubmit = function()
+{
+    rate.textContent = pageRate.value;
+    UpdateContentRate(userId, contentDetails.CONTENT_ID, pageRate.value);
+
+    return false;
+};
