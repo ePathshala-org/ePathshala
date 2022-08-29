@@ -135,6 +135,10 @@ const SetupContentsList = async function()
             {
                 contentImage.src = 'assets/96x96/page.png';
                 viewType.textContent = 'readers';
+                contentTitleButton.onclick = function()
+                {
+                    location.href = 'page.html?content_id=' + response.contents[i].CONTENT_ID;
+                };
             }
             else
             {

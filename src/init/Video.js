@@ -54,7 +54,8 @@ const SetupVideoPlayer = async function()
     let viewCount = document.getElementsByTagName('h6').namedItem('video-view-count').getElementsByTagName('span').item(0);
     let videoDateOfCreation = document.getElementsByTagName('h6').namedItem('video-date-of-creation');
     let videoRate = document.getElementsByTagName('button').namedItem('video-rate-button').getElementsByTagName('span').item(0);
-    let videoCourseName = document.getElementsByTagName('a').namedItem('video-course-button').getElementsByTagName('h4').item(0);
+    let videoCourseButton = document.getElementsByTagName('a').namedItem('video-course-button');
+    let videoCourseName = videoCourseButton.getElementsByTagName('h4').item(0);
     let videoDescription = document.getElementsByTagName('div').namedItem('video-description');
     videoTitle.textContent = contentDetails.TITLE;
     viewCount.textContent = contentDetails.VIEW_COUNT;
@@ -64,7 +65,11 @@ const SetupVideoPlayer = async function()
     videoDescription.textContent = contentDetails.DESCRIPTION;
     let videoPlayer = document.getElementsByTagName('video').namedItem('video-player');
     videoPlayer.src = 'contents/videos/' + contentDetails.COURSE_ID + '/' + contentDetails.CONTENT_ID + '.mp4';
-    
+    videoCourseButton.onclick = function()
+    {
+        location.href = 'coursedetails.html?course_id=' + contentDetails.COURSE_ID;
+    };
+
     videoPlayer.load();
 };
 
@@ -102,28 +107,38 @@ const SetupComments = async function()
             commentTime.textContent = response.comments[i].TIME_OF_COMMENT;
             commentDate.textContent = response.comments[i].DATE_OF_COMMENT;
             commentRate.textContent = response.comments[i].RATE;
-            let commentEdit = commentListItemWrapper.getElementsByClassName('comment-edit-button').item(0);
-            let commentDelete = commentListItemWrapper.getElementsByClassName('comment-delete-button').item(0);
+            let menus = commentListItemWrapper.getElementsByClassName('menus').item(0);
+
+            if(response.comments[i].COMMENTER_ID == userId)
+            {
+                let commentEdit = commentListItemWrapper.getElementsByClassName('comment-edit-button').item(0);
+                let commentDelete = commentListItemWrapper.getElementsByClassName('comment-delete-button').item(0);
+
+                commentEdit.onclick = function()
+                {
+                    commenteSelected = response.comments[i].COMMENT_ID;
+                    let commentEditModalInput = document.getElementsByTagName('input').namedItem('comment-edit-input');
+                    commentEditModalInput.value = response.comments[i].DESCRIPTION;
+                };
+
+                commentDelete.onclick = function()
+                {
+                    DeleteComment(response.comments[i].COMMENT_ID);
+                    SetupComments();
+                };
+            }
+            else
+            {
+                menus.setAttribute('disabled', '');
+                
+                menus.style.opacity = '0';
+            }
 
             commentRateButton.onclick = function()
             {
                 commenteSelected = response.comments[i].COMMENT_ID;
                 let commentRateModalInput = document.getElementsByTagName('input').namedItem('comment-rate-input');
                 commentRateModalInput.value = response.comments[i].RATE;
-            };
-
-            commentEdit.onclick = function()
-            {
-                commenteSelected = response.comments[i].COMMENT_ID;
-                let commentEditModalInput = document.getElementsByTagName('input').namedItem('comment-edit-input');
-                commentEditModalInput.value = response.comments[i].DESCRIPTION;
-            };
-
-            commentDelete.onclick = function()
-            {
-                DeleteComment(response.comments[i].COMMENT_ID);
-
-                SetupComments();
             };
 
             commentsListUl.append(commentListItemWrapper.firstChild);

@@ -4,11 +4,6 @@
  */
 const GetStudentDetailsFromUserId = function(userId, select)
 {
-    if(!Array.isArray(select))
-    {
-        select = [];
-    }
-
     let http = new XMLHttpRequest();
 
     http.open('POST', '/', false);
