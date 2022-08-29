@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ePathshala</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+        <!--<link href="bootstrap/css/bootstrap.css" rel="stylesheet">-->
+    </head>
+
+    <body>
+        <img
+            src="assets/backgrounds/left-background.png"
+            style=
+            "
+                position: fixed;
+                left: 0;
+                bottom: 10%;
+            "
+        >
+        <img
+            src="assets/backgrounds/right-background.png"
+            style=
+            "
+                position: fixed;
+                right: 0;
+                top: 10%;
+            "
+        >
+        <!--navbar start-->
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a href="javascript:" class="navbar-brand" id="navbar-home-button">
+                    <img src="assets/96x96/ePathshala.png" height="32px">
+                    ePathshala
+                </a>
+                <ul
+                    class="navbar-nav me-auto mb-2 mb-lg-0"
+                >
+                    <li class="nav-item">
+                        <a id="navbar-courses-button" class="nav-link" aria-current="page" href="javascript:">Courses</a>
+                    </li>
+                </ul>
+                <div class = "d-flex">
+                    <div class = "d-flex me-2" role="search">
+                        <input id = "navbar-search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button id = "navbar-search-button" class="btn btn-outline-success" type="button">Search</button>
+                    </div>
+                    <div id = "login-status">
+                        <div class = "d-class">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login-modal">Login</button>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#create-account-modal">Create New Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!--navbar end-->
+
+        <div
+            style=
+            "
+                max-width: 50%;
+                min-width: 50%;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 50px;
+            "
+            id = "root"
+        >
+            <form
+                id="page-title-form"
+                action="javascript:"
+            >
+                <div class="mb-3">
+                    <label for="page-title" class="form-label">Page Title</label>
+                    <input type="text" class="form-control" id="page-title" autocomplete="off" required>
+                </div>
+            </form>
+            <div
+                id="editor"
+                class="rounded"
+                style=
+                "
+                    height: 500px;
+                "
+            >
+
+            </div>
+            <div
+                class="d-flex justify-content-end mt-3"
+            >
+                <button
+                    class="btn btn-success"
+                    type="submit"
+                    form="page-title-form"
+                    id="save-page-button"
+                >Save</button>
+            </div>
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+        <script src="src/Update/Page.js"></script>
+        <script src="src/get/User.js"></script>
+        <script src="src/get/Content.js"></script>
+        <script src="src/get/Course.js"></script>
+        <script src="src/get/Comment.js"></script>
+        <script src="src/get/UIText.js"></script>
+        <script src="src/NavBar.js"></script>
+        <script src="src/init/EditPage.js"></script>
+    </body>
+</html>

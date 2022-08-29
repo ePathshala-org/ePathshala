@@ -7,8 +7,9 @@
  * @param {Modal} uploadModal
  * @param {HTMLDivElement} progressBar
  * @param {HTMLSpanElement} progressValue
+ * @param {HTMLButtonElement} uploadCancelButton
  */
-const UpdateVideo = function(contentId, title, description, file, uploadModal, progressBar, progressValue)
+const UpdateVideo = function(contentId, title, description, file, uploadModal, progressBar, progressValue, uploadCancelButton)
 {
     let fileFormData = new FormData();
 
@@ -44,6 +45,11 @@ const UpdateVideo = function(contentId, title, description, file, uploadModal, p
             progressBar.style.width = value;
             progressValue.textContent = value;
         }
+    };
+
+    uploadCancelButton.onclick = function()
+    {
+        http.abort();
     };
 
     http.send(fileFormData);

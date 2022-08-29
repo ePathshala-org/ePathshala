@@ -128,3 +128,34 @@ const GetCourseRemainingContentCountOfUser = function(userId, courseId)
         return null;
     }
 };
+
+/**
+ * 
+ * @param {number} contentId
+ * @param {number} courseId
+ */
+const GetPageContent = function(contentId, courseId)
+{
+    let http = new XMLHttpRequest();
+
+    http.open('POST', '/', false);
+    http.setRequestHeader('Content-Type', 'application/json');
+    http.setRequestHeader('type', 'get-page-content');
+
+    let data = 
+    {
+        content_id: parseInt(contentId),
+        course_id: parseInt(courseId)
+    };
+
+    http.send(JSON.stringify(data));
+
+    if(http.status == 200)
+    {
+        return JSON.parse(http.responseText);
+    }
+    else
+    {
+        return {ok: false, error: http.status};
+    }
+};

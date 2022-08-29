@@ -46,6 +46,7 @@ saveButton.onclick = function()
 {
     saveButton.setAttribute('disabled', '');
 
+    let uploadCancelButton = document.getElementsByTagName('button').namedItem('current-upload-cancel-button');
     let response = UpdateVideo(contentId, title.value, description.value, fileSelect.files.item(0), uploadStateModal, progressBar, progressValue);
 
     saveButton.removeAttribute('disabled');

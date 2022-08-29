@@ -15,7 +15,7 @@ if(userId == null || !params.has('content_id'))
 
 SetupNavBar(userId);
 
-let contentDetails = GetContentFromContentId(params.get('content_id'), ['CONTENT_ID','TITLE', 'DESCRIPTION', 'COURSE_ID', 'COURSE_NAME', 'RATE', 'VIEW_COUNT', 'DATE_OF_CREATION']);
+let contentDetails = GetContentFromContentId(params.get('content_id'), ['CONTENT_ID','TITLE', 'DESCRIPTION', 'COURSE_ID', 'COURSE_NAME', 'COURSE_NAME', 'RATE', 'VIEW_COUNT', 'DATE_OF_CREATION']);
 let studentCourses = GetCoursesFromStudentId(userId, ['COURSE_ID']);
 
 if(Array.isArray(studentCourses.courses))
@@ -42,60 +42,47 @@ else
     location.replace('index.html');
 }
 
-let commenteSelected = 0;
-
-const SetupVideoPlayer = async function()
+let editor = new Quill(document.getElementsByTagName('div').namedItem('editor'),
 {
-    let videoTitle = document.getElementsByTagName('h3').namedItem('video-title');
-    let viewCount = document.getElementsByTagName('h6').namedItem('video-view-count').getElementsByTagName('span').item(0);
-    let videoDateOfCreation = document.getElementsByTagName('h6').namedItem('video-date-of-creation');
-    let videoRate = document.getElementsByTagName('button').namedItem('video-rate-button').getElementsByTagName('span').item(0);
-    let videoCourseName = document.getElementsByTagName('a').namedItem('video-course-button').getElementsByTagName('h4').item(0);
-    let videoDescription = document.getElementsByTagName('div').namedItem('video-description');
-    videoTitle.textContent = contentDetails.TITLE;
-    viewCount.textContent = contentDetails.VIEW_COUNT;
-    videoDateOfCreation.textContent = contentDetails.DATE_OF_CREATION;
-    videoRate.textContent = contentDetails.RATE;
-    videoCourseName.textContent = contentDetails.COURSE_NAME;
-    videoDescription.textContent = contentDetails.DESCRIPTION;
-    let videoPlayer = document.getElementsByTagName('video').namedItem('video-player');
-    videoPlayer.src = 'contents/videos/' + contentDetails.COURSE_ID + '/' + contentDetails.CONTENT_ID + '.mp4';
-    
-    videoPlayer.load();
-};
-
-SetupVideoPlayer();
-
-let commentTextArea = document.getElementsByTagName('input').namedItem('new-comment-text');
-let commentPostButton = document.getElementsByTagName('button').namedItem('post-comment-button');
-
-commentTextArea.addEventListener('input', (event)=>
-{
-    if(event.target.value == '')
+    modules:
     {
-        commentPostButton.setAttribute('disabled', '');
-    }
-    else
-    {
-        commentPostButton.removeAttribute('disabled');
-    }
+        toolbar: null
+    },
+    theme: 'snow'
 });
 
-commentPostButton.onclick = function()
+let pageTitle = document.getElementsByTagName('h2').namedItem('page-title');
+let courseTitleButton = document.getElementsByTagName('a').namedItem('course-title-button');
+let courseTitle = courseTitleButton.getElementsByTagName('h4').item(0);
+pageTitle.textContent = contentDetails.TITLE;
+courseTitle.textContent = contentDetails.COURSE_NAME;
+let readerCount = document.getElementsByTagName('h6').namedItem('page-read-count').getElementsByTagName('span').item(0);
+let dateOfCreation = document.getElementsByTagName('h6').namedItem('page-date-of-creation');
+readerCount.textContent = contentDetails.VIEW_COUNT;
+dateOfCreation.textContent = contentDetails.DATE_OF_CREATION;
+let content = GetPageContent(contentDetails.CONTENT_ID, contentDetails.COURSE_ID);
+
+courseTitleButton.onclick = function()
 {
-    let commentValue = commentTextArea.value;
-
-    PostComment(userId, contentDetails.CONTENT_ID, commentValue);
-
-    SetupComments();
+    location.href = 'coursedetails.html?course_id=' + contentDetails.COURSE_ID;
 };
+
+const SetupEditor = async function(editor)
+{
+    editor.enable(false);
+    editor.setContents(content.content);
+};
+
+SetupEditor(editor);
+
+let commentTextArea = document.getElementsByTagName('input').namedItem('new-comment-text');
+let commentForm = document.getElementsByTagName('form').namedItem('post-comment-form');
 
 const SetupComments = async function()
 {
     commentTextArea.value = '';
 
-    commentPostButton.setAttribute('disabled', '');
-
+    let commentsContainer = document.getElementsByTagName('div').namedItem('comments-container');
     let commentsListUl = document.getElementsByTagName('ul').namedItem('comments-list');
     commentsListUl.innerHTML = '';
     let commentListItemUI = await GetUIText('ui/ListItem/CommentListItem.html');
@@ -147,28 +134,27 @@ const SetupComments = async function()
             commentsListUl.append(commentListItemWrapper.firstChild);
         }
     }
-};
-
-let commentRateModal = document.getElementsByTagName('div').namedItem('comment-rate-modal')
-let commentRateModalInput = document.getElementsByTagName('input').namedItem('comment-rate-input');
-let commentRateUpdateButton = document.getElementsByTagName('button').namedItem('comment-rate-update-button');
-
-commentRateModalInput.addEventListener('input', (event)=>
-{
-    if(commentRateModalInput.value == '')
-    {
-        commentRateUpdateButton.setAttribute('disabled', '');
-    }
     else
     {
-        commentRateUpdateButton.removeAttribute('disabled');
-    }
-});
+        commentsListUl.remove();
+        let card = document.createElement('div');
 
-commentRateUpdateButton.onclick = function()
+        card.classList.add('card', 'card-body');
+
+        card.textContent = 'Wow! Such empty';
+        
+        commentsContainer.append(card);
+    }
+};
+
+commentForm.onsubmit = function()
 {
-    UpdateCommentRate(commenteSelected, commentRateModalInput.value);
+    let commentValue = commentTextArea.value;
+
+    PostComment(userId, contentDetails.CONTENT_ID, commentValue);
     SetupComments();
+
+    return false;
 };
 
 let commentEditModal = document.getElementsByTagName('div').namedItem('comment-edit-modal');
@@ -190,6 +176,28 @@ commentEditModalInput.addEventListener('input', (event)=>
 commentEditButton.onclick = function()
 {
     UpdateComment(commenteSelected, commentEditModalInput.value);
+    SetupComments();
+};
+
+let commentRateModal = document.getElementsByTagName('div').namedItem('comment-rate-modal')
+let commentRateModalInput = document.getElementsByTagName('input').namedItem('comment-rate-input');
+let commentRateUpdateButton = document.getElementsByTagName('button').namedItem('comment-rate-update-button');
+
+commentRateModalInput.addEventListener('input', (event)=>
+{
+    if(commentRateModalInput.value == '')
+    {
+        commentRateUpdateButton.setAttribute('disabled', '');
+    }
+    else
+    {
+        commentRateUpdateButton.removeAttribute('disabled');
+    }
+});
+
+commentRateUpdateButton.onclick = function()
+{
+    UpdateCommentRate(commenteSelected, commentRateModalInput.value);
     SetupComments();
 };
 
