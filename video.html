@@ -88,6 +88,53 @@
         <div
             class="modal fade"
             tabindex="-1"
+            id="video-rate-modal"
+        >
+            <div
+                class="modal-dialog modal-dialog-centered"
+            >
+                <div
+                    class="modal-content"
+                >
+                    <div
+                        class="modal-header"
+                    >
+                        <h5
+                            class="modal-title"
+                        >Rate Video</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div
+                        class="modal-body"
+                    >
+                        <form
+                            id="video-rate-form"
+                            action="javascript:"
+                        >
+                            <div class="mb-3">
+                                <label for="video-rate-input" class="form-label">Rate</label>
+                                <input type="number" class="form-control" id="video-rate-input" placeholder="0" min="0" max="5" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div
+                        class="modal-footer"
+                    >
+                        <button
+                            class="btn btn-primary"
+                            id="video-rate-update-button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#video-rate-modal"
+                            form="video-rate-form"
+                        >Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="modal fade"
+            tabindex="-1"
             id="comment-edit-modal"
         >
             <div
@@ -198,23 +245,10 @@
                             <button
                                 id="video-rate-button"
                                 class="btn btn-secondary me-1"
+                                data-bs-toggle="modal"
+                                data-bs-target="#video-rate-modal"
                             >
-                                <div
-                                    class="d-flex align-items-center"
-                                >
-                                    <img src="assets/16x16/rate.png" height="16px">&#160
-                                    Rate:&#160
-                                    <span>{rate}</span>/5
-                                </div>
-                            </button>
-                            <button
-                                class="btn btn-primary"
-                            >
-                                <div
-                                    class="d-flex align-items-center"
-                                >
-                                    <img src="assets/16x16/share.png" height="16px">&#160Share
-                                </div>
+                                Rate: <span id="rate-span">{rate}</span>/5
                             </button>
                         </div>
                     </div>
@@ -251,9 +285,6 @@
                             margin-bottom: 20px;
                         "
                     >
-                        <h3>
-                            Comments
-                        </h3>
                         <div
                             class="d-flex align-items-center mb-3"
                         >
@@ -281,6 +312,7 @@
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="src/Update/Rate.js"></script>
         <script src="src/get/User.js"></script>
         <script src="src/get/Content.js"></script>
         <script src="src/get/Course.js"></script>
