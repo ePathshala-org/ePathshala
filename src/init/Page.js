@@ -1,46 +1,50 @@
 /**
  * @type {string | null}
  */
-let userId = localStorage.getItem('user_id');
-/**
- * @type {string | null}
- */
-let student = localStorage.getItem('student');
-let params = new URLSearchParams(location.search);
-
-if(userId == null || !params.has('content_id'))
-{
-    location.replace('index.html');
-}
-
-SetupNavBar(userId);
-
-let contentDetails = GetContentFromContentId(params.get('content_id'), ['CONTENT_ID','TITLE', 'DESCRIPTION', 'COURSE_ID', 'COURSE_NAME', 'COURSE_NAME', 'RATE', 'VIEW_COUNT', 'DATE_OF_CREATION']);
-let studentCourses = GetCoursesFromStudentId(userId, ['COURSE_ID']);
-
-if(Array.isArray(studentCourses.courses))
-{
-    let found = false;
-
-    for(let i = 0; i < studentCourses.courses.length; ++i)
-    {
-        if(studentCourses.courses[i].COURSE_ID == contentDetails.COURSE_ID)
-        {
-            found = true;
-
-            break;
-        }
-    }
-
-    if(!found)
-    {
-        location.replace('index.html');    
-    }
-}
-else
-{
-    location.replace('index.html');
-}
+ let userId = localStorage.getItem('user_id');
+ /**
+  * @type {string | null}
+  */
+ let student = localStorage.getItem('student');
+ let params = new URLSearchParams(location.search);
+ 
+ if(userId == null || !params.has('content_id'))
+ {
+     location.replace('index.html');
+ }
+ 
+ SetupNavBar(userId);
+ let contentCourse = GetContentFromContentId(params.get('content_id'), ['COURSE_ID']);
+ let studentCourses = GetCoursesFromStudentId(userId, ['COURSE_ID']);
+ 
+ if(Array.isArray(studentCourses.courses))
+ {
+     let found = false;
+ 
+     for(let i = 0; i < studentCourses.courses.length; ++i)
+     {
+         if(studentCourses.courses[i].COURSE_ID == contentCourse.COURSE_ID)
+         {
+             found = true;
+ 
+             break;
+         }
+     }
+ 
+     if(!found)
+     {
+         location.replace('index.html');    
+     }
+ }
+ else
+ {
+     location.replace('index.html');
+ }
+ 
+ InsertView(userId, contentCourse.COURSE_ID);
+ 
+ let contentDetails = GetContentFromContentId(params.get('content_id'), ['CONTENT_ID','TITLE', 'DESCRIPTION', 'COURSE_ID', 'COURSE_NAME', 'RATE', 'VIEW_COUNT', 'DATE_OF_CREATION']);
+ let commenteSelected = 0;
 
 let editor = new Quill(document.getElementsByTagName('div').namedItem('editor'),
 {

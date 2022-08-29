@@ -21,7 +21,6 @@ let teacherEmail = document.getElementsByTagName('h4').namedItem('teacher-email'
 let dateOfJoin = document.getElementsByTagName('h6').namedItem('date-of-join').getElementsByTagName('span').item(0);
 let dateOfBirth = document.getElementsByTagName('h6').namedItem('date-of-birth').getElementsByTagName('span').item(0);
 let rate = document.getElementsByTagName('h6').namedItem('rate').getElementsByTagName('span').item(0);
-// let interests = document.getElementsByTagName('h6').namedItem('interests').getElementsByTagName('span').item(0);
 let bioContainer = document.getElementsByTagName('div').namedItem('bio-container');
 let addBioButton = document.getElementsByTagName('a').namedItem('add-bio-button');
 
@@ -43,6 +42,30 @@ teacherPfp.src = 'pfp/' + teacherDetails.USER_ID + '.png';
 dateOfJoin.textContent = teacherDetails.DATE_OF_JOIN;
 dateOfBirth.textContent = teacherDetails.DATE_OF_BIRTH;
 rate.textContent = teacherDetails.RATE;
+let specialitiesH6 = document.getElementsByTagName('h6').namedItem('specialities');
+let specialitiesSpan = specialitiesH6.getElementsByTagName('span').item(0);
+let specialities = GetTeacherSpecialities(userId);
+
+if(Array.isArray(specialities.specialities))
+{
+    specialitiesSpan.textContent = '';
+
+    for(let i = 0; i < specialities.specialities.length; ++i)
+    {
+        if(i == 0)
+        {
+            specialitiesSpan.textContent += specialities.specialities[i];
+        }
+        else
+        {
+            specialitiesSpan.textContent += ', ' + specialities.specialities[i];
+        }
+    }
+}
+else
+{
+    specialitiesH6.remove();
+}
 
 let coursesContainer = document.getElementsByTagName('div').namedItem('courses-list-container');
 let coursesList = GetCoursesFromTeacherId(userId, ['COURSE_ID', 'TITLE', 'DESCRIPTION', 'RATE', 'ENROLL_COUNT', 'PRICE']);
