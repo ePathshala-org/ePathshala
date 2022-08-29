@@ -177,27 +177,39 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="credit-card-id" class="form-label">Credit Card ID</label>
-                        <input type="number" class="form-control" id="credit-card-id">
-                    </div>
-                    <div class="mb-3">
-                        <label for="credit-card-password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="credit-card-password">
-                    </div>
-                    <div class="mb-3">
-                        <label for="select-bank" class="form-label">Select Bank</label>
-                        <select id="select-bank" class="form-select">
-                            <option value="1">A Bank</option>
-                            <option value="2">B Bank</option>
-                            <option value="3">C Bank</option>
-                        </select>
-                    </div>
+                    <form
+                        id="buy-course-form"
+                        action="javascript:"
+                    >
+                        <div class="mb-3">
+                            <label for="credit-card-id" class="form-label">Credit Card ID</label>
+                            <input type="number" class="form-control" id="credit-card-id" min="1" required>
+                            <div
+                                class="invalid-feedback"
+                            >Insufficient Credits</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="credit-card-password" class="form-label">Password</label>
+                            <input type="password" minlength="8" maxlength="32" class="form-control" id="credit-card-password" required>
+                            <div
+                                class="invalid-feedback"
+                            >Invalid Credentials</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="select-bank" class="form-label">Select Bank</label>
+                            <select id="select-bank" class="form-select">
+                                <option value="1">A Bank</option>
+                                <option value="2">B Bank</option>
+                                <option value="3">C Bank</option>
+                            </select>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button 
                         id="buy-course-button"
                         class="btn btn-primary"
+                        form="buy-course-form"
                     >Buy</button>
                 </div>
               </div>

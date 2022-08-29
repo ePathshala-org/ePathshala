@@ -9,6 +9,7 @@ const InsertView = function(userId, contentId)
 
     http.open('POST', '/', false);
     http.setRequestHeader('Content-Type', 'application/json');
+    http.setRequestHeader('type', 'insert-view');
 
     let data = 
     {

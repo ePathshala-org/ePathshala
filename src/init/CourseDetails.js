@@ -27,10 +27,13 @@ document.getElementsByTagName('div').namedItem('buy-course-modal').addEventListe
 });
 
 let courseId = parseInt(params.get('course_id'));
+let courseDetails = GetCourseFromCourseId(courseId, ['COURSE_ID', 'TITLE', 'DESCRIPTION', 'CREATOR_NAME', 'RATE', 'PRICE', 'CREATOR_ID', 'ENROLL_COUNT']);
+let enrolledResponse = CheckUserEnrolled(userId, courseDetails.COURSE_ID);
+let buyCourseCourseModalElement = document.getElementsByTagName('div').namedItem('buy-course-modal');
+let buyCoursesModal = new bootstrap.Modal(buyCourseCourseModalElement);
 
 const SetupCourseDetails = function()
 {
-    let courseDetails = GetCourseFromCourseId(courseId, ['COURSE_ID', 'TITLE', 'DESCRIPTION', 'CREATOR_NAME', 'RATE', 'PRICE', 'CREATOR_ID', 'ENROLL_COUNT']);
     let courseTitle = document.getElementsByTagName('h1').namedItem('course-title');
     let courseCreatorName = document.getElementsByTagName('h4').namedItem('course-creator-name').getElementsByTagName('span').item(0);
     let courseDescription = document.getElementsByTagName('h6').namedItem('course-description');
@@ -44,14 +47,9 @@ const SetupCourseDetails = function()
     courseRate.textContent = courseDetails.RATE;
     coursePrice.textContent = courseDetails.PRICE;
     let enrollButton = document.getElementsByTagName('button').namedItem('enroll-button');
-    let buyButton = document.getElementsByTagName('button').namedItem('buy-course-button');
-
-    buyButton.removeAttribute('disabled');
 
     if(userId != null)
     {
-        let enrolledResponse = CheckUserEnrolled(userId, courseDetails.COURSE_ID);
-
         if(student == 'false' || enrolledResponse.ENROLLED)
         {
             enrollButton.remove();
@@ -60,38 +58,43 @@ const SetupCourseDetails = function()
         {
             enrollButton.setAttribute('data-bs-target', '#buy-course-modal');
 
-            buyButton.onclick = function()
-            {
-                buyButton.setAttribute('disbled', '');
+            let buyCourseForm = document.getElementsByTagName('form').namedItem('buy-course-form');
+            let buyButton = document.getElementsByTagName('button').namedItem('buy-course-button');
+            let creditCardId = document.getElementsByTagName('input').namedItem('credit-card-id');
+            let creditCardPassword = document.getElementsByTagName('input').namedItem('credit-card-password');
+            let bank = document.getElementsByTagName('select').namedItem('select-bank');
 
-                let creditCardId = document.getElementsByTagName('input').namedItem('credit-card-id');
-                let creditCardPassword = document.getElementsByTagName('input').namedItem('credit-card-password');
-                let bank = document.getElementsByTagName('select').namedItem('select-bank');
-                let creditCardIdValue = creditCardId.value;
-                let creditCardPasswordValue = creditCardPassword.value;
-                let bankValue = bank.value;
-                let response = BuyCourse(userId, courseId, creditCardIdValue, creditCardPasswordValue, bankValue, courseDetails.PRICE);
+            buyCourseCourseModalElement.addEventListener('show.bs.modal', ()=>
+            {
+                creditCardId.classList.remove('is-invalid');
+                creditCardPassword.classList.remove('is-invalid');
+                buyButton.removeAttribute('disabled');
+            });
+
+            buyCourseForm.onsubmit = function()
+            {
+                buyButton.setAttribute('disabled', '');
+                creditCardId.classList.remove('is-invalid');
+                creditCardPassword.classList.remove('is-invalid');
+
+                let response = BuyCourse(userId, courseId, creditCardId.value, creditCardPassword.value, bank.value, courseDetails.PRICE);
 
                 if(response.return == 1)
                 {
-                    buyButton.removeAttribute('disabled');
-
-                    let toast = new bootstrap.Toast(document.getElementsByTagName('div').namedItem('invalid-creds-toast'));
-
-                    toast.show();
+                    creditCardPassword.classList.add('is-invalid');
                 }
                 else if(response.return == 2)
                 {
-                    buyButton.removeAttribute('disabled');
-
-                    let toast = new bootstrap.Toast(document.getElementsByTagName('div').namedItem('insufficient-credits-toast'));
-
-                    toast.show();
+                    creditCardId.classList.add('is-invalid');
                 }
                 else
                 {
                     location.reload();
                 }
+
+                buyButton.removeAttribute('disabled');
+
+                return false;
             };
         }
     }
@@ -128,7 +131,14 @@ const SetupContentsList = async function()
                 contentImage.src = 'assets/96x96/video.png';
                 contentTitleButton.onclick = function()
                 {
-                    location.href = 'video.html?content_id=' + response.contents[i].CONTENT_ID;
+                    if(enrolledResponse.ENROLLED)
+                    {
+                        location.href = 'video.html?content_id=' + response.contents[i].CONTENT_ID;
+                    }
+                    else
+                    {
+                        buyCoursesModal.show();
+                    }
                 };
             }
             else if(response.contents[i].CONTENT_TYPE == 'PAGE')
@@ -137,7 +147,14 @@ const SetupContentsList = async function()
                 viewType.textContent = 'readers';
                 contentTitleButton.onclick = function()
                 {
-                    location.href = 'page.html?content_id=' + response.contents[i].CONTENT_ID;
+                    if(enrolledResponse.ENROLLED)
+                    {
+                        location.href = 'page.html?content_id=' + response.contents[i].CONTENT_ID;
+                    }
+                    else
+                    {
+                        buyCoursesModal.show();
+                    }
                 };
             }
             else

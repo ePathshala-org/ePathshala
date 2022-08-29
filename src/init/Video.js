@@ -41,7 +41,7 @@ else
     location.replace('index.html');
 }
 
-InsertView(userId, contentCourse.COURSE_ID);
+InsertView(userId, params.get('content_id'));
  
 let contentDetails = GetContentFromContentId(params.get('content_id'), ['CONTENT_ID','TITLE', 'DESCRIPTION', 'COURSE_ID', 'COURSE_NAME', 'RATE', 'VIEW_COUNT', 'DATE_OF_CREATION']);
 let commenteSelected = 0;
@@ -199,6 +199,7 @@ commentRateUpdateForm.onsubmit = function()
 
 SetupComments();
 
+let individualContentRate = GetIndividualContentRate(userId, contentDetails.CONTENT_ID);
 let videoRate = document.getElementsByTagName('input').namedItem('video-rate-input');
 let videoRateForm = document.getElementsByTagName('form').namedItem('video-rate-form');
 let videoRateModalElement = document.getElementsByTagName('div').namedItem('video-rate-modal');
@@ -206,16 +207,14 @@ let videoRateModal = new bootstrap.Modal(videoRateModalElement);
 
 videoRateModalElement.addEventListener('show.bs.modal', (event)=>
 {
-    videoRate.value = contentDetails.RATE;
+    videoRate.value = individualContentRate.rate;
 });
 
 videoRateForm.onsubmit = function()
 {
     videoRateModal.hide();
-
-    rate.textContent = videoRate.value;
-
     UpdateContentRate(userId, contentDetails.CONTENT_ID, videoRate.value);
+    location.reload();
 
     return false;
 };

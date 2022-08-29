@@ -206,6 +206,7 @@ commentRateUpdateForm.onsubmit = function()
 
 SetupComments();
 
+let individualContentRate = GetIndividualContentRate(userId, contentDetails.CONTENT_ID);
 let pageRate = document.getElementsByTagName('input').namedItem('page-rate-input');
 let pageRateForm = document.getElementsByTagName('form').namedItem('page-rate-form');
 let pageRateModalElement = document.getElementsByTagName('div').namedItem('page-rate-modal');
@@ -213,16 +214,14 @@ let pageRateModal = new bootstrap.Modal(pageRateModalElement);
 
 pageRateModalElement.addEventListener('show.bs.modal', (event)=>
 {
-    pageRate.value = contentDetails.RATE;
+    pageRate.value = individualContentRate.rate;
 });
 
 pageRateForm.onsubmit = function()
 {
     pageRateModal.hide();
-
-    rate.textContent = pageRate.value;
-
     UpdateContentRate(userId, contentDetails.CONTENT_ID, pageRate.value);
+    location.reload();
 
     return false;
 };
