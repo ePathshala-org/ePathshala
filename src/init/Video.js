@@ -14,8 +14,7 @@ if(userId == null || !params.has('content_id'))
 }
 
 SetupNavBar(userId);
-
-let contentDetails = GetContentFromContentId(params.get('content_id'), ['CONTENT_ID','TITLE', 'DESCRIPTION', 'COURSE_ID', 'COURSE_NAME', 'RATE', 'VIEW_COUNT', 'DATE_OF_CREATION']);
+let contentCourse = GetContentFromContentId(params.get('content_id'), ['COURSE_ID']);
 let studentCourses = GetCoursesFromStudentId(userId, ['COURSE_ID']);
 
 if(Array.isArray(studentCourses.courses))
@@ -24,7 +23,7 @@ if(Array.isArray(studentCourses.courses))
 
     for(let i = 0; i < studentCourses.courses.length; ++i)
     {
-        if(studentCourses.courses[i].COURSE_ID == contentDetails.COURSE_ID)
+        if(studentCourses.courses[i].COURSE_ID == contentCourse.COURSE_ID)
         {
             found = true;
 
@@ -42,6 +41,9 @@ else
     location.replace('index.html');
 }
 
+InsertView(userId, contentCourse.COURSE_ID);
+
+let contentDetails = GetContentFromContentId(params.get('content_id'), ['CONTENT_ID','TITLE', 'DESCRIPTION', 'COURSE_ID', 'COURSE_NAME', 'RATE', 'VIEW_COUNT', 'DATE_OF_CREATION']);
 let commenteSelected = 0;
 
 const SetupVideoPlayer = async function()
