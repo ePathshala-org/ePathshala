@@ -119,22 +119,29 @@
                         width: 40%;
                     "
                 >
-                    <div class="mb-3">
-                        <label for="video-file" class="form-label">New File</label>
-                        <input type="file" class="form-control" id="video-file" accept=".mp4">
-                    </div>
-                    <div class="mb-3">
-                        <label for="video-title" class="form-label">Title</label>
-                        <input autocomplete="off" type="text" class="form-control" id="video-title" placeholder="A Beautiful Name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="video-description" class="form-label">Description</label>
-                        <textarea class="form-control" id="video-description" row="3" placeholder="A beautiful description..." maxlength="100"></textarea>
-                    </div>
-                    <button
-                        class="btn btn-success"
-                        id="save-video-button"
-                    >Save</button>
+                    <form
+                        id="update-video-form"
+                        action="javascript:"
+                    >
+                        <div class="mb-3">
+                            <label for="video-file" class="form-label">New File</label>
+                            <input type="file" class="form-control" id="video-file" accept=".mp4">
+                        </div>
+                        <div class="mb-3">
+                            <label for="video-title" class="form-label">Title</label>
+                            <input autocomplete="off" type="text" class="form-control" id="video-title" placeholder="A Beautiful Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="video-description" class="form-label">Description</label>
+                            <textarea class="form-control" id="video-description" row="3" placeholder="A beautiful description..." maxlength="100"></textarea>
+                        </div>
+                        <button
+                            class="btn btn-success"
+                            id="save-video-button"
+                            type="submit"
+                            form="update-video-form"
+                        >Save</button>
+                    </form>
                 </div>
             </div>
         </div>

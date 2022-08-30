@@ -40,52 +40,49 @@ let uploadCancelButton = document.getElementsByTagName('button').namedItem('canc
 let uploadForm = document.getElementsByTagName('form').item(0);
 uploadForm.onsubmit = function()
 {
-    if(uploadForm.checkValidity())
+    uploadStateModal.show();
+
+    let fileFormData = new FormData();
+
+    fileFormData.append('file', fileSelect.files.item(0));
+
+    let http = new XMLHttpRequest();
+    
+    http.open('POST', '/');
+    http.setRequestHeader('incoming', 'video-file');
+    http.setRequestHeader('course_id', courseId);
+    http.setRequestHeader('title', title.value);
+    http.setRequestHeader('description', description.value);
+
+    http.upload.onprogress = function(ev)
     {
-        uploadStateModal.show();
+        let value = String(parseInt((ev.loaded / ev.total) * 100)) + '%';
+        progressBar.style.width = value;
+        progressValue.textContent = value;
+    };
 
-        let fileFormData = new FormData();
-
-        fileFormData.append('file', fileSelect.files.item(0));
-
-        let http = new XMLHttpRequest();
-        
-        http.open('POST', '/');
-        http.setRequestHeader('incoming', 'video-file');
-        http.setRequestHeader('course_id', courseId);
-        http.setRequestHeader('title', title.value);
-        http.setRequestHeader('description', description.value);
-
-        http.upload.onprogress = function(ev)
+    http.onreadystatechange = function(ev)
+    {
+        if(this.readyState == 4)
         {
-            let value = String(parseInt((ev.loaded / ev.total) * 100)) + '%';
-            progressBar.style.width = value;
-            progressValue.textContent = value;
-        };
+            let response = JSON.parse(this.responseText);
 
-        http.onreadystatechange = function(ev)
-        {
-            if(this.readyState == 4)
+            if(response.ok)
             {
-                let response = JSON.parse(this.responseText);
-
-                if(response.ok)
-                {
-                    uploadStateModal.hide();
-                    
-                    location.href = 'customizecourse.html?course_id=' + courseId;
-                }
+                uploadStateModal.hide();
+                
+                location.href = 'customizecourse.html?course_id=' + courseId;
             }
         }
-
-        let uploadCancelButton = document.getElementsByTagName('button').namedItem('cancel-video-upload-button');
-        uploadCancelButton.onclick = function()
-        {
-            http.abort();
-        };
-
-        http.send(fileFormData);
     }
+
+    let uploadCancelButton = document.getElementsByTagName('button').namedItem('current-upload-cancel-button');
+    uploadCancelButton.onclick = function()
+    {
+        http.abort();
+    };
+
+    http.send(fileFormData);
 
     return false;
 }

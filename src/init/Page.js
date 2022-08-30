@@ -42,12 +42,12 @@ else
     location.replace('index.html');
 }
 
-InsertView(userId, contentCourse.COURSE_ID);
+InsertView(userId, params.get('content_id'));
 
 let contentDetails = GetContentFromContentId(params.get('content_id'), ['CONTENT_ID','TITLE', 'DESCRIPTION', 'COURSE_ID', 'COURSE_NAME', 'RATE', 'VIEW_COUNT', 'DATE_OF_CREATION']);
 let commenteSelected = 0;
-
-let editor = new Quill(document.getElementsByTagName('div').namedItem('editor'),
+let editorElement = document.getElementsByTagName('div').namedItem('editor');
+let editor = new Quill(editorElement,
 {
     modules:
     {
@@ -94,11 +94,26 @@ const SetupComments = async function()
     commentsListUl.innerHTML = '';
     let commentListItemUI = await GetUIText('ui/ListItem/CommentListItem.html');
     let response = GetCommentsFromContentId(contentDetails.CONTENT_ID, ['COMMENT_ID', 'COMMENTER_ID', 'COMMENTER_NAME', 'DESCRIPTION', 'TIME_OF_COMMENT', 'DATE_OF_COMMENT', 'RATE']);
+    let emptyCard = document.createElement('div');
+
+    emptyCard.classList.add('card', 'card-body');
+    emptyCard.id = 'empty-card';
+
+    emptyCard.textContent = 'Wow! Such empty';
 
     if(Array.isArray(response.comments))
     {
         for(let i = 0; i < response.comments.length; ++i)
         {
+            if(commentsListUl.style.visibility == 'hidden')
+            {
+                commentsListUl.style.visibility = 'visible';
+
+                let card = commentsContainer.getElementsByTagName('div').namedItem('empty-card');
+
+                card.remove();
+            }
+
             let commentListItemWrapper = document.createElement('div');
             commentListItemWrapper.innerHTML = commentListItemUI;
             let commenterPfp = commentListItemWrapper.getElementsByTagName('img').item(0);
@@ -154,13 +169,8 @@ const SetupComments = async function()
     else
     {
         commentsListUl.remove();
-        let card = document.createElement('div');
-
-        card.classList.add('card', 'card-body');
-
-        card.textContent = 'Wow! Such empty';
         
-        commentsContainer.append(card);
+        commentsContainer.append(emptyCard);
     }
 };
 
@@ -206,6 +216,7 @@ commentRateUpdateForm.onsubmit = function()
 
 SetupComments();
 
+let individualContentRate = GetIndividualContentRate(userId, contentDetails.CONTENT_ID);
 let pageRate = document.getElementsByTagName('input').namedItem('page-rate-input');
 let pageRateForm = document.getElementsByTagName('form').namedItem('page-rate-form');
 let pageRateModalElement = document.getElementsByTagName('div').namedItem('page-rate-modal');
@@ -213,16 +224,16 @@ let pageRateModal = new bootstrap.Modal(pageRateModalElement);
 
 pageRateModalElement.addEventListener('show.bs.modal', (event)=>
 {
-    pageRate.value = contentDetails.RATE;
+    pageRate.value = individualContentRate.rate;
 });
 
 pageRateForm.onsubmit = function()
 {
     pageRateModal.hide();
-
-    rate.textContent = pageRate.value;
-
     UpdateContentRate(userId, contentDetails.CONTENT_ID, pageRate.value);
+    location.reload();
 
     return false;
 };
+
+CompleteView(userId, params.get('content_id'));

@@ -23,10 +23,12 @@ const SetupInterests = async function()
 {
     let interestsResponse = GetStudentInterests(userId);
     let addInterestButton = document.getElementsByTagName('button').namedItem('add-interest-button');
+    let addInterestForm = document.getElementsByTagName('form').namedItem('add-interest-form');
     
     if(interestsResponse.ok)
     {
         let interests = interestsResponse.interests;
+        let interestsListContainer = document.getElementsByTagName('div').namedItem('interests-list-container');
         let interestsList = document.getElementsByTagName('div').namedItem('interests-list');
         interestsList.innerHTML = '';
 
@@ -44,6 +46,14 @@ const SetupInterests = async function()
                     DeleteInterest(userId, interests[i]);
                     SetupInterests();
                 };
+                
+                if(interestsList.style.visibility == 'hidden')
+                {
+                    interestsList.style.visibility = 'visible';
+                    let span = interestsListContainer.getElementsByTagName('span').item(0);
+
+                    span.remove();
+                }
 
                 interestsList.append(interestWrapper.firstChild);
             }
@@ -57,9 +67,18 @@ const SetupInterests = async function()
                 addInterestButton.removeAttribute('disabled');
             }
         }
+        else
+        {
+            interestsList.style.visibility = 'hidden';
+            let interests = document.createElement('span');
+            interests.style.color = '#21242ca3';
+            interests.textContent = 'No interests ☹️';
+
+            interestsListContainer.append(interests);
+        }
     }
 
-    addInterestButton.onclick = function()
+    addInterestForm.onsubmit = function()
     {
         let interest = document.getElementsByTagName('input').namedItem('new-interest-input');
 
@@ -68,13 +87,17 @@ const SetupInterests = async function()
         interest.value = '';
 
         SetupInterests();
+
+        return false;
     };
 };
 
 const SetupSpecialities = async function()
 {
     let specialitiesResponse = GetTeacherSpecialities(userId);
+    let specialitiesListContainer = document.getElementsByTagName('div').namedItem('specialities-list-container');
     let addSpecialityButton = document.getElementsByTagName('button').namedItem('add-speciality-button');
+    let addSpecialityForm = document.getElementsByTagName('form').namedItem('add-speciality-form');
     
     if(specialitiesResponse.ok)
     {
@@ -97,6 +120,14 @@ const SetupSpecialities = async function()
                     SetupSpecialities();
                 };
 
+                if(specialitiesList.style.visibility == 'hidden')
+                {
+                    specialitiesList.style.visibility = 'visible';
+                    let span = specialitiesListContainer.getElementsByTagName('span').item(0);
+
+                    span.remove();
+                }
+
                 specialitiesList.append(specialityWrapper.firstChild);
             }
 
@@ -109,9 +140,18 @@ const SetupSpecialities = async function()
                 addSpecialityButton.removeAttribute('disabled');
             }
         }
+        else
+        {
+            specialitiesList.style.visibility = 'hidden';
+            let specialities = document.createElement('span');
+            specialities.style.color = '#21242ca3';
+            specialities.textContent = 'No specialities ☹️';
+
+            specialitiesListContainer.append(specialities);
+        }
     }
 
-    addSpecialityButton.onclick = function()
+    addSpecialityForm.onsubmit = function()
     {
         let speciality = document.getElementsByTagName('input').namedItem('new-speciality-input');
 
@@ -120,6 +160,8 @@ const SetupSpecialities = async function()
         speciality.value = '';
 
         SetupSpecialities();
+
+        return false;
     };
 };
 
@@ -129,7 +171,7 @@ if(student == 'true')
     addStudentButton.remove();
     SetupInterests();
 
-    let teacher = GetTeacherDetailsFromUserId(userDetails, ['USER_ID']);
+    let teacher = GetTeacherDetailsFromUserId(userId, ['USER_ID']);
 
     if(teacher.USER_ID == null)
     {
@@ -166,7 +208,7 @@ else
     }
 }
 
-let userDetails = GetUserDetails(userId, ['FULL_NAME', 'EMAIL', 'BIO', 'DATE_OF_BIRTH']);
+let userDetails = GetUserDetails(userId, ['FULL_NAME', 'EMAIL', 'BIO', 'DATE_OF_BIRTH', 'SECURITY_KEY']);
 let fullName = document.getElementsByTagName('input').namedItem('full-name');
 let email = document.getElementsByTagName('input').namedItem('email');
 let password = document.getElementsByTagName('input').namedItem('password');
@@ -179,11 +221,7 @@ email.value = userDetails.EMAIL;
 password.value = userDetails.SECURITY_KEY;
 bio.value = userDetails.BIO;
 dateOfBirth.valueAsDate = new Date(userDetails.DATE_OF_BIRTH);
-
-if(userDetails.PFP == 't')
-{
-    pfp.src = 'pfp/' + userId + '.png';
-}
+pfp.src = 'pfp/' + userId + '.png';
 
 let saveButton = document.getElementsByTagName('button').namedItem('save-button');
 saveButton.onclick = async function()

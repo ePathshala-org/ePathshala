@@ -64,30 +64,41 @@
                         <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="login-email" placeholder="name@email.com">
-                            <label for="login-email">Email</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="login-password" placeholder="Password" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Password length must be minimum 8 and maximum 32">
-                            <label for="login-password">Password</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="student-teacher-login" id="login-type-student" value="student" checked>
-                            <label class="form-check-label" for="login-type-student">
-                                Student
-                            </label>
+                        <form
+                            id="login-form"
+                            action="javascript:"
+                        >
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="login-email" placeholder="Email Address" required>
+                                <label for="login-email">Email Address</label>
+                                <div
+                                    class="invalid-feedback"
+                                >Email not found</div>
                             </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="student-teacher-login" id="login-type-teacher" value="teacher">
-                            <label class="form-check-label" for="login-type-teacher">
-                                Teacher
-                            </label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="login-password" placeholder="Password" minlength="8" maxlength="32" required>
+                                <label for="login-password">Password</label>
+                                <div
+                                    class="invalid-feedback"
+                                >Password did not match</div>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="login-type" id="student-login" checked>
+                                <label class="form-check-label" for="student-login">
+                                    Student
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="login-type" id="teacher-login">
+                                <label class="form-check-label" for="teacher-login">
+                                    Teacher
+                                </label>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="login-button">Login</button>
-                        <button type="button" class="btn btn-secondary" id="login-modal-create-new-account-button" data-bs-toggle="modal" data-bs-target="#create-account-modal">Create New Account</button>
+                        <button class="btn btn-primary" id="login-button" type="submit" form="login-form">Login</button>
+                        <button type="button" class="btn btn-secondary" id="create-account-modal-button" data-bs-toggle="modal" data-bs-target="#create-account-modal">Create New Account</button>
                     </div>
                 </div>
             </div>
@@ -103,68 +114,53 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="create-account-floating-full-name" placeholder="Full Name">
-                            <label for="create-account-floating-full-name">Full Name</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="create-account-floating-email" placeholder="someone@email.com">
-                            <label for="create-account-floating-account-name">Email</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="create-account-floating-password" placeholder="Password">
-                            <label for="create-account-floating-password">Password</label>
-                        </div>
-                        <div class="mb-3" id="create-account-date-of-birth">
-                            <label for="create-account-date-of-birth" class="form-label">Date of Birth</label>
-                            <div class="d-flex flex-row">
-                                <div class="form-floating me-3">
-                                    <input type="number" class="form-control" id="create-account-date-of-birth-date" placeholder="0" min="1" max="31">
-                                    <label for="floatingInput">Date</label>
+                        <form
+                            id="create-account-form"
+                            action="javascript:"
+                        >
+                            <div class="form-floating mb-3">
+                                <input autocomplete="off" type="text" class="form-control" id="create-account-full-name" placeholder="Full Name" required>
+                                <label for="create-account-full-name">Full Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input autocomplete="off" type="email" class="form-control" id="create-account-email" placeholder="someone@email.com" required>
+                                <label for="create-account-email">Email</label>
+                                <div
+                                    class="invalid-feedback"
+                                >Email address already present</div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="create-account-password" placeholder="Password" minlength="8" maxlength="32" required>
+                                <label for="create-account-password">Password</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control" id="date-of-birth" required>
+                                <label for="date-of-birth">Date of Birth</label>
+                            </div>
+                            <div class = "mb-3" id = "create-account-type">
+                                <label for="create-account-type-radio" class="form-label">Account Type</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-student" checked>
+                                    <label class="form-check-label" for="create-account-type-radio-student">
+                                        Student
+                                    </label>
                                 </div>
-                                <div class="form-floating me-3">
-                                    <input type="number" class="form-control" id="create-account-date-of-birth-month" placeholder="0" min="1" max="12">
-                                    <label for="floatingInput">Month</label>
-                                </div>
-                                <div class="form-floating">
-                                    <input type="number" class="form-control" id="create-account-date-of-birth-year" placeholder="0" min="1900" max="2100">
-                                    <label for="floatingInput">Year</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-teacher">
+                                    <label class="form-check-label" for="create-account-type-radio-teacher">
+                                        Teacher
+                                    </label>
                                 </div>
                             </div>
-                        </div>
-                        <div class = "mb-3" id = "create-account-gender-radio">
-                            <label for="create-account-gender-radio" class="form-label">Gender</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="RadioGender" id="create-account-gender-radio-male" checked>
-                                <label class="form-check-label" for="create-account-gender-radio-male">
-                                    Male
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="RadioGender" id="create-account-gender-radio-female">
-                                <label class="form-check-label" for="create-account-gender-radio-female">
-                                    Female
-                                </label>
-                            </div>
-                        </div>
-                        <div class = "mb-3" id = "create-account-type">
-                            <label for="create-account-type-radio" class="form-label">Gender</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-student">
-                                <label class="form-check-label" for="create-account-type-radio-student">
-                                    Student
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="RadioType" id="create-account-type-radio-teacher" checked>
-                                <label class="form-check-label" for="create-account-type-radio-teacher">
-                                    Teacher
-                                </label>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button id="create-new-account-button" type="button" class="btn btn-primary">Create</button>
+                        <button
+                            id="create-new-account-button"
+                            type="submit"
+                            class="btn btn-primary"
+                            form="create-account-form"
+                        >Create</button>
                     </div>
                 </div>
             </div>

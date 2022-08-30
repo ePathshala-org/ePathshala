@@ -41,7 +41,7 @@ else
     location.replace('index.html');
 }
 
-InsertView(userId, contentCourse.COURSE_ID);
+InsertView(userId, params.get('content_id'));
  
 let contentDetails = GetContentFromContentId(params.get('content_id'), ['CONTENT_ID','TITLE', 'DESCRIPTION', 'COURSE_ID', 'COURSE_NAME', 'RATE', 'VIEW_COUNT', 'DATE_OF_CREATION']);
 let commenteSelected = 0;
@@ -64,13 +64,20 @@ const SetupVideoPlayer = async function()
     videoCourseName.textContent = contentDetails.COURSE_NAME;
     videoDescription.textContent = contentDetails.DESCRIPTION;
     let videoPlayer = document.getElementsByTagName('video').namedItem('video-player');
-    videoPlayer.src = 'contents/videos/' + contentDetails.COURSE_ID + '/' + contentDetails.CONTENT_ID + '.mp4';
     videoCourseButton.onclick = function()
     {
         location.href = 'coursedetails.html?course_id=' + contentDetails.COURSE_ID;
     };
+    
+    videoPlayer.src = 'contents/videos/' + contentDetails.COURSE_ID + '/' + contentDetails.CONTENT_ID + '.mp4';
 
     videoPlayer.load();
+    videoPlayer.play();
+
+    videoPlayer.onended = function()
+    {
+        CompleteView(userId, contentDetails.CONTENT_ID);
+    };
 };
 
 SetupVideoPlayer();
@@ -87,9 +94,24 @@ const SetupComments = async function()
     commentsListUl.innerHTML = '';
     let commentListItemUI = await GetUIText('ui/ListItem/CommentListItem.html');
     let response = GetCommentsFromContentId(contentDetails.CONTENT_ID, ['COMMENT_ID', 'COMMENTER_ID', 'COMMENTER_NAME', 'DESCRIPTION', 'TIME_OF_COMMENT', 'DATE_OF_COMMENT', 'RATE']);
+    let emptyCard = document.createElement('div');
+
+    emptyCard.classList.add('card', 'card-body');
+    emptyCard.id = 'empty-card';
+
+    emptyCard.textContent = 'Wow! Such empty';
 
     if(Array.isArray(response.comments))
     {
+        if(commentsListUl.style.visibility == 'hidden')
+        {
+            commentsListUl.style.visibility = 'visible';
+
+            let card = commentsContainer.getElementsByTagName('div').namedItem('empty-card');
+
+            card.remove();
+        }
+
         for(let i = 0; i < response.comments.length; ++i)
         {
             let commentListItemWrapper = document.createElement('div');
@@ -146,14 +168,9 @@ const SetupComments = async function()
     }
     else
     {
-        commentsListUl.remove();
-        let card = document.createElement('div');
-
-        card.classList.add('card', 'card-body');
-
-        card.textContent = 'Wow! Such empty';
+        commentsListUl.style.visibility = 'hidden';
         
-        commentsContainer.append(card);
+        commentsContainer.append(emptyCard);
     }
 };
 
@@ -199,6 +216,7 @@ commentRateUpdateForm.onsubmit = function()
 
 SetupComments();
 
+let individualContentRate = GetIndividualContentRate(userId, contentDetails.CONTENT_ID);
 let videoRate = document.getElementsByTagName('input').namedItem('video-rate-input');
 let videoRateForm = document.getElementsByTagName('form').namedItem('video-rate-form');
 let videoRateModalElement = document.getElementsByTagName('div').namedItem('video-rate-modal');
@@ -206,16 +224,19 @@ let videoRateModal = new bootstrap.Modal(videoRateModalElement);
 
 videoRateModalElement.addEventListener('show.bs.modal', (event)=>
 {
-    videoRate.value = contentDetails.RATE;
+    videoRate.value = individualContentRate.rate;
 });
 
 videoRateForm.onsubmit = function()
 {
     videoRateModal.hide();
-
-    rate.textContent = videoRate.value;
-
     UpdateContentRate(userId, contentDetails.CONTENT_ID, videoRate.value);
+
+    let contentRate = GetContentFromContentId(contentDetails.CONTENT_ID, ['RATE']);
+    contentDetails.RATE = contentRate.RATE;
+    individualContentRate.rate = contentRate.RATE;
+    let videoRateTemp = document.getElementsByTagName('button').namedItem('video-rate-button').getElementsByTagName('span').item(0);
+    videoRateTemp.textContent = contentDetails.RATE;    
 
     return false;
 };

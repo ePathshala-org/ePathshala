@@ -3,13 +3,13 @@
  * @param {number} userId
  * @param {number} contentId
  */
-const InsertView = function(userId, contentId)
+const CompleteView = function(userId, contentId)
 {
     let http = new XMLHttpRequest();
 
     http.open('POST', '/', false);
     http.setRequestHeader('Content-Type', 'application/json');
-    http.setRequestHeader('type', 'insert-view');
+    http.setRequestHeader('type', 'complete-view');
 
     let data = 
     {

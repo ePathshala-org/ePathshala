@@ -65,6 +65,10 @@ if(Array.isArray(specialities.specialities))
 else
 {
     specialitiesH6.remove();
+
+    let bulletsBeforeSpecialities = document.getElementsByTagName('span').namedItem('bullet-before-specialities');
+
+    bulletsBeforeSpecialities.remove();
 }
 
 let coursesContainer = document.getElementsByTagName('div').namedItem('courses-list-container');

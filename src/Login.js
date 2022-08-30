@@ -85,62 +85,70 @@ let fullName = document.getElementsByTagName('input').namedItem('create-account-
 let createAccountEmail = document.getElementsByTagName('input').namedItem('create-account-email');
 let createAccountPassword = document.getElementsByTagName('input').namedItem('create-account-password');
 let dateOfBirth = document.getElementsByTagName('input').namedItem('date-of-birth');
+let createAccountType = document.getElementsByTagName('input').namedItem('create-account-type-radio-student');
 let createStudentAccount = document.getElementsByTagName('input').namedItem('create-account-type-radio-student');
 let createAccountModal = document.getElementsByTagName('div').namedItem('create-account-modal');
+let createNewAccountForm = document.getElementsByTagName('form').namedItem('create-account-form');
 createAccountModal.addEventListener('show.bs.modal', (event)=>
 {
     createAccountEmail.classList.remove('is-invalid');
 });
 
 let createAccountButton = document.getElementsByTagName('button').namedItem('create-new-account-button');
-createAccountButton.onclick = function()
+
+if(createAccountButton != null)
 {
-    createAccountButton.setAttribute('disabled', '');
-
-    let http = new XMLHttpRequest();
-
-    http.open('POST', '/', false);
-    http.setRequestHeader('Content-Type', 'application/json');
-    http.setRequestHeader('type', 'create-new-account');
-
-    let dateOfBirthString = dateOfBirth.valueAsDate.getFullYear() + '-' + (dateOfBirth.valueAsDate.getMonth() + 1).toString() + '-' + dateOfBirth.valueAsDate.getDate();
-
-    let data = 
+    createNewAccountForm.onsubmit = function()
     {
-        full_name: fullName.value,
-        email: createAccountEmail.value,
-        password: createAccountPassword.value,
-        date_of_birth: dateOfBirthString,
-        student: Boolean(createStudentAccount.checked)
-    };
+        createAccountButton.setAttribute('disabled', '');
 
-    http.send(JSON.stringify(data));
+        let http = new XMLHttpRequest();
 
-    if(http.status == 200)
-    {
-        let response = JSON.parse(http.responseText);
+        http.open('POST', '/', false);
+        http.setRequestHeader('Content-Type', 'application/json');
+        http.setRequestHeader('type', 'create-new-account');
 
-        if(response.return == 0)
+        let dateOfBirthString = dateOfBirth.valueAsDate.getFullYear() + '-' + (dateOfBirth.valueAsDate.getMonth() + 1).toString() + '-' + dateOfBirth.valueAsDate.getDate();
+
+        let data = 
         {
-            let response = Login(data.email, data.password, data.student);
+            full_name: fullName.value,
+            email: createAccountEmail.value,
+            password: createAccountPassword.value,
+            date_of_birth: dateOfBirthString,
+            student: Boolean(createAccountType.checked)
+        };
 
-            localStorage.setItem('user_id', response.return);
-            localStorage.setItem('student', data.student);
+        http.send(JSON.stringify(data));
 
-            if(data.student)
+        if(http.status == 200)
+        {
+            let response = JSON.parse(http.responseText);
+
+            if(response.return > 0)
             {
-                location.href = 'student.html';
+                let response = Login(data.email, data.password, data.student);
+
+                localStorage.setItem('user_id', response.return);
+                localStorage.setItem('student', data.student);
+
+                if(data.student)
+                {
+                    location.href = 'student.html';
+                }
+                else
+                {
+                    location.href = 'teacher.html';
+                }
             }
             else
             {
-                location.href = 'teacher.html';
+                email.classList.add('is-invalid');
             }
         }
-        else
-        {
-            email.classList.add('is-invalid');
-        }
-    }
 
-    createAccountButton.removeAttribute('disabled');
-};
+        createAccountButton.removeAttribute('disabled');
+
+        return false;
+    };
+}

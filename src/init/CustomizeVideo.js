@@ -42,7 +42,8 @@ let uploadStateModal = new bootstrap.Modal(modalElement);
 let progressBar = document.getElementsByTagName('div').namedItem('upload-progress-bar');
 let progressValue = document.getElementsByTagName('span').namedItem('upload-progress-value');
 let saveButton = document.getElementsByTagName('button').namedItem('save-video-button');
-saveButton.onclick = function()
+let updateVideoForm = document.getElementsByTagName('form').namedItem('update-video-form');
+updateVideoForm.onsubmit = function()
 {
     saveButton.setAttribute('disabled', '');
 
@@ -61,4 +62,11 @@ saveButton.onclick = function()
 
         toast.show();
     }
+
+    return false;
 };
+
+videoPlayer.src = 'contents/videos/' + contentDetails.COURSE_ID + '/' + contentId + '.mp4';
+
+videoPlayer.load();
+videoPlayer.play();

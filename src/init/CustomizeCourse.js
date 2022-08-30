@@ -67,13 +67,17 @@ const SetupContents = async function()
                 contentImage.src = 'assets/96x96/video.png';
                 contentTitleButton.onclick = function()
                 {
-                    location.href = 'video.html?content_id=' + response.contents[i].CONTENT_ID;
+                    location.href = 'customizevideo.html?content_id=' + response.contents[i].CONTENT_ID;
                 };
             }
             else if(response.contents[i].CONTENT_TYPE == 'PAGE')
             {
                 contentImage.src = 'assets/96x96/page.png';
                 viewType.textContent = 'readers';
+                contentTitleButton.onclick = function()
+                {
+                    location.href = 'editpage.html?content_id=' + response.contents[i].CONTENT_ID;
+                };
             }
             else
             {
@@ -105,7 +109,7 @@ addContentButton.onclick = function()
     }
     else if(addContentTypeSelect.selectedIndex == 1)
     {
-
+        location.href = 'makepage.html?course_id=' + courseId;
     }
     else
     {
@@ -117,6 +121,8 @@ let courseDetailsForm = document.getElementsByTagName('form').item(0);
 courseDetailsForm.onsubmit = function()
 {
     UpdateCourse(courseId, courseTitle.value, courseDescription.value, coursePrice.value);
+
+    location.href = 'teacher.html?user_id' + userId;
 
     return false;
 };
