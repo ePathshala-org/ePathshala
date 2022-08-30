@@ -231,7 +231,12 @@ pageRateForm.onsubmit = function()
 {
     pageRateModal.hide();
     UpdateContentRate(userId, contentDetails.CONTENT_ID, pageRate.value);
-    location.reload();
+    
+    let contentRate = GetContentFromContentId(contentDetails.CONTENT_ID, ['RATE']);
+    contentDetails.RATE = contentRate.RATE;
+    individualContentRate.rate = contentRate.RATE;
+    let videoRateTemp = document.getElementsByTagName('button').namedItem('video-rate-button').getElementsByTagName('span').item(0);
+    videoRateTemp.textContent = contentDetails.RATE;
 
     return false;
 };

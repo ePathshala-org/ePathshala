@@ -24,10 +24,15 @@
                     </li>
                 </ul>
                 <div class = "d-flex">
-                    <div class = "d-flex me-2" role="search">
-                        <input id = "navbar-search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button id = "navbar-search-button" class="btn btn-outline-success" type="button">Search</button>
-                    </div>
+                    <form
+                        id="search-form"
+                        action="javascript:"
+                    >
+                        <div class = "d-flex me-2" role="search">
+                            <input id="navbar-search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" required>
+                            <button id="navbar-search-button" class="btn btn-outline-success" type="submit" form="search-form">Search</button>
+                        </div>
+                    </form>
                     <div id = "login-status">
                         <div class = "d-class">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login-modal">Login</button>
