@@ -27,6 +27,7 @@ const SetupInterests = async function()
     if(interestsResponse.ok)
     {
         let interests = interestsResponse.interests;
+        let interestsListContainer = document.getElementsByTagName('div').namedItem('interests-list-container');
         let interestsList = document.getElementsByTagName('div').namedItem('interests-list');
         interestsList.innerHTML = '';
 
@@ -44,6 +45,14 @@ const SetupInterests = async function()
                     DeleteInterest(userId, interests[i]);
                     SetupInterests();
                 };
+                
+                if(interestsList.style.visibility == 'hidden')
+                {
+                    interestsList.style.visibility = 'visible';
+                    let span = interestsListContainer.getElementsByTagName('span').item(0);
+
+                    span.remove();
+                }
 
                 interestsList.append(interestWrapper.firstChild);
             }
@@ -56,6 +65,15 @@ const SetupInterests = async function()
             {
                 addInterestButton.removeAttribute('disabled');
             }
+        }
+        else
+        {
+            interestsList.style.visibility = 'hidden';
+            let interests = document.createElement('span');
+            interests.style.color = '#21242ca3';
+            interests.textContent = 'No interests ☹️';
+
+            interestsListContainer.append(interests);
         }
     }
 
@@ -129,7 +147,7 @@ if(student == 'true')
     addStudentButton.remove();
     SetupInterests();
 
-    let teacher = GetTeacherDetailsFromUserId(userDetails, ['USER_ID']);
+    let teacher = GetTeacherDetailsFromUserId(userId, ['USER_ID']);
 
     if(teacher.USER_ID == null)
     {
@@ -179,11 +197,7 @@ email.value = userDetails.EMAIL;
 password.value = userDetails.SECURITY_KEY;
 bio.value = userDetails.BIO;
 dateOfBirth.valueAsDate = new Date(userDetails.DATE_OF_BIRTH);
-
-if(userDetails.PFP == 't')
-{
-    pfp.src = 'pfp/' + userId + '.png';
-}
+pfp.src = 'pfp/' + userId + '.png';
 
 let saveButton = document.getElementsByTagName('button').namedItem('save-button');
 saveButton.onclick = async function()

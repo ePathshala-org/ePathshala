@@ -42,12 +42,12 @@ else
     location.replace('index.html');
 }
 
-InsertView(userId, contentCourse.COURSE_ID);
+InsertView(userId, params.get('content_id'));
 
 let contentDetails = GetContentFromContentId(params.get('content_id'), ['CONTENT_ID','TITLE', 'DESCRIPTION', 'COURSE_ID', 'COURSE_NAME', 'RATE', 'VIEW_COUNT', 'DATE_OF_CREATION']);
 let commenteSelected = 0;
-
-let editor = new Quill(document.getElementsByTagName('div').namedItem('editor'),
+let editorElement = document.getElementsByTagName('div').namedItem('editor');
+let editor = new Quill(editorElement,
 {
     modules:
     {
@@ -225,3 +225,5 @@ pageRateForm.onsubmit = function()
 
     return false;
 };
+
+CompleteView(userId, params.get('content_id'));

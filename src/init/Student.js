@@ -66,6 +66,10 @@ if(Array.isArray(interestsResponse.interests))
 else
 {
     interestsH6.remove();
+    
+    let bulletsBeforeInterests = document.getElementsByTagName('span').namedItem('bullet-before-interests');
+
+    bulletsBeforeInterests.remove();
 }
 
 let coursesContainer = document.getElementsByTagName('div').namedItem('courses-list-container');

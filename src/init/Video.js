@@ -71,6 +71,12 @@ const SetupVideoPlayer = async function()
     };
 
     videoPlayer.load();
+    videoPlayer.play();
+
+    videoPlayer.onended = function()
+    {
+        CompleteView(userId, contentDetails.CONTENT_ID);
+    };
 };
 
 SetupVideoPlayer();
@@ -87,9 +93,21 @@ const SetupComments = async function()
     commentsListUl.innerHTML = '';
     let commentListItemUI = await GetUIText('ui/ListItem/CommentListItem.html');
     let response = GetCommentsFromContentId(contentDetails.CONTENT_ID, ['COMMENT_ID', 'COMMENTER_ID', 'COMMENTER_NAME', 'DESCRIPTION', 'TIME_OF_COMMENT', 'DATE_OF_COMMENT', 'RATE']);
+    let emptyCard = document.createElement('div');
+
+    emptyCard.classList.add('card', 'card-body');
+
+    emptyCard.textContent = 'Wow! Such empty';
 
     if(Array.isArray(response.comments))
     {
+        if(commentsListUl.style.visibility == 'hidden')
+        {
+            commentsListUl.style.visibility = 'visible';
+
+            emptyCard.remove();
+        }
+
         for(let i = 0; i < response.comments.length; ++i)
         {
             let commentListItemWrapper = document.createElement('div');
@@ -146,14 +164,9 @@ const SetupComments = async function()
     }
     else
     {
-        commentsListUl.remove();
-        let card = document.createElement('div');
-
-        card.classList.add('card', 'card-body');
-
-        card.textContent = 'Wow! Such empty';
+        commentsListUl.style.visibility = 'hidden';
         
-        commentsContainer.append(card);
+        commentsContainer.append(emptyCard);
     }
 };
 
