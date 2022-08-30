@@ -45,3 +45,31 @@ const BuyCourse = function(userId, courseId, creditCardId, creditCardPassword, b
         return null;
     }
 };
+
+const CollectCredit = function(userId, creditCardId, creditCardPassword, bank)
+{
+    let http = new XMLHttpRequest();
+
+    http.open('POST', '/', false);
+    http.setRequestHeader('Content-Type', 'application/json');
+    http.setRequestHeader('type', 'collect-credit');
+
+    let data = 
+    {
+        user_id: parseInt(userId),
+        credit_card_id: parseInt(creditCardId),
+        password: creditCardPassword,
+        bank: parseInt(bank)
+    };
+
+    http.send(JSON.stringify(data));
+
+    if(http.status == 200)
+    {
+        return JSON.parse(http.responseText);
+    }
+    else
+    {
+        return {ok: false, error: http.status};
+    }
+};
