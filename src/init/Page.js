@@ -94,11 +94,26 @@ const SetupComments = async function()
     commentsListUl.innerHTML = '';
     let commentListItemUI = await GetUIText('ui/ListItem/CommentListItem.html');
     let response = GetCommentsFromContentId(contentDetails.CONTENT_ID, ['COMMENT_ID', 'COMMENTER_ID', 'COMMENTER_NAME', 'DESCRIPTION', 'TIME_OF_COMMENT', 'DATE_OF_COMMENT', 'RATE']);
+    let emptyCard = document.createElement('div');
+
+    emptyCard.classList.add('card', 'card-body');
+    emptyCard.id = 'empty-card';
+
+    emptyCard.textContent = 'Wow! Such empty';
 
     if(Array.isArray(response.comments))
     {
         for(let i = 0; i < response.comments.length; ++i)
         {
+            if(commentsListUl.style.visibility == 'hidden')
+            {
+                commentsListUl.style.visibility = 'visible';
+
+                let card = commentsContainer.getElementsByTagName('div').namedItem('empty-card');
+
+                card.remove();
+            }
+
             let commentListItemWrapper = document.createElement('div');
             commentListItemWrapper.innerHTML = commentListItemUI;
             let commenterPfp = commentListItemWrapper.getElementsByTagName('img').item(0);
@@ -154,13 +169,8 @@ const SetupComments = async function()
     else
     {
         commentsListUl.remove();
-        let card = document.createElement('div');
-
-        card.classList.add('card', 'card-body');
-
-        card.textContent = 'Wow! Such empty';
         
-        commentsContainer.append(card);
+        commentsContainer.append(emptyCard);
     }
 };
 

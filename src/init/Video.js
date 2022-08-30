@@ -64,11 +64,12 @@ const SetupVideoPlayer = async function()
     videoCourseName.textContent = contentDetails.COURSE_NAME;
     videoDescription.textContent = contentDetails.DESCRIPTION;
     let videoPlayer = document.getElementsByTagName('video').namedItem('video-player');
-    videoPlayer.src = 'contents/videos/' + contentDetails.COURSE_ID + '/' + contentDetails.CONTENT_ID + '.mp4';
     videoCourseButton.onclick = function()
     {
         location.href = 'coursedetails.html?course_id=' + contentDetails.COURSE_ID;
     };
+    
+    videoPlayer.src = 'contents/videos/' + contentDetails.COURSE_ID + '/' + contentDetails.CONTENT_ID + '.mp4';
 
     videoPlayer.load();
     videoPlayer.play();
@@ -96,6 +97,7 @@ const SetupComments = async function()
     let emptyCard = document.createElement('div');
 
     emptyCard.classList.add('card', 'card-body');
+    emptyCard.id = 'empty-card';
 
     emptyCard.textContent = 'Wow! Such empty';
 
@@ -105,7 +107,9 @@ const SetupComments = async function()
         {
             commentsListUl.style.visibility = 'visible';
 
-            emptyCard.remove();
+            let card = commentsContainer.getElementsByTagName('div').namedItem('empty-card');
+
+            card.remove();
         }
 
         for(let i = 0; i < response.comments.length; ++i)
@@ -227,7 +231,12 @@ videoRateForm.onsubmit = function()
 {
     videoRateModal.hide();
     UpdateContentRate(userId, contentDetails.CONTENT_ID, videoRate.value);
-    location.reload();
+
+    let contentRate = GetContentFromContentId(contentDetails.CONTENT_ID, ['RATE']);
+    contentDetails.RATE = contentRate.RATE;
+    individualContentRate.rate = contentRate.RATE;
+    let videoRateTemp = document.getElementsByTagName('button').namedItem('video-rate-button').getElementsByTagName('span').item(0);
+    videoRateTemp.textContent = contentDetails.RATE;    
 
     return false;
 };

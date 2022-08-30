@@ -88,6 +88,7 @@ let dateOfBirth = document.getElementsByTagName('input').namedItem('date-of-birt
 let createAccountType = document.getElementsByTagName('input').namedItem('create-account-type-radio-student');
 let createStudentAccount = document.getElementsByTagName('input').namedItem('create-account-type-radio-student');
 let createAccountModal = document.getElementsByTagName('div').namedItem('create-account-modal');
+let createNewAccountForm = document.getElementsByTagName('form').namedItem('create-account-form');
 createAccountModal.addEventListener('show.bs.modal', (event)=>
 {
     createAccountEmail.classList.remove('is-invalid');
@@ -97,7 +98,7 @@ let createAccountButton = document.getElementsByTagName('button').namedItem('cre
 
 if(createAccountButton != null)
 {
-    createAccountButton.onclick = function()
+    createNewAccountForm.onsubmit = function()
     {
         createAccountButton.setAttribute('disabled', '');
 
@@ -147,5 +148,7 @@ if(createAccountButton != null)
         }
 
         createAccountButton.removeAttribute('disabled');
+
+        return false;
     };
 }

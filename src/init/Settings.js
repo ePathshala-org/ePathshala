@@ -23,6 +23,7 @@ const SetupInterests = async function()
 {
     let interestsResponse = GetStudentInterests(userId);
     let addInterestButton = document.getElementsByTagName('button').namedItem('add-interest-button');
+    let addInterestForm = document.getElementsByTagName('form').namedItem('add-interest-form');
     
     if(interestsResponse.ok)
     {
@@ -77,7 +78,7 @@ const SetupInterests = async function()
         }
     }
 
-    addInterestButton.onclick = function()
+    addInterestForm.onsubmit = function()
     {
         let interest = document.getElementsByTagName('input').namedItem('new-interest-input');
 
@@ -86,13 +87,17 @@ const SetupInterests = async function()
         interest.value = '';
 
         SetupInterests();
+
+        return false;
     };
 };
 
 const SetupSpecialities = async function()
 {
     let specialitiesResponse = GetTeacherSpecialities(userId);
+    let specialitiesListContainer = document.getElementsByTagName('div').namedItem('specialities-list-container');
     let addSpecialityButton = document.getElementsByTagName('button').namedItem('add-speciality-button');
+    let addSpecialityForm = document.getElementsByTagName('form').namedItem('add-speciality-form');
     
     if(specialitiesResponse.ok)
     {
@@ -115,6 +120,14 @@ const SetupSpecialities = async function()
                     SetupSpecialities();
                 };
 
+                if(specialitiesList.style.visibility == 'hidden')
+                {
+                    specialitiesList.style.visibility = 'visible';
+                    let span = specialitiesListContainer.getElementsByTagName('span').item(0);
+
+                    span.remove();
+                }
+
                 specialitiesList.append(specialityWrapper.firstChild);
             }
 
@@ -127,9 +140,18 @@ const SetupSpecialities = async function()
                 addSpecialityButton.removeAttribute('disabled');
             }
         }
+        else
+        {
+            specialitiesList.style.visibility = 'hidden';
+            let specialities = document.createElement('span');
+            specialities.style.color = '#21242ca3';
+            specialities.textContent = 'No specialities ☹️';
+
+            specialitiesListContainer.append(specialities);
+        }
     }
 
-    addSpecialityButton.onclick = function()
+    addSpecialityForm.onsubmit = function()
     {
         let speciality = document.getElementsByTagName('input').namedItem('new-speciality-input');
 
@@ -138,6 +160,8 @@ const SetupSpecialities = async function()
         speciality.value = '';
 
         SetupSpecialities();
+
+        return false;
     };
 };
 
@@ -184,7 +208,7 @@ else
     }
 }
 
-let userDetails = GetUserDetails(userId, ['FULL_NAME', 'EMAIL', 'BIO', 'DATE_OF_BIRTH']);
+let userDetails = GetUserDetails(userId, ['FULL_NAME', 'EMAIL', 'BIO', 'DATE_OF_BIRTH', 'SECURITY_KEY']);
 let fullName = document.getElementsByTagName('input').namedItem('full-name');
 let email = document.getElementsByTagName('input').namedItem('email');
 let password = document.getElementsByTagName('input').namedItem('password');

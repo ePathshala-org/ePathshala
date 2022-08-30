@@ -189,7 +189,7 @@
                         >
                             Rate: <span>{rate}</span>/5
                         </h6>
-                        &#160&#8226&#160
+                        <span id="bullet-before-specialities">&#160&#8226&#160</span>
                         <h6
                             id="specialities"
                             style=
@@ -237,9 +237,9 @@
                 style=
                 "
                     margin-top: 50px;
-                    margin-bottom: 50px;
                 "
                 id="courses-list-container"
+                class="mb-1"
             >
                 <h2>
                     Teaching Courses
@@ -255,13 +255,13 @@
                 >
                     
                 </ul>
-                <button
-                    class="btn btn-primary"
-                    id="add-course-modal-button"
-                    data-bs-toggle="modal"
-                    data-bs-target="#new-course-modal"
-                >Add New Course</button>
             </div>
+            <button
+                class="btn btn-primary mb-3"
+                id="add-course-modal-button"
+                data-bs-toggle="modal"
+                data-bs-target="#new-course-modal"
+            >Add New Course</button>
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
