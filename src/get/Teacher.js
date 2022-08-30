@@ -19,22 +19,13 @@ const GetTeacherDetailsFromUserId = function(userId, select)
 
     http.send(JSON.stringify(data));
 
-    if(http.readyState == 4 && http.status == 200)
+    if(http.status == 200)
     {
-        let response = JSON.parse(http.responseText);
-
-        if(response.ok)
-        {
-            return response;
-        }
-        else
-        {
-            return null;
-        }
+        return JSON.parse(http.responseText);
     }
     else
     {
-        return null;
+        return {ok: false, error: http.status};
     }
 };
 

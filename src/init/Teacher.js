@@ -14,7 +14,7 @@ if(userId == null)
 
 SetupNavBar(userId);
 
-let teacherDetails = GetTeacherDetailsFromUserId(userId, ['USER_ID', 'FULL_NAME', 'EMAIL', 'DATE_OF_BIRTH', 'DATE_OF_JOIN', 'BIO', 'RATE']);
+let teacherDetails = GetTeacherDetailsFromUserId(userId, ['USER_ID', 'FULL_NAME', 'EMAIL', 'DATE_OF_BIRTH', 'DATE_OF_JOIN', 'BIO', 'RATE', 'CREDIT']);
 let teacherPfp = document.getElementsByTagName('img').namedItem('teacher-pfp');
 let teacherName = document.getElementsByTagName('h2').namedItem('teacher-name');
 let teacherEmail = document.getElementsByTagName('h4').namedItem('teacher-email');
@@ -45,6 +45,48 @@ rate.textContent = teacherDetails.RATE;
 let specialitiesH6 = document.getElementsByTagName('h6').namedItem('specialities');
 let specialitiesSpan = specialitiesH6.getElementsByTagName('span').item(0);
 let specialities = GetTeacherSpecialities(userId);
+let collectCreditButton = document.getElementsByTagName('button').namedItem('collect-credit-button');
+let creditSpan = document.getElementsByTagName('span').namedItem('credits-span');
+creditSpan.textContent = teacherDetails.CREDIT;
+let creditCardId = document.getElementsByTagName('input').namedItem('credit-card-id');
+let creditCardPassword = document.getElementsByTagName('input').namedItem('credit-card-password');
+let bank = document.getElementsByTagName('select').namedItem('select-bank');
+let collectCreditModalElement = document.getElementsByTagName('div').namedItem('collect-credit-modal');
+let collectCreditModal = new bootstrap.Modal(collectCreditModalElement);
+let collectCreditsForm = document.getElementsByTagName('form').namedItem('collect-credit-form');
+let confirmCollectCreditButton = document.getElementsByTagName('button').namedItem('collect-credit-button');
+collectCreditsForm.onsubmit = function()
+{
+    confirmCollectCreditButton.setAttribute('disabled', '');
+
+    let response = CollectCredit(userId, creditCardId.value, creditCardPassword.value, bank.value);
+
+    if(response.return == 0)
+    {
+        creditSpan.textContent = '0';
+        teacherDetails.CREDIT = '0';
+
+        collectCreditModal.hide();
+    }
+    else
+    {
+        creditCardPassword.classList.add('is-invalid');
+    }
+
+    confirmCollectCreditButton.removeAttribute('disabled');
+
+    return 0;
+};
+
+collectCreditModalElement.addEventListener('show.bs.modal', (event)=>
+{
+    creditCardId.value = '';
+    creditCardPassword.value = '';
+    bank.value = '1';
+
+    creditCardPassword.classList.remove('is-invalid');
+    confirmCollectCreditButton.removeAttribute('disabled');
+});
 
 if(Array.isArray(specialities.specialities))
 {

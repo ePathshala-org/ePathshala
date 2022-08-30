@@ -8,7 +8,12 @@
         <!--<link href="bootstrap/css/bootstrap.css" rel="stylesheet">-->
     </head>
 
-    <body>
+    <body
+        style=
+        "
+            overflow-y: scroll;
+        "
+    >
         <img
             src="assets/backgrounds/left-background.png"
             style=
@@ -61,6 +66,53 @@
             </div>
         </nav>
         <!--navbar end-->
+
+        <div id="collect-credit-modal" class="modal fade" tabindex="-1" id="enroll-modal">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Collect Credit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form
+                        id="collect-credit-form"
+                        action="javascript:"
+                    >
+                        <div class="mb-3">
+                            <label for="credit-card-id" class="form-label">Credit Card ID</label>
+                            <input type="number" class="form-control" id="credit-card-id" min="1" required>
+                            <div
+                                class="invalid-feedback"
+                            >Insufficient Credits</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="credit-card-password" class="form-label">Password</label>
+                            <input type="password" minlength="8" maxlength="32" class="form-control" id="credit-card-password" required>
+                            <div
+                                class="invalid-feedback"
+                            >Invalid Credentials</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="select-bank" class="form-label">Select Bank</label>
+                            <select id="select-bank" class="form-select">
+                                <option value="1">A Bank</option>
+                                <option value="2">B Bank</option>
+                                <option value="3">C Bank</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button 
+                        id="collect-credit-button"
+                        class="btn btn-primary"
+                        form="collect-credit-form"
+                    >Collect</button>
+                </div>
+              </div>
+            </div>
+        </div>
 
         <div class="modal fade" id="new-course-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -131,7 +183,7 @@
                         id="teacher-pfp"
                         height="96px"
                         src="pfp/default.png"
-                        class="me-3"
+                        class="me-3 rounded"
                     >
                     <div
                         class="flex-grow-1"
@@ -236,6 +288,16 @@
                     >
                         Add Bio
                     </a>
+                    <div
+                        class="d-flex justify-content-end"
+                    >
+                        <button
+                            class="btn btn-outline-success"
+                            id="collect-credit-button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#collect-credit-modal"
+                        >Collect Credits: <span id="credits-span">{credit}</span></button>
+                    </div>
                 </div>
             </div>
             <div
@@ -279,6 +341,7 @@
         <script src="src/get/Content.js"></script>
         <script src="src/get/UIText.js"></script>
         <script src="src/NavBar.js"></script>
+        <script src="src/Bank.js"></script>
         <script src="src/init/Teacher.js"></script>
     </body>
 </html>
