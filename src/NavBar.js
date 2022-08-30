@@ -5,6 +5,17 @@
  */
 const SetupNavBar = async function(userId)
 {
+    let searchForm = document.getElementsByTagName('form').namedItem('search-form');
+
+    searchForm.onsubmit = function()
+    {
+        let searchInput = document.getElementsByTagName('input').namedItem('navbar-search-input');
+        let searchString = encodeURIComponent(searchInput.value);
+        location.href = 'search.html?term=' + searchString;
+
+        return false;
+    };
+
     document.getElementsByTagName('a').namedItem('navbar-home-button').onclick = function()
     {
         location.href = 'index.html';

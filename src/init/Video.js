@@ -236,7 +236,7 @@ videoRateForm.onsubmit = function()
     contentDetails.RATE = contentRate.RATE;
     individualContentRate.rate = contentRate.RATE;
     let videoRateTemp = document.getElementsByTagName('button').namedItem('video-rate-button').getElementsByTagName('span').item(0);
-    videoRateTemp.textContent = contentDetails.RATE;    
+    videoRateTemp.textContent = contentDetails.RATE;
 
     return false;
 };
