@@ -142,9 +142,12 @@ const SetupQuestions = async function()
             askerName.textContent = questionsResponse.questions[i].ASKER_NAME;
             rate.textContent = questionsResponse.questions[i].RATE;
             date.textContent = questionsResponse.questions[i].DATE_OF_ASK;
+            titleButton.onclick = function()
+            {
+                location.href = 'forumanswer.html?question_id=' + questionsResponse.questions[i].QUESTION_ID;
+            };
 
             questionsUl.append(questionListItemWrapper.firstChild);
-
         }
     }
     else

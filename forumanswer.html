@@ -43,10 +43,15 @@
                     </li>
                 </ul>
                 <div class = "d-flex">
-                    <div class = "d-flex me-2" role="search">
-                        <input id = "navbar-search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button id = "navbar-search-button" class="btn btn-outline-success" type="button">Search</button>
-                    </div>
+                    <form
+                        id="search-form"
+                        action="javascript:"
+                    >
+                        <div class = "d-flex me-2" role="search">
+                            <input id="navbar-search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" required>
+                            <button id="navbar-search-button" class="btn btn-outline-success" type="submit" form="search-form">Search</button>
+                        </div>
+                    </form>
                     <div id = "login-status">
                         <div class = "d-class">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login-modal">Login</button>
@@ -171,6 +176,97 @@
         <!--create acc modal end-->
 
         <div
+            class="modal fade"
+            tabindex="-1"
+            id="answer-edit-modal"
+        >
+            <div
+                class="modal-dialog modal-dialog-centered"
+            >
+                <div
+                    class="modal-content"
+                >
+                    <div
+                        class="modal-header"
+                    >
+                        <h5
+                            class="modal-title"
+                        >Edit Answer</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div
+                        class="modal-body"
+                    >
+                        <form
+                            id="answer-edit-modal-form"
+                            action="javascript:"
+                        >
+                            <div class="mb-3">
+                                <label for="answer-edit-input" class="form-label">Answer Description</label>
+                                <input type="text" class="form-control" id="answer-edit-input" placeholder="Say something..." autocomplete="off" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div
+                        class="modal-footer"
+                    >
+                        <button
+                            class="btn btn-primary"
+                            id="answer-edit-button"
+                            form="answer-edit-modal-form"
+                            type="submit"
+                        >Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="modal fade"
+            tabindex="-1"
+            id="answer-rate-modal"
+        >
+            <div
+                class="modal-dialog modal-dialog-centered"
+            >
+                <div
+                    class="modal-content"
+                >
+                    <div
+                        class="modal-header"
+                    >
+                        <h5
+                            class="modal-title"
+                        >Rate Answer</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div
+                        class="modal-body"
+                    >
+                        <form
+                            id="answer-rate-update-form"
+                            action="javascript:"
+                        >
+                            <div class="mb-3">
+                                <label for="answer-rate-input" class="form-label">Rate</label>
+                                <input type="number" class="form-control" id="answer-rate-input" placeholder="0" min="0" max="5" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div
+                        class="modal-footer"
+                    >
+                        <button
+                            class="btn btn-primary"
+                            id="answer-rate-update-button"
+                            form="answer-rate-update-form"
+                        >Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
             style=
             "
                 max-width: 50%;
@@ -190,7 +286,7 @@
                 class="mb-3"
             >{asker}</h4>
             <div
-                id="editor"
+                id="question"
                 class="mb-1"
                 style=
                 "
@@ -198,22 +294,59 @@
                 "
             ></div>
             <div
-                class="d-flex justify-content-between mb-3"
+                class="d-flex justify-content-end mb-3"
             >
+                <button
+                    class="btn btn-success me-2"
+                    id="question-edit-button"
+                >Edit</button>
+                <button
+                    class="btn btn-danger me-2"
+                    id="question-delete-button"
+                >Delete</button>
                 <button
                     class="btn btn-secondary"
                     id="question-rate-button"
                 >Rate: <span id="question-rate">{rate}</span>/5</button>
-                <div>
-                    <button
-                        class="btn btn-primary me-1"
-                        id="edit-question-button"
-                    >Edit</button>
-                    <button
-                        class="btn btn-danger"
-                        id="delete-question-button"
-                    >Delete</button>
-                </div>
+            </div>
+            <div
+                style=
+                "
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                "
+                id="answers-container"
+            >
+                <form
+                    id="post-answer-form"
+                    action="javascript:"
+                >
+                    <div
+                        class="d-flex align-items-center mb-3"
+                    >
+                        <input
+                            class="form-control flex-grow-1 me-3"
+                            id="new-answer-text"
+                            placeholder="Say something..."
+                            autocomplete="off"
+                            required
+                        ></input>
+                        <button
+                            id="post-answer-button"
+                            class="btn btn-primary"
+                            type="submit"
+                            form="post-answer-form"
+                        >
+                            Post
+                        </button>
+                    </div>
+                </form>
+                <ul
+                    class="list-group list-group-flush"
+                    id="answers-list"
+                >
+                            
+                </ul>
             </div>
         </div>
         
@@ -223,8 +356,11 @@
         <script src="src/get/User.js"></script>
         <script src="src/get/UIText.js"></script>
         <script src="src/get/Question.js"></script>
+        <script src="src/get/Answer.js"></script>
         <script src="src/NavBar.js"></script>
         <script src="src/Login.js"></script>
+        <script src="src/Update/Answer.js"></script>
+        <script src="src/Delete/Answer.js"></script>
         <script src="src/init/ForumAnswer.js"></script>
     </body>
 </html>
