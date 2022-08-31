@@ -55,4 +55,30 @@ const PostAnswer = function(userId, questionId, answer)
     {
         return {ok: false, error: http.status};
     }
-}
+};
+
+const GetIndividualAnswerRate = function(userId, answerId)
+{
+    let http = new XMLHttpRequest();
+
+    http.open('POST', '/', false);
+    http.setRequestHeader('Content-Type', 'application/json');
+    http.setRequestHeader('type', 'get-individual-answer-rate');
+
+    let data = 
+    {
+        user_id: parseInt(userId),
+        answer_id: parseInt(answerId)
+    };
+
+    http.send(JSON.stringify(data));
+
+    if(http.status == 200)
+    {
+        return JSON.parse(http.responseText);
+    }
+    else
+    {
+        return {ok: false, error: http.status};
+    }
+};

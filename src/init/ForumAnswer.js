@@ -120,8 +120,9 @@ const SetupAnswers = async function()
             answerRateButton.onclick = function()
             {
                 answerSelected = response.answers[i].ANSWER_ID;
+                let individualAnswerRate = GetIndividualAnswerRate(userId, answerSelected);
                 let answerRateModalInput = document.getElementsByTagName('input').namedItem('answer-rate-input');
-                answerRateModalInput.value = response.answers[i].RATE;
+                answerRateModalInput.value = individualAnswerRate.rate;
             };
 
             answersListUl.append(answerListItemWrapper.firstChild);
@@ -160,6 +161,21 @@ answerEditModalForm.onsubmit = function()
 {
     answerEditModal.hide();
     UpdateAnswer(answerSelected, answerEditModalInput.value);
+    SetupAnswers();
+
+    return false;
+};
+
+let answerRateModalElement = document.getElementsByTagName('div').namedItem('answer-rate-modal');
+let answerRateModalInput = document.getElementsByTagName('input').namedItem('answer-rate-input');
+let answerRateUpdateButton = document.getElementsByTagName('button').namedItem('answer-rate-update-button');
+let answerRateUpdateForm = document.getElementsByTagName('form').namedItem('answer-rate-update-form');
+let answerRateModal = new bootstrap.Modal(answerRateModalElement);
+
+answerRateUpdateForm.onsubmit = function()
+{
+    answerRateModal.hide();
+    UpdateAnswerRate(userId, answerSelected, answerRateModalInput.value);
     SetupAnswers();
 
     return false;
