@@ -1,0 +1,75 @@
+<li
+    class="list-group-item p-3"
+>
+    <div
+        class="d-flex align-items-center mb-2"
+    >
+        <img
+            src="pfp/default.png"
+            height="24px"
+        >&#160
+        <h4
+            class="answerer-name m-0"
+        >
+            {answerer name}                                    
+        </h4>
+    </div>
+    <div
+        class="d-flex align-items-start"
+    >
+        <div
+            class="card card-body answer-description me-2"
+        >
+            {answer description}
+        </div>
+        <div>
+            <button class="btn btn-outline-secondary btn-sm menus" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                </svg>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a
+                        class="dropdown-item answer-edit-button"
+                        href="javascript:"
+                        data-bs-toggle="modal"
+                        data-bs-target="#answer-edit-modal"
+                    >Edit</a>
+                </li>
+                <li><a class="dropdown-item answer-delete-button" href="javascript:">Delete</a></li>
+            </ul>
+        </div>
+    </div>
+    <div
+        class="d-flex align-items-center mt-3"
+    >
+        <div
+            class="d-flex align-items-center flex-grow-1"
+            style=
+            "
+                color: #21242ca3;
+            "
+        >
+            <h6
+                class="answer-time m-0"
+            >
+                {answer time}
+            </h6>
+            &#160&#8226&#160
+            <h6
+                class="answer-date m-0"
+            >
+                {answer date}
+            </h6>
+        </div>
+        <button
+            class="answer-rate-button btn btn-secondary btn-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#answer-rate-modal"
+        >
+            Rate:
+            <span>{rate}</span>/5
+        </button>
+    </div>
+</li>
