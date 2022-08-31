@@ -5,6 +5,13 @@
  */
 const SetupNavBar = async function(userId)
 {
+    let forumButton = document.getElementsByTagName('a').namedItem('navbar-forum-button');
+
+    forumButton.onclick = function()
+    {
+        location.href = 'forumquestions.html';
+    };
+
     let searchForm = document.getElementsByTagName('form').namedItem('search-form');
 
     searchForm.onsubmit = function()

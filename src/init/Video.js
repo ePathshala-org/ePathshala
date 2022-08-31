@@ -72,7 +72,11 @@ const SetupVideoPlayer = async function()
     videoPlayer.src = 'contents/videos/' + contentDetails.COURSE_ID + '/' + contentDetails.CONTENT_ID + '.mp4';
 
     videoPlayer.load();
-    videoPlayer.play();
+
+    videoPlayer.onload = function()
+    {
+        videoPlayer.play();  
+    };
 
     videoPlayer.onended = function()
     {
@@ -190,6 +194,15 @@ let commentEditModalInput = document.getElementsByTagName('input').namedItem('co
 let commentEditButton = document.getElementsByTagName('button').namedItem('comment-edit-button');
 let commentEditModalForm = document.getElementsByTagName('form').namedItem('comment-edit-modal-form');
 let commentEditModal = new bootstrap.Modal(document.getElementsByTagName('div').namedItem('comment-edit-modal'));
+
+commentEditModalForm.onsubmit = function()
+{
+    commentEditModal.hide();
+    UpdateComment(commenteSelected, commentEditModalInput.value);
+    SetupComments();
+
+    return false;
+};
 
 let commentRateModalElement = document.getElementsByTagName('div').namedItem('comment-rate-modal');
 let commentRateModalInput = document.getElementsByTagName('input').namedItem('comment-rate-input');

@@ -69,4 +69,8 @@ updateVideoForm.onsubmit = function()
 videoPlayer.src = 'contents/videos/' + contentDetails.COURSE_ID + '/' + contentId + '.mp4';
 
 videoPlayer.load();
-videoPlayer.play();
+
+videoPlayer.onload = function()
+{
+    videoPlayer.play();
+};
