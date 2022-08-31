@@ -8,7 +8,7 @@ let userId = localStorage.getItem('user_id');
 let student = localStorage.getItem('student');
 let params = new URLSearchParams(location.search);
 
-if(userId == null || !params.has('content_id'))
+if(userId == null || !params.has('content_id') || student == 'false')
 {
     location.replace('index.html');
 }

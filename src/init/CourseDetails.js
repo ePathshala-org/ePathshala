@@ -131,13 +131,22 @@ const SetupContentsList = async function()
                 contentImage.src = 'assets/96x96/video.png';
                 contentTitleButton.onclick = function()
                 {
-                    if(enrolledResponse.ENROLLED)
+                    if(student == 'true')
                     {
-                        location.href = 'video.html?content_id=' + response.contents[i].CONTENT_ID;
+                        if(enrolledResponse.ENROLLED)
+                        {
+                            location.href = 'video.html?content_id=' + response.contents[i].CONTENT_ID;
+                        }
+                        else
+                        {
+                            buyCoursesModal.show();
+                        }
                     }
                     else
                     {
-                        buyCoursesModal.show();
+                        let toast = new bootstrap.Toast(document.getElementsByTagName('div').namedItem('login-student-toast'));
+
+                        toast.show();
                     }
                 };
             }
@@ -147,13 +156,22 @@ const SetupContentsList = async function()
                 viewType.textContent = 'readers';
                 contentTitleButton.onclick = function()
                 {
-                    if(enrolledResponse.ENROLLED)
+                    if(student == 'true')
                     {
-                        location.href = 'page.html?content_id=' + response.contents[i].CONTENT_ID;
+                        if(enrolledResponse.ENROLLED)
+                        {
+                            location.href = 'page.html?content_id=' + response.contents[i].CONTENT_ID;
+                        }
+                        else
+                        {
+                            buyCoursesModal.show();
+                        }
                     }
                     else
                     {
-                        buyCoursesModal.show();
+                        let toast = new bootstrap.Toast(document.getElementsByTagName('div').namedItem('login-student-toast'));
+
+                        toast.show();
                     }
                 };
             }
