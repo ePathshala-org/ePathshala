@@ -1,15 +1,20 @@
-const UpdateAnswer = function(answerId, answer)
+/**
+ * 
+ * @param {nummber} questionId 
+ * @param {any} content 
+ */
+const UpdateQuestion = function(questionId, content)
 {
     let http = new XMLHttpRequest();
 
     http.open('POST', '/', false);
     http.setRequestHeader('Content-Type', 'application/json');
-    http.setRequestHeader('type', 'update-answer');
+    http.setRequestHeader('type', 'update-question');
 
     let data = 
     {
-        answer_id: parseInt(answerId),
-        answer: answer
+        question_id: parseInt(questionId),
+        content: content
     };
 
     http.send(JSON.stringify(data));
@@ -24,18 +29,18 @@ const UpdateAnswer = function(answerId, answer)
     }
 };
 
-const UpdateAnswerRate = function(userId, answerId, rate)
+const UpdateQuestionRate = function(userId, questionId, rate)
 {
     let http = new XMLHttpRequest();
 
     http.open('POST', '/', false);
     http.setRequestHeader('Content-Type', 'application/json');
-    http.setRequestHeader('type', 'update-answer-rate');
+    http.setRequestHeader('type', 'update-question-rate');
 
     let data = 
     {
         user_id: parseInt(userId),
-        answer_id: parseInt(answerId),
+        question_id: parseInt(questionId),
         rate: parseInt(rate)
     };
 

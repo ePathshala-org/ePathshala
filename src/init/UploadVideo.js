@@ -37,7 +37,7 @@ let uploadStateModal = new bootstrap.Modal(modalElement);
 let progressBar = document.getElementsByTagName('div').namedItem('upload-progress-bar');
 let progressValue = document.getElementsByTagName('span').namedItem('upload-progress-value');
 let uploadCancelButton = document.getElementsByTagName('button').namedItem('cancel-video-upload-button');
-let uploadForm = document.getElementsByTagName('form').item(0);
+let uploadForm = document.getElementsByTagName('form').namedItem('upload-video-form');
 uploadForm.onsubmit = function()
 {
     uploadStateModal.show();
@@ -49,7 +49,7 @@ uploadForm.onsubmit = function()
     let http = new XMLHttpRequest();
     
     http.open('POST', '/');
-    http.setRequestHeader('incoming', 'video-file');
+    http.setRequestHeader('type', 'video-file');
     http.setRequestHeader('course_id', courseId);
     http.setRequestHeader('title', title.value);
     http.setRequestHeader('description', description.value);

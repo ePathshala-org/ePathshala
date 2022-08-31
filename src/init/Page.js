@@ -159,8 +159,9 @@ const SetupComments = async function()
             commentRateButton.onclick = function()
             {
                 commenteSelected = response.comments[i].COMMENT_ID;
+                let individualCommentRate = GetIndividualCommentRate(userId, commenteSelected);
                 let commentRateModalInput = document.getElementsByTagName('input').namedItem('comment-rate-input');
-                commentRateModalInput.value = response.comments[i].RATE;
+                commentRateModalInput.value = individualCommentRate.rate;
             };
 
             commentsListUl.append(commentListItemWrapper.firstChild);
@@ -208,7 +209,7 @@ let commentRateModal = new bootstrap.Modal(commentRateModalElement);
 commentRateUpdateForm.onsubmit = function()
 {
     commentRateModal.hide();
-    UpdateCommentRate(commenteSelected, commentRateModalInput.value);
+    UpdateCommentRate(userId, commenteSelected, commentRateModalInput.value);
     SetupComments();
 
     return false;
@@ -235,8 +236,8 @@ pageRateForm.onsubmit = function()
     let contentRate = GetContentFromContentId(contentDetails.CONTENT_ID, ['RATE']);
     contentDetails.RATE = contentRate.RATE;
     individualContentRate.rate = contentRate.RATE;
-    let videoRateTemp = document.getElementsByTagName('button').namedItem('video-rate-button').getElementsByTagName('span').item(0);
-    videoRateTemp.textContent = contentDetails.RATE;
+    let pageRateTemp = document.getElementsByTagName('button').namedItem('page-rate-button').getElementsByTagName('span').item(0);
+    pageRateTemp.textContent = contentDetails.RATE;
 
     return false;
 };

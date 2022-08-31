@@ -72,7 +72,11 @@ const SetupVideoPlayer = async function()
     videoPlayer.src = 'contents/videos/' + contentDetails.COURSE_ID + '/' + contentDetails.CONTENT_ID + '.mp4';
 
     videoPlayer.load();
-    videoPlayer.play();
+
+    videoPlayer.onload = function()
+    {
+        videoPlayer.play();  
+    };
 
     videoPlayer.onended = function()
     {
@@ -159,8 +163,9 @@ const SetupComments = async function()
             commentRateButton.onclick = function()
             {
                 commenteSelected = response.comments[i].COMMENT_ID;
+                let individualCommentRate = GetIndividualCommentRate(userId, commenteSelected);
                 let commentRateModalInput = document.getElementsByTagName('input').namedItem('comment-rate-input');
-                commentRateModalInput.value = response.comments[i].RATE;
+                commentRateModalInput.value = individualCommentRate.rate;
             };
 
             commentsListUl.append(commentListItemWrapper.firstChild);
@@ -208,7 +213,7 @@ let commentRateModal = new bootstrap.Modal(commentRateModalElement);
 commentRateUpdateForm.onsubmit = function()
 {
     commentRateModal.hide();
-    UpdateCommentRate(commenteSelected, commentRateModalInput.value);
+    UpdateCommentRate(userId, commenteSelected, commentRateModalInput.value);
     SetupComments();
 
     return false;
